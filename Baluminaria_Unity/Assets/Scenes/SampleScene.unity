@@ -1463,12 +1463,14 @@ MonoBehaviour:
   _midiFilePlayer: {fileID: 296945745}
   _midiStreamPlayer: {fileID: 2142432721}
   _baluAudioReactive: {fileID: 837094418}
-  _audioSource: {fileID: 2142432725}
+  _audioSource: {fileID: 0}
   _text: {fileID: 2098202170}
   _ringsParent: {fileID: 2002025757}
-  _currentPlaybackMode: 1
+  _currentPlaybackMode: 2
   _clampNotes: 1
-  _currentColorMode: 8
+  _analysisSensitivity: 0.03
+  _analysisInterval: 0.01
+  _currentColorMode: 1
   _ringColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 1, g: 0.5, b: 0, a: 1}
@@ -1504,18 +1506,18 @@ MonoBehaviour:
   - 0.5
   - 0.5
   _noteDelays:
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
-  - 0.1
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!114 &473480440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3227,10 +3229,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 64ff163e18e807c49b9ca0b96e8972f7, type: 3}
-  m_Resource: {fileID: 8300000, guid: 64ff163e18e807c49b9ca0b96e8972f7, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_audioClip: {fileID: 8300000, guid: edc3ecfd958d8b842b2ae0980c30b119, type: 3}
+  m_Resource: {fileID: 8300000, guid: edc3ecfd958d8b842b2ae0980c30b119, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3329,13 +3331,11 @@ MonoBehaviour:
   _baluMidiController: {fileID: 473480439}
   _audioInputMode: 0
   _audioSource: {fileID: 837094417}
-  _minVolumeThreshold: 0.1
   _noteOnThreshold: 0.05
   _noteOffThreshold: 0.01
-  _analysisInterval: 0.05
-  _numberOfSamples: 1024
-  _minFrequency: 20
-  _maxFrequency: 10000
+  _numberOfSamples: 2048
+  _minFrequency: -100
+  _maxFrequency: 30000
 --- !u!4 &837094419
 Transform:
   m_ObjectHideFlags: 0
@@ -8044,11 +8044,6 @@ MonoBehaviour:
 --- !u!4 &2142432722 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4977113046780174, guid: f1aa4788763f8854c9826e449686c328, type: 3}
-  m_PrefabInstance: {fileID: 1714205622}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &2142432725 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 82252122336247308, guid: f1aa4788763f8854c9826e449686c328, type: 3}
   m_PrefabInstance: {fileID: 1714205622}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807

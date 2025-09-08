@@ -45,6 +45,14 @@ public class BaluMidiController : MonoBehaviour
     [SerializeField] private PlaybackMode _currentPlaybackMode = PlaybackMode.File;
     [SerializeField] private bool _clampNotes = true;
 
+    [Header("Configurações de Análise")]
+    [SerializeField]
+    [Range(0.1f, 0.01f)]
+    private float _analysisSensitivity = 0.03f;
+    [SerializeField]
+    [Range(0.01f, 0.5f)]
+    private float _analysisInterval = 0.01f; // Intervalo de análise mais rápido
+
     [Header("Modo de Cores")]
     [SerializeField] private ColorMode _currentColorMode = ColorMode.ByRing;
 
@@ -129,7 +137,7 @@ public class BaluMidiController : MonoBehaviour
             int octave = (midiNote / 12) - 1;
             int noteInOctave = midiNote % 12;
             string segName = $"Seg{octave:00}[{noteNames[noteInOctave]}{octave}]";
-            GameObject segGO = new GameObject(segName, typeof(RectTransform), typeof(Image));
+            GameObject segGO = new GameObject(segName, typeof(RectTransform), typeof(Image), typeof(Text));
             segGO.transform.SetParent(_ringsParent, false);
             Image img = segGO.GetComponent<Image>();
             if (_segSprite != null) img.sprite = _segSprite;
@@ -137,7 +145,27 @@ public class BaluMidiController : MonoBehaviour
             img.fillMethod = Image.FillMethod.Radial360;
             img.rectTransform.sizeDelta = new Vector2(32, 32);
             img.color = GetInitialDimColor(segIndex);
+
+
+            // Configura o componente TMP_Text para exibir o nome da nota
+            /* Text noteText = segGO.GetComponent<Text>();
+            noteText.text = noteNames[noteInOctave];
+            noteText.fontSize = 8;
+           
+            noteText.alignment = TextAlignmentOptions.Center;
+            noteText.color = Color.black;
+            noteText.rectTransform.sizeDelta = new Vector2(32, 32);
+            noteText.enableAutoSizing = true;
+            noteText.rectTransform.anchorMin = Vector2.zero;
+            noteText.rectTransform.anchorMax = Vector2.one;
+            noteText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            noteText.rectTransform.offsetMin = Vector2.zero;
+            noteText.rectTransform.offsetMax = Vector2.zero;*/
+
+
             _segs[segIndex] = img;
+
+
         }
         SetPlaybackMode(_currentPlaybackMode);
         #endregion
@@ -587,5 +615,29 @@ public class BaluMidiController : MonoBehaviour
                 break;
         }
     }
+
+    public float GetSensitivity()
+    {
+        return _analysisSensitivity;
+    }
+
+    public float GetInterval()
+    {
+        return _analysisInterval;
+    }
     #endregion
+
+    [ContextMenu("Restart Song")]
+    public void RestartSong()
+    {
+        if (_currentPlaybackMode == PlaybackMode.File && _midiFilePlayer != null)
+        {
+            _midiFilePlayer.MPTK_Stop();
+            _midiFilePlayer.MPTK_Play();
+        }
+        else if (_currentPlaybackMode == PlaybackMode.AudioSource)
+        {
+            _baluAudioReactive.RestartAudioClip();
+        }
+    }
 }

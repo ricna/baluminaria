@@ -1,6 +1,7 @@
 using UnityEngine;
 using MidiPlayerTK;
 using System.Linq;
+using System;
 
 public class BaluAudioReactive : MonoBehaviour
 {
@@ -15,10 +16,10 @@ public class BaluAudioReactive : MonoBehaviour
     [Header("Configurações do Áudio")]
     [SerializeField] private AudioInputMode _audioInputMode = AudioInputMode.AudioSource;
     [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private float _minVolumeThreshold = 0.01f; // Reduzido para maior sensibilidade
+
+    [Header("Debug")]
     [SerializeField] private float _noteOnThreshold = 0.05f; // Limiar para considerar uma nota "ligada"
     [SerializeField] private float _noteOffThreshold = 0.01f; // Limiar para considerar uma nota "desligada"
-    [SerializeField] private float _analysisInterval = 0.02f; // Intervalo de análise mais rápido
     private float _analysisTimer = 0f;
 
     // Configurações para análise de frequência
@@ -48,6 +49,7 @@ public class BaluAudioReactive : MonoBehaviour
         {
             StartMicrophone();
         }
+
     }
 
     private void OnDisable()
@@ -80,7 +82,7 @@ public class BaluAudioReactive : MonoBehaviour
     private void Update()
     {
         _analysisTimer += Time.deltaTime;
-        if (_analysisTimer < _analysisInterval)
+        if (_analysisTimer < _baluMidiController.GetInterval())
         {
             return;
         }
@@ -114,7 +116,10 @@ public class BaluAudioReactive : MonoBehaviour
             float freq = i * binWidth;
 
             // Ignora frequências fora do range desejado
-            if (freq < _minFrequency || freq > _maxFrequency) continue;
+            if (freq < _minFrequency || freq > _maxFrequency)
+            {
+                continue;
+            }
 
             float intensity = _spectrumData[i];
 
@@ -123,6 +128,8 @@ public class BaluAudioReactive : MonoBehaviour
 
             if (midiNote >= 0 && midiNote < 128)
             {
+                _noteOnThreshold = _baluMidiController.GetSensitivity();
+                _noteOffThreshold = 10;// Mathf.Clamp(_noteOffThreshold, _noteOnThreshold, _noteOnThreshold * 2);
                 if (intensity > _noteOnThreshold && !_activeMidiNotes[midiNote])
                 {
                     // Nota ligada
@@ -172,6 +179,15 @@ public class BaluAudioReactive : MonoBehaviour
             {
                 _audioSource.Play();
             }
+        }
+    }
+
+    public void RestartAudioClip()
+    {
+        if (_audioInputMode == AudioInputMode.AudioSource && _audioSource != null && _audioSource.clip != null)
+        {
+            _audioSource.Stop();
+            _audioSource.Play();
         }
     }
 }

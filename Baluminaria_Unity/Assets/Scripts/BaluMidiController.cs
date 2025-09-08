@@ -7,7 +7,6 @@ using TMPro;
 
 public class BaluMidiController : MonoBehaviour
 {
-    #region Enums and Serialized Fields
     // Enum para controlar o modo de reprodução
     public enum PlaybackMode
     {
@@ -85,7 +84,6 @@ public class BaluMidiController : MonoBehaviour
     [Header("Atrasos")]
     [SerializeField] private float[] _ringDelays = new float[7];
     [SerializeField] private float[] _noteDelays = new float[12];
-    #endregion
 
     private class ActiveFade
     {
@@ -145,23 +143,6 @@ public class BaluMidiController : MonoBehaviour
             img.fillMethod = Image.FillMethod.Radial360;
             img.rectTransform.sizeDelta = new Vector2(32, 32);
             img.color = GetInitialDimColor(segIndex);
-
-
-            // Configura o componente TMP_Text para exibir o nome da nota
-            /* Text noteText = segGO.GetComponent<Text>();
-            noteText.text = noteNames[noteInOctave];
-            noteText.fontSize = 8;
-           
-            noteText.alignment = TextAlignmentOptions.Center;
-            noteText.color = Color.black;
-            noteText.rectTransform.sizeDelta = new Vector2(32, 32);
-            noteText.enableAutoSizing = true;
-            noteText.rectTransform.anchorMin = Vector2.zero;
-            noteText.rectTransform.anchorMax = Vector2.one;
-            noteText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-            noteText.rectTransform.offsetMin = Vector2.zero;
-            noteText.rectTransform.offsetMax = Vector2.zero;*/
-
 
             _segs[segIndex] = img;
 
@@ -265,6 +246,9 @@ public class BaluMidiController : MonoBehaviour
             int noteInOctave = midiNote % 12;
             int ring = Mathf.Clamp(octave - 1, 0, _ringColors.Length - 1);
 
+
+
+
             // --- LÓGICA CORRIGIDA ---
             // Separa completamente o que fazer ao PRESSIONAR e ao SOLTAR a tecla.
             if (isNoteOff)
@@ -281,9 +265,13 @@ public class BaluMidiController : MonoBehaviour
                 // ### EVENTO DE NOTE ON (Pressionar a tecla) ###
                 // A responsabilidade aqui é acender o LED com a cor certa e mantê-lo aceso.
                 float intensity = Mathf.Clamp01(noteEvent.Velocity / 127f);
-
                 // Aplica a cor de acordo com o modo atual
                 ApplyLightUpByColorMode(midiNote, segIndex, ring, noteInOctave, intensity);
+                if (_currentPlaybackMode == PlaybackMode.File)
+                {
+                    float fadeDuration = _ringDelays[ring] + _noteDelays[noteInOctave];
+                    ApplyFadeOutByColorMode(midiNote, segIndex, ring, noteInOctave, fadeDuration);
+                }
             }
 
             // Atualização de texto e debug continuam iguais
@@ -586,6 +574,7 @@ public class BaluMidiController : MonoBehaviour
         foreach (var noteEvent in noteEvents)
         {
             HandleNoteOn(noteEvent);
+            Debug.Log($"<color=magenta>Evento FILE MIDI: {noteEvent.Command}, Nota: {noteEvent.Value}, Velocidade: {noteEvent.Velocity}</color>");
         }
     }
 

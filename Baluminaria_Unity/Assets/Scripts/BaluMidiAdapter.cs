@@ -6,7 +6,8 @@ using MidiJack;
 /// </summary>
 public class BaluMidiAdapter : MonoBehaviour
 {
-    [SerializeField] private BaluMidiController baluController;
+    [SerializeField] 
+    private BaluMidiController baluController;
 
     private void OnEnable()
     {

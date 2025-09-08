@@ -555,6 +555,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
+      propertyPath: volumeGlobal
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: midiNameToPlay
       value: Satie - Gymnopedie 1
       objectReference: {fileID: 0}
@@ -1466,11 +1470,11 @@ MonoBehaviour:
   _audioSource: {fileID: 0}
   _text: {fileID: 2098202170}
   _ringsParent: {fileID: 2002025757}
-  _currentPlaybackMode: 2
+  _currentPlaybackMode: 0
   _clampNotes: 1
   _analysisSensitivity: 0.03
   _analysisInterval: 0.01
-  _currentColorMode: 1
+  _currentColorMode: 2
   _ringColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 1, g: 0.5, b: 0, a: 1}
@@ -2372,8 +2376,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2142432722}
   - {fileID: 1345131406}
+  - {fileID: 2142432722}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &711623669

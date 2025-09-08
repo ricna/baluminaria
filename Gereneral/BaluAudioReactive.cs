@@ -12,23 +12,23 @@ public class BaluAudioReactive : MonoBehaviour
         Microphone
     }
 
-    [Header("Configurações do Áudio")]
+    [Header("ConfiguraÃ§Ãµes do Ãudio")]
     [SerializeField] private AudioInputMode _audioInputMode = AudioInputMode.AudioSource;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private float _minVolumeThreshold = 0.01f; // Reduzido para maior sensibilidade
     [SerializeField] private float _noteOnThreshold = 0.05f; // Limiar para considerar uma nota "ligada"
     [SerializeField] private float _noteOffThreshold = 0.01f; // Limiar para considerar uma nota "desligada"
-    [SerializeField] private float _analysisInterval = 0.02f; // Intervalo de análise mais rápido
+    [SerializeField] private float _analysisInterval = 0.02f; // Intervalo de anÃ¡lise mais rÃ¡pido
     private float _analysisTimer = 0f;
 
-    // Configurações para análise de frequência
-    [SerializeField] private int _numberOfSamples = 1024; // Deve ser potência de 2 (64, 128, 256, 512, 1024, 2048, etc.)
-    [SerializeField] private float _minFrequency = 20f; // Frequência mínima a ser considerada (Hz)
-    [SerializeField] private float _maxFrequency = 10000f; // Frequência máxima a ser considerada (Hz)
+    // ConfiguraÃ§Ãµes para anÃ¡lise de frequÃªncia
+    [SerializeField] private int _numberOfSamples = 1024; // Deve ser potÃªncia de 2 (64, 128, 256, 512, 1024, 2048, etc.)
+    [SerializeField] private float _minFrequency = 20f; // FrequÃªncia mÃ­nima a ser considerada (Hz)
+    [SerializeField] private float _maxFrequency = 10000f; // FrequÃªncia mÃ¡xima a ser considerada (Hz)
 
     private float[] _spectrumData;
-    private float[] _audioBuffer; // Buffer para dados de áudio do microfone
-    private int _sampleRate; // Taxa de amostragem do áudio
+    private float[] _audioBuffer; // Buffer para dados de Ã¡udio do microfone
+    private int _sampleRate; // Taxa de amostragem do Ã¡udio
 
     private const float A4_FREQUENCY = 440f;
     private const int A4_MIDI_NOTE = 69;
@@ -62,17 +62,17 @@ public class BaluAudioReactive : MonoBehaviour
     {
         if (_audioSource == null) return;
 
-        // Verifica se já está gravando para evitar iniciar múltiplas vezes
+        // Verifica se jÃ¡ estÃ¡ gravando para evitar iniciar mÃºltiplas vezes
         if (Microphone.IsRecording(null))
         {
-            Debug.LogWarning("Microfone já está gravando. Parando gravação existente.");
+            Debug.LogWarning("Microfone jÃ¡ estÃ¡ gravando. Parando gravaÃ§Ã£o existente.");
             Microphone.End(null);
         }
 
-        // Inicia a gravação do microfone no AudioSource
+        // Inicia a gravaÃ§Ã£o do microfone no AudioSource
         _audioSource.clip = Microphone.Start(null, true, 1, _sampleRate);
-        _audioSource.loop = true; // Loop para gravação contínua
-        while (!(Microphone.GetPosition(null) > 0)) { } // Espera o microfone começar a gravar
+        _audioSource.loop = true; // Loop para gravaÃ§Ã£o contÃ­nua
+        while (!(Microphone.GetPosition(null) > 0)) { } // Espera o microfone comeÃ§ar a gravar
         _audioSource.Play();
         Debug.Log("Microfone iniciado com sucesso.");
     }
@@ -93,7 +93,7 @@ public class BaluAudioReactive : MonoBehaviour
             if (_audioSource == null || !_audioSource.isPlaying) return;
             // Pega os dados do microfone
             _audioSource.GetOutputData(_audioBuffer, 0);
-            _audioSource.GetSpectrumData(_spectrumData, 0, FFTWindow.BlackmanHarris); // Usar BlackmanHarris para melhor precisão de frequência
+            _audioSource.GetSpectrumData(_spectrumData, 0, FFTWindow.BlackmanHarris); // Usar BlackmanHarris para melhor precisÃ£o de frequÃªncia
         }
         else // AudioSource (File/Stream)
         {
@@ -113,12 +113,12 @@ public class BaluAudioReactive : MonoBehaviour
         {
             float freq = i * binWidth;
 
-            // Ignora frequências fora do range desejado
+            // Ignora frequÃªncias fora do range desejado
             if (freq < _minFrequency || freq > _maxFrequency) continue;
 
             float intensity = _spectrumData[i];
 
-            // Converte frequência para nota MIDI
+            // Converte frequÃªncia para nota MIDI
             int midiNote = FrequencyToMidiNote(freq);
 
             if (midiNote >= 0 && midiNote < 128)
@@ -146,12 +146,12 @@ public class BaluAudioReactive : MonoBehaviour
         return Mathf.RoundToInt(A4_MIDI_NOTE + 12 * Mathf.Log(frequency / A4_FREQUENCY, 2));
     }
 
-    // Métodos para alternar o modo de entrada de áudio em tempo de execução (opcional)
+    // MÃ©todos para alternar o modo de entrada de Ã¡udio em tempo de execuÃ§Ã£o (opcional)
     public void SetAudioInputMode(AudioInputMode mode)
     {
         if (_audioInputMode == mode) return;
 
-        // Para a gravação atual, se houver
+        // Para a gravaÃ§Ã£o atual, se houver
         if (_audioInputMode == AudioInputMode.Microphone && Microphone.IsRecording(null))
         {
             Microphone.End(null);
@@ -166,8 +166,8 @@ public class BaluAudioReactive : MonoBehaviour
         }
         else // AudioSource
         {
-            // Certifique-se de que o AudioSource está configurado para reproduzir um clipe se necessário
-            // e não está tentando gravar do microfone.
+            // Certifique-se de que o AudioSource estÃ¡ configurado para reproduzir um clipe se necessÃ¡rio
+            // e nÃ£o estÃ¡ tentando gravar do microfone.
             if (_audioSource.clip != null && !_audioSource.isPlaying)
             {
                 _audioSource.Play();

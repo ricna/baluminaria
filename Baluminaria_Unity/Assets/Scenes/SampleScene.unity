@@ -1468,7 +1468,8 @@ MonoBehaviour:
   _ringsParent: {fileID: 2002025757}
   _currentPlaybackMode: 1
   _clampNotes: 1
-  _currentColorMode: 1
+  _currentColorMode: 10
+  _currentGreekMode: 0
   _ringColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 1, g: 0.5, b: 0, a: 1}

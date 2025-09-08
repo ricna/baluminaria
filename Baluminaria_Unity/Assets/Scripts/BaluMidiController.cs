@@ -27,7 +27,7 @@ public class BaluMidiController : MonoBehaviour
         Strobe,
         AcrossOctaves,
         VerticalColor,
-        Cross
+        TwoPaths
     }
 
     [Header("Componentes MPTK")]
@@ -54,7 +54,7 @@ public class BaluMidiController : MonoBehaviour
         new Color(1f, 0f, 0f),       // Vermelho
         new Color(1f, 0.5f, 0f),     // Laranja
         new Color(1f, 1f, 0f),       // Amarelo
-        new Color(0f, 1f, 0f),       // Verde       
+        new Color(0f, 1f, 0f),       // Verde     
         new Color(0f, 0f, 1f),       // Azul
         new Color(0.29f, 0f, 0.51f), // Anil (índigo)
         new Color(0.56f, 0f, 1f)     // Violeta
@@ -211,9 +211,6 @@ public class BaluMidiController : MonoBehaviour
         HandleNoteOn(ev);
     }
 
-    // ====================================================================
-    // AQUI ESTÁ A LÓGICA PRINCIPAL QUE FOI CORRIGIDA E REORGANIZADA
-    // ====================================================================
     public void HandleNoteOn(MPTKEvent noteEvent)
     {
         bool isNoteOff = noteEvent.Velocity == 0;
@@ -222,7 +219,6 @@ public class BaluMidiController : MonoBehaviour
         if (isNoteOff && _isSustainPedalDown)
         {
             _sustainedNotes.Add(noteEvent.Value);
-            //return;
         }
 
         try
@@ -279,7 +275,6 @@ public class BaluMidiController : MonoBehaviour
         Color baseColor, peakColor;
 
         // Para a maioria dos modos, cancelamos qualquer fade que esteja ocorrendo no segmento atual.
-        // Exceções como FullBoardPulse e Strobe lidam com isso internamente ou para múltiplos segmentos.
         if (_currentColorMode != ColorMode.FullBoardPulse && _currentColorMode != ColorMode.Strobe)
         {
             _activeFades.RemoveAll(f => f.Segment == _segs[segIndex]);
@@ -289,26 +284,78 @@ public class BaluMidiController : MonoBehaviour
         switch (_currentColorMode)
         {
             case ColorMode.ByRing:
-            case ColorMode.AcrossOctaves:
                 baseColor = _ringColors[ring];
                 peakColor = Color.Lerp(Color.black, baseColor, intensity);
                 _segs[segIndex].color = peakColor;
                 break;
 
             case ColorMode.ByNote:
-            case ColorMode.VerticalColor:
-                _activeFades.RemoveAll(f => f.Segment == _segs[segIndex]); // Cancela fade
                 baseColor = _noteColors[noteInOctave];
                 peakColor = Color.Lerp(Color.black, baseColor, intensity);
                 _segs[segIndex].color = peakColor;
                 break;
 
-            case ColorMode.FullRing:
+            case ColorMode.AcrossOctaves:
+                baseColor = _noteColors[noteInOctave];
+                peakColor = Color.Lerp(Color.black, baseColor, intensity);
+                for (int i = 0; i < _segs.Length; i++)
+                {
+                    int currentNoteInOctave = (i + 24) % 12;
+                    if (currentNoteInOctave == noteInOctave)
+                    {
+                        _activeFades.RemoveAll(f => f.Segment == _segs[i]);
+                        _segs[i].color = peakColor;
+                    }
+                }
+                break;
+
+            case ColorMode.VerticalColor:
                 baseColor = _ringColors[ring];
                 peakColor = Color.Lerp(Color.black, baseColor, intensity);
+                for (int i = 0; i < _segs.Length; i++)
+                {
+                    int currentNoteInOctave = (i + 24) % 12;
+                    if (currentNoteInOctave == noteInOctave)
+                    {
+                        _activeFades.RemoveAll(f => f.Segment == _segs[i]);
+                        _segs[i].color = peakColor;
+                    }
+                }
+                break;
+
+            case ColorMode.TwoPaths:
+                baseColor = _noteColors[noteInOctave];
+                peakColor = Color.Lerp(Color.black, baseColor, intensity);
+                // Acende a linha vertical (AcrossOctaves)
+                for (int i = 0; i < _segs.Length; i++)
+                {
+                    int currentNoteInOctave = (i + 24) % 12;
+                    if (currentNoteInOctave == noteInOctave)
+                    {
+                        _activeFades.RemoveAll(f => f.Segment == _segs[i]);
+                        _segs[i].color = peakColor;
+                    }
+                }
+                // Acende o anel horizontal (FullRing)
                 int startMidi = ((ring + 2) * 12);
                 int endMidi = startMidi + 11;
                 for (int m = startMidi; m <= endMidi; m++)
+                {
+                    int currentSegIndex = m - 24;
+                    if (currentSegIndex >= 0 && currentSegIndex < _segs.Length)
+                    {
+                        _activeFades.RemoveAll(f => f.Segment == _segs[currentSegIndex]);
+                        _segs[currentSegIndex].color = peakColor;
+                    }
+                }
+                break;
+
+            case ColorMode.FullRing:
+                baseColor = _ringColors[ring];
+                peakColor = Color.Lerp(Color.black, baseColor, intensity);
+                int startMidiFullRing = ((ring + 2) * 12);
+                int endMidiFullRing = startMidiFullRing + 11;
+                for (int m = startMidiFullRing; m <= endMidiFullRing; m++)
                 {
                     int currentSegIndex = m - 24;
                     if (currentSegIndex >= 0 && currentSegIndex < _segs.Length)
@@ -326,53 +373,93 @@ public class BaluMidiController : MonoBehaviour
                 break;
 
             case ColorMode.FullBoardPulse:
-                // Para FullBoardPulse, todas as luzes acendem com uma cor base (ex: branco) e pulsam.
-                // A intensidade da nota pode influenciar o brilho ou a cor.
-                // Por simplicidade, vamos acender todas as luzes com uma cor base (ex: Color.white) ou a cor da nota, com a intensidade da velocidade.
-                peakColor = Color.Lerp(Color.black, _noteColors[noteInOctave], intensity); // Ou use uma cor fixa, como Color.white
+                peakColor = Color.Lerp(Color.black, _noteColors[noteInOctave], intensity);
                 for (int i = 0; i < _segs.Length; i++)
                 {
-                    _activeFades.RemoveAll(f => f.Segment == _segs[i]); // Cancela fade para todos os segmentos
+                    _activeFades.RemoveAll(f => f.Segment == _segs[i]);
                     _segs[i].color = peakColor;
                 }
                 break;
+
             case ColorMode.RandomNoteColor:
-                _activeFades.RemoveAll(f => f.Segment == _segs[segIndex]); // Cancela fade
                 peakColor = Color.Lerp(Color.black, new Color(Random.value, Random.value, Random.value), intensity);
                 _segs[segIndex].color = peakColor;
                 break;
-                // Adicionar outros modos complexos aqui se necessário
         }
     }
 
     // NOVO: Método auxiliar para iniciar o fade-out dos segmentos no Note Off
     private void ApplyFadeOutByColorMode(int midiNote, int segIndex, int ring, int noteInOctave, float fadeDuration)
     {
-        Color baseColor, dimColor;
+        Color dimColor;
         fadeDuration = _isSustainPedalDown ? fadeDuration + _extraFadeOutTime : fadeDuration;
-        // A lógica para cada modo de cor define a cor final (dim) e inicia o fade.
+
         switch (_currentColorMode)
         {
             case ColorMode.ByRing:
-            case ColorMode.AcrossOctaves:
-                baseColor = _ringColors[ring];
-                dimColor = baseColor * _dimIntensity;
+            case ColorMode.FullRing:
+                dimColor = _ringColors[ring] * _dimIntensity;
                 StartFade(_segs[segIndex], _segs[segIndex].color, dimColor, fadeDuration);
+                if (_currentColorMode == ColorMode.FullRing)
+                {
+                    int startMidiFullRing = ((ring + 2) * 12);
+                    int endMidiFullRing = startMidiFullRing + 11;
+                    for (int m = startMidiFullRing; m <= endMidiFullRing; m++)
+                    {
+                        int currentSegIndex = m - 24;
+                        if (currentSegIndex >= 0 && currentSegIndex < _segs.Length)
+                        {
+                            StartFade(_segs[currentSegIndex], _segs[currentSegIndex].color, dimColor, fadeDuration);
+                        }
+                    }
+                }
                 break;
 
             case ColorMode.ByNote:
-            case ColorMode.VerticalColor:
-                baseColor = _noteColors[noteInOctave];
-                dimColor = baseColor * _dimIntensity;
+            case ColorMode.RandomNoteColor:
+                dimColor = _noteColors[noteInOctave] * _dimIntensity;
                 StartFade(_segs[segIndex], _segs[segIndex].color, dimColor, fadeDuration);
                 break;
 
-            case ColorMode.FullRing:
-                baseColor = _ringColors[ring];
-                dimColor = baseColor * _dimIntensity;
-                int startMidi = ((ring + 2) * 12);
-                int endMidi = startMidi + 11;
-                for (int m = startMidi; m <= endMidi; m++)
+            case ColorMode.AcrossOctaves:
+                dimColor = _noteColors[noteInOctave] * _dimIntensity;
+                for (int i = 0; i < _segs.Length; i++)
+                {
+                    int currentNoteInOctave = (i + 24) % 12;
+                    if (currentNoteInOctave == noteInOctave)
+                    {
+                        StartFade(_segs[i], _segs[i].color, dimColor, fadeDuration);
+                    }
+                }
+                break;
+
+            case ColorMode.VerticalColor:
+                dimColor = _ringColors[ring] * _dimIntensity;
+                for (int i = 0; i < _segs.Length; i++)
+                {
+                    int currentNoteInOctave = (i + 24) % 12;
+                    if (currentNoteInOctave == noteInOctave)
+                    {
+                        StartFade(_segs[i], _segs[i].color, dimColor, fadeDuration);
+                    }
+                }
+                break;
+
+            case ColorMode.TwoPaths:
+                dimColor = _noteColors[noteInOctave] * _dimIntensity;
+                // Fade-out da linha vertical
+                for (int i = 0; i < _segs.Length; i++)
+                {
+                    int currentNoteInOctave = (i + 24) % 12;
+                    if (currentNoteInOctave == noteInOctave)
+                    {
+                        StartFade(_segs[i], _segs[i].color, dimColor, fadeDuration);
+                    }
+                }
+                // Fade-out do anel horizontal
+                int startMidiTwoPaths = ((ring + 2) * 12);
+                int endMidiTwoPaths = startMidiTwoPaths + 11;
+                for (int m = startMidiTwoPaths; m <= endMidiTwoPaths; m++)
                 {
                     int currentSegIndex = m - 24;
                     if (currentSegIndex >= 0 && currentSegIndex < _segs.Length)
@@ -383,17 +470,12 @@ public class BaluMidiController : MonoBehaviour
                 break;
 
             case ColorMode.FullBoardPulse:
-                // Para FullBoardPulse, todas as luzes apagam ou diminuem a intensidade.
-                // Vamos fazer todas as luzes voltarem para a cor inicial dim.
                 for (int i = 0; i < _segs.Length; i++)
                 {
                     Color initialDimColor = GetInitialDimColor(i);
                     StartFade(_segs[i], _segs[i].color, initialDimColor, fadeDuration);
                 }
                 break;
-
-                // O Strobe já se auto-gerencia, então não precisa de um caso de fade-out aqui.
-                // Outros modos podem ser adicionados.
         }
     }
 
@@ -430,13 +512,25 @@ public class BaluMidiController : MonoBehaviour
         int noteInOctave = midiNote % 12;
         int ring = Mathf.Clamp(octave - 1, 0, _ringColors.Length - 1);
         Color initialColor;
-        if (_currentColorMode == ColorMode.ByRing || _currentColorMode == ColorMode.AcrossOctaves || _currentColorMode == ColorMode.FullRing)
+
+        switch (_currentColorMode)
         {
-            initialColor = _ringColors[ring] * _dimIntensity;
-        }
-        else
-        {
-            initialColor = _noteColors[noteInOctave] * _dimIntensity;
+            case ColorMode.ByRing:
+            case ColorMode.VerticalColor:
+            case ColorMode.FullRing:
+                initialColor = _ringColors[ring] * _dimIntensity;
+                break;
+            case ColorMode.ByNote:
+            case ColorMode.AcrossOctaves:
+            case ColorMode.TwoPaths:
+            case ColorMode.RandomNoteColor:
+            case ColorMode.FullBoardPulse:
+            case ColorMode.Strobe:
+                initialColor = _noteColors[noteInOctave] * _dimIntensity;
+                break;
+            default:
+                initialColor = Color.black * _dimIntensity;
+                break;
         }
         return initialColor;
     }

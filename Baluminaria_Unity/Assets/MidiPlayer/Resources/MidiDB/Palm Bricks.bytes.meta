@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: eb227b7c14f5a80498d175cf675bca7b
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.16.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Palm Bricks.bytes
+  uploadId: 767293

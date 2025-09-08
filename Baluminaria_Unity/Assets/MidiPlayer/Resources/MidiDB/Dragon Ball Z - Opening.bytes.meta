@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 96c04645f3a173641b773f81b23cf1d3
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.16.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Dragon Ball Z - Opening.bytes
+  uploadId: 767293

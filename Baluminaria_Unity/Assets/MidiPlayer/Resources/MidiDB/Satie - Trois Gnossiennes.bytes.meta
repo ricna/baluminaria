@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 35bbb87de24f2d04f974a80ac261c875
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.16.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Satie - Trois Gnossiennes.bytes
+  uploadId: 767293

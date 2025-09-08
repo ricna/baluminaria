@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f44e4f4e51b2fce40bf13c43402bdda1
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.16.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Van Morrison - Wild Nights.bytes
+  uploadId: 767293

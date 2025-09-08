@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 571f45af422b05d4293a2b72ba6fe1b3
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.16.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Bjork - Venus As A Boy.bytes
+  uploadId: 767293

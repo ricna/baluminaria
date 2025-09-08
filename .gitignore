@@ -1,0 +1,69 @@
+# ========== UNITY ==========
+
+# Ignore cache, build e temporários do Unity
+Baluminaria_Unity/[Ll]ibrary/
+Baluminaria_Unity/[Tt]emp/
+Baluminaria_Unity/[Oo]bj/
+Baluminaria_Unity/[Bb]uild/
+Baluminaria_Unity/[Bb]uilds/
+Baluminaria_Unity/[Ll]ogs/
+Baluminaria_Unity/[Uu]ser[Ss]ettings/
+
+# Ignore dados de cache do Asset Store
+Baluminaria_Unity/[Aa]sset[Ss]tore/
+
+# Visual Studio / Rider / VS Code
+Baluminaria_Unity/*.csproj
+Baluminaria_Unity/*.unityproj
+Baluminaria_Unity/*.sln
+Baluminaria_Unity/*.suo
+Baluminaria_Unity/*.tmp
+Baluminaria_Unity/*.user
+Baluminaria_Unity/*.userprefs
+Baluminaria_Unity/*.pidb
+Baluminaria_Unity/*.booproj
+Baluminaria_Unity/*.svd
+Baluminaria_Unity/*.pdb
+Baluminaria_Unity/*.mdb
+
+# Configurações específicas do IDE
+Baluminaria_Unity/.vs/
+Baluminaria_Unity/.idea/
+Baluminaria_Unity/.vscode/
+
+# Build para diferentes plataformas
+Baluminaria_Unity/[Bb]uild/
+Baluminaria_Unity/[Bb]uilds/
+Baluminaria_Unity/[Bb]in/
+Baluminaria_Unity/[Oo]ut/
+
+# Logs / crash reports
+Baluminaria_Unity/*.log
+Baluminaria_Unity/*.stacktrace
+
+# Cache da Unity Collaborate
+Baluminaria_Unity/[Cc]ollab/
+
+# Cache do Addressables
+Baluminaria_Unity/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# Cache do Unity para Lightmapping
+Baluminaria_Unity/[Ll]ightmapSnapshot
+Baluminaria_Unity/[Ll]ibrary/ShaderCache/
+
+# Outros temporários
+Baluminaria_Unity/[Oo]bj/
+Baluminaria_Unity/[Tt]emp/
+Baluminaria_Unity/[Gg]radle/
+
+# ========== EXTRAS ==========
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de backup
+*.bak
+*.old
+*.orig
+*.swp

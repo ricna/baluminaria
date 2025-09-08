@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d90e46b102ce61b44bc0c02830551d46
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.16.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/BlowinintheWind.bytes
+  uploadId: 767293

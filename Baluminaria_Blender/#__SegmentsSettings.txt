@@ -1,0 +1,43 @@
+
+Corda não está coerente com posiçaõ do corte.
+Adicionar cruz nas cordas e aumentar profundidades
+
+
+S01: 0.1, 1.9, 1, 0.2?
+
+S02: 0.1,1.9,0.96,0.3 
+
+
+S03con3: 0.12,1.9,0.96,0.3
+S03con2: 0.1,1.9,0.98,0.3
+
+S04con03: Inset 0.1,Extrude 1.9,Scale 0.96,Bevel 0.3
+S04con04: Inset 0.08,Extrude 1.9,Scale 0.98,Bevel 0.3
+
+s05
+Inset 0.06
+Extrude 1.9
+Scale 0.96
+Bevel 0.3
+
+s06
+Inset 0.06
+Extrude 1.9
+Scale 0.94
+Bevel 0.4
+
+s07: 0.06,1.9,0.96,0.4
+
+
+ORDE DE ENCAIXE
+4 e 5 depois o 3 
+
+1 e 2
+
+Depois juntar partes 3,4,5 com 1 e 2
+
+
+S04 folgado
+S06 muito folgado
+
+

@@ -27,7 +27,8 @@ public class BaluMidiController : MonoBehaviour
         Strobe,
         AcrossOctaves,
         VerticalColor,
-        TwoPaths
+        TwoPaths,
+        OctavesBattle
     }
 
     [Header("Componentes MPTK")]
@@ -324,7 +325,16 @@ public class BaluMidiController : MonoBehaviour
                 break;
 
             case ColorMode.TwoPaths:
-                baseColor = _noteColors[noteInOctave];
+            case ColorMode.OctavesBattle:
+                if (_currentColorMode == ColorMode.TwoPaths)
+                {
+                    baseColor = _noteColors[noteInOctave];
+                }
+                else
+                {
+                    baseColor = _noteColors[ring];
+                }
+
                 peakColor = Color.Lerp(Color.black, baseColor, intensity);
                 // Acende a linha vertical (AcrossOctaves)
                 for (int i = 0; i < _segs.Length; i++)
@@ -446,7 +456,15 @@ public class BaluMidiController : MonoBehaviour
                 break;
 
             case ColorMode.TwoPaths:
-                dimColor = _noteColors[noteInOctave] * _dimIntensity;
+            case ColorMode.OctavesBattle:
+                if (_currentColorMode == ColorMode.TwoPaths)
+                {
+                    dimColor = _noteColors[noteInOctave] * _dimIntensity;
+                }
+                else
+                {
+                    dimColor = _noteColors[ring] * _dimIntensity;
+                }
                 // Fade-out da linha vertical
                 for (int i = 0; i < _segs.Length; i++)
                 {

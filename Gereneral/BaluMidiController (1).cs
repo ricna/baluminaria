@@ -8,7 +8,7 @@ using TMPro;
 public class BaluMidiController : MonoBehaviour
 {
     #region Enums and Serialized Fields
-    // Enum para controlar o modo de reproduÁ„o
+    // Enum para controlar o modo de reprodu√ß√£o
     public enum PlaybackMode
     {
         File,
@@ -36,18 +36,18 @@ public class BaluMidiController : MonoBehaviour
     [SerializeField] private BaluAudioReactive _baluAudioReactive;
     [SerializeField] private AudioSource _audioSource;
 
-    [Header("ExibiÁ„o de InformaÁıes")]
+    [Header("Exibi√ß√£o de Informa√ß√µes")]
     [SerializeField] private TMP_Text _text;
     [SerializeField] private Transform _ringsParent;
 
-    [Header("ConfiguraÁıes de ReproduÁ„o")]
+    [Header("Configura√ß√µes de Reprodu√ß√£o")]
     [SerializeField] private PlaybackMode _currentPlaybackMode = PlaybackMode.File;
     [SerializeField] private bool _clampNotes = true;
 
     [Header("Modo de Cores")]
     [SerializeField] private ColorMode _currentColorMode = ColorMode.ByRing;
 
-    [Header("Cores por Ring (Arco-Ìris)")]
+    [Header("Cores por Ring (Arco-√≠ris)")]
     [SerializeField]
     public Color[] _ringColors = new Color[7]
     {
@@ -56,17 +56,17 @@ public class BaluMidiController : MonoBehaviour
         new Color(1f, 1f, 0f),       // Amarelo
         new Color(0f, 1f, 0f),       // Verde       
         new Color(0f, 0f, 1f),       // Azul
-        new Color(0.29f, 0f, 0.51f), // Anil (Ìndigo)
+        new Color(0.29f, 0f, 0.51f), // Anil (√≠ndigo)
         new Color(0.56f, 0f, 1f)     // Violeta
     };
 
-    [Header("Cores por Nota (Crom·tico)")]
+    [Header("Cores por Nota (Crom√°tico)")]
     [SerializeField]
     public Color[] _noteColors = new Color[12];
 
     [SerializeField] private Sprite _segSprite;
 
-    [Header("ConfiguraÁıes Visuais")]
+    [Header("Configura√ß√µes Visuais")]
     [SerializeField] private float _dimIntensity = 0.1f;
     [SerializeField] private float _pulseDuration = 0.1f;
     [SerializeField] private float _strobeDuration = 0.2f;
@@ -164,7 +164,7 @@ public class BaluMidiController : MonoBehaviour
 
     private void StartFade(Image segment, Color startColor, Color endColor, float duration)
     {
-        // O mÈtodo StartFade continua igual e correto
+        // O m√©todo StartFade continua igual e correto
         int segIndex = System.Array.IndexOf(_segs, segment);
         if (segIndex != -1 && _activeCoroutines[segIndex] != null)
         {
@@ -173,7 +173,7 @@ public class BaluMidiController : MonoBehaviour
         }
         _activeFades.RemoveAll(f => f.Segment == segment);
 
-        // Se a duraÁ„o for zero, aplica a cor final imediatamente e n„o adiciona ‡ lista
+        // Se a dura√ß√£o for zero, aplica a cor final imediatamente e n√£o adiciona √† lista
         if (duration <= 0)
         {
             segment.color = endColor;
@@ -193,7 +193,7 @@ public class BaluMidiController : MonoBehaviour
 
     public void HandleSustainPedal(bool isDown)
     {
-        // A lÛgica do sustain continua igual e correta
+        // A l√≥gica do sustain continua igual e correta
         _isSustainPedalDown = isDown;
         if (!isDown)
         {
@@ -212,7 +212,7 @@ public class BaluMidiController : MonoBehaviour
     }
 
     // ====================================================================
-    // AQUI EST¡ A L”GICA PRINCIPAL QUE FOI CORRIGIDA E REORGANIZADA
+    // AQUI EST√Å A L√ìGICA PRINCIPAL QUE FOI CORRIGIDA E REORGANIZADA
     // ====================================================================
     public void HandleNoteOn(MPTKEvent noteEvent)
     {
@@ -232,7 +232,7 @@ public class BaluMidiController : MonoBehaviour
             {
                 midiNote = Mathf.Clamp(midiNote, 24, 107);
             }
-            // Se _clampNotes for false, a nota ainda precisa estar dentro do range v·lido para ser processada.
+            // Se _clampNotes for false, a nota ainda precisa estar dentro do range v√°lido para ser processada.
             else if (midiNote < 24 || midiNote > 107) return;
 
             int segIndex = midiNote - 24;
@@ -240,12 +240,12 @@ public class BaluMidiController : MonoBehaviour
             int noteInOctave = midiNote % 12;
             int ring = Mathf.Clamp(octave - 1, 0, _ringColors.Length - 1);
 
-            // --- L”GICA CORRIGIDA ---
+            // --- L√ìGICA CORRIGIDA ---
             // Separa completamente o que fazer ao PRESSIONAR e ao SOLTAR a tecla.
             if (isNoteOff)
             {
                 // ### EVENTO DE NOTE OFF (Soltar a tecla) ###
-                // A ˙nica responsabilidade aqui È iniciar o fade-out.
+                // A √∫nica responsabilidade aqui √© iniciar o fade-out.
                 float fadeDuration = _ringDelays[ring] + _noteDelays[noteInOctave];
 
                 // Aplica o fade de acordo com o modo de cor atual
@@ -254,14 +254,14 @@ public class BaluMidiController : MonoBehaviour
             else
             {
                 // ### EVENTO DE NOTE ON (Pressionar a tecla) ###
-                // A responsabilidade aqui È acender o LED com a cor certa e mantÍ-lo aceso.
+                // A responsabilidade aqui √© acender o LED com a cor certa e mant√™-lo aceso.
                 float intensity = Mathf.Clamp01(noteEvent.Velocity / 127f);
 
                 // Aplica a cor de acordo com o modo atual
                 ApplyLightUpByColorMode(midiNote, segIndex, ring, noteInOctave, intensity);
             }
 
-            // AtualizaÁ„o de texto e debug continuam iguais
+            // Atualiza√ß√£o de texto e debug continuam iguais
             string[] noteNames = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
             string noteName = noteNames[noteInOctave];
             double frequency = 440.0 * System.Math.Pow(2, (midiNote - 69) / 12.0);
@@ -273,19 +273,19 @@ public class BaluMidiController : MonoBehaviour
         }
     }
 
-    // NOVO: MÈtodo auxiliar para acender os segmentos no Note On
+    // NOVO: M√©todo auxiliar para acender os segmentos no Note On
     private void ApplyLightUpByColorMode(int midiNote, int segIndex, int ring, int noteInOctave, float intensity)
     {
         Color baseColor, peakColor;
 
         // Para a maioria dos modos, cancelamos qualquer fade que esteja ocorrendo no segmento atual.
-        // ExceÁıes como FullBoardPulse e Strobe lidam com isso internamente ou para m˙ltiplos segmentos.
+        // Exce√ß√µes como FullBoardPulse e Strobe lidam com isso internamente ou para m√∫ltiplos segmentos.
         if (_currentColorMode != ColorMode.FullBoardPulse && _currentColorMode != ColorMode.Strobe)
         {
             _activeFades.RemoveAll(f => f.Segment == _segs[segIndex]);
         }
 
-        // A lÛgica para cada modo de cor define a cor e a aplica diretamente.
+        // A l√≥gica para cada modo de cor define a cor e a aplica diretamente.
         switch (_currentColorMode)
         {
             case ColorMode.ByRing:
@@ -329,28 +329,24 @@ public class BaluMidiController : MonoBehaviour
                 // Para FullBoardPulse, todas as luzes acendem com uma cor base (ex: branco) e pulsam.
                 // A intensidade da nota pode influenciar o brilho ou a cor.
                 // Por simplicidade, vamos acender todas as luzes com uma cor base (ex: Color.white) ou a cor da nota, com a intensidade da velocidade.
-                peakColor = Color.Lerp(Color.black, _noteColors[noteInOctave], intensity); // Ou use uma cor fixa, como Color.white
+                peakColor = Color.Lerp(Color.black, Color.white, intensity); // Ou use uma cor fixa, como Color.white
                 for (int i = 0; i < _segs.Length; i++)
                 {
                     _activeFades.RemoveAll(f => f.Segment == _segs[i]); // Cancela fade para todos os segmentos
                     _segs[i].color = peakColor;
                 }
                 break;
-            case ColorMode.RandomNoteColor:
-                _activeFades.RemoveAll(f => f.Segment == _segs[segIndex]); // Cancela fade
-                peakColor = Color.Lerp(Color.black, new Color(Random.value, Random.value, Random.value), intensity);
-                _segs[segIndex].color = peakColor;
-                break;
-                // Adicionar outros modos complexos aqui se necess·rio
+
+                // Adicionar outros modos complexos aqui se necess√°rio
         }
     }
 
-    // NOVO: MÈtodo auxiliar para iniciar o fade-out dos segmentos no Note Off
+    // NOVO: M√©todo auxiliar para iniciar o fade-out dos segmentos no Note Off
     private void ApplyFadeOutByColorMode(int midiNote, int segIndex, int ring, int noteInOctave, float fadeDuration)
     {
         Color baseColor, dimColor;
-        fadeDuration = _isSustainPedalDown ? fadeDuration + _extraFadeOutTime : fadeDuration;
-        // A lÛgica para cada modo de cor define a cor final (dim) e inicia o fade.
+        fadeDuration = _isSustainPedalDown? fadeDuration + _extraFadeOutTime : fadeDuration;
+        // A l√≥gica para cada modo de cor define a cor final (dim) e inicia o fade.
         switch (_currentColorMode)
         {
             case ColorMode.ByRing:
@@ -392,7 +388,7 @@ public class BaluMidiController : MonoBehaviour
                 }
                 break;
 
-                // O Strobe j· se auto-gerencia, ent„o n„o precisa de um caso de fade-out aqui.
+                // O Strobe j√° se auto-gerencia, ent√£o n√£o precisa de um caso de fade-out aqui.
                 // Outros modos podem ser adicionados.
         }
     }

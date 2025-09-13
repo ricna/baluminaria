@@ -14,6 +14,7 @@ public class Segment : MonoBehaviour
         }
         _light.range = _range;
     }
+
     public Color CurrentColor
     {
         get { return _light != null ? _light.color : Color.black; }

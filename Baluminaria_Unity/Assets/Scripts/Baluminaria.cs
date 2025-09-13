@@ -31,7 +31,7 @@ public class Baluminaria : MonoBehaviour
             foreach (var segment in _prefabSegments)
             {
                 var newSegment = Instantiate(segment, transform);
-                newSegment.transform.Rotate(Vector3.up, i * 22.5f);
+                newSegment.transform.Rotate(Vector3.up, i * -22.5f);
                 _allSegments[segmentIndex] = newSegment;
                 newSegment.ChangeLightColor(Color.black);
                 newSegment.SetIntensity(0f);

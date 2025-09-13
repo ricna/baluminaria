@@ -146,9 +146,10 @@ public class BaluMidiController : MonoBehaviour
         if (_noteDelays.Length < 12) _noteDelays = new float[] { 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f };
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
         SetOutputMode(_currentOutputMode);
+        yield return new WaitForSeconds(0.2f);
         SetPlaybackMode(_currentPlaybackMode);
     }
 
@@ -316,7 +317,7 @@ public class BaluMidiController : MonoBehaviour
                     StartFadeBaluminaria(_baluSegments[segIndex], 0f, targetIntensity, _pulseDuration);
                 }
                 break;
-            
+
             case ColorMode.ByNote:
                 baseColor = _noteColors[noteInOctave];
                 if (_currentOutputMode == OutputMode.UI)

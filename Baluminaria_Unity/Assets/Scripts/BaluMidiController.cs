@@ -7,7 +7,7 @@ using TMPro;
 
 public class BaluMidiController : MonoBehaviour
 {
-    // Enum para controlar o modo de reprodução
+    // Enum to control playback mode
     public enum PlaybackMode
     {
         File,
@@ -15,7 +15,7 @@ public class BaluMidiController : MonoBehaviour
         AudioSource
     }
 
-    // Enum para controlar o modo de cor
+    // Enum to control color mode
     public enum ColorMode
     {
         ByRing,
@@ -30,62 +30,75 @@ public class BaluMidiController : MonoBehaviour
         OctavesBattle
     }
 
-    [Header("Componentes MPTK")]
+    // NEW: Enum to control output mode
+    public enum OutputMode
+    {
+        UI,
+        Baluminaria
+    }
+
+    [Header("MPTK Components")]
     [SerializeField] private MidiFilePlayer _midiFilePlayer;
     [SerializeField] private MidiStreamPlayer _midiStreamPlayer;
     [SerializeField] private BaluAudioReactive _baluAudioReactive;
     [SerializeField] private AudioSource _audioSource;
 
-    [Header("Exibição de Informações")]
+    [Header("Information Display")]
     [SerializeField] private TMP_Text _text;
     [SerializeField] private Transform _ringsParent;
 
-    [Header("Configurações de Reprodução")]
+    // NEW: Output Settings
+    [Header("Output Settings")]
+    [SerializeField] private OutputMode _currentOutputMode = OutputMode.UI;
+    [SerializeField] private GameObject _uiCanvas;
+    [SerializeField] private Baluminaria _baluminaria;
+
+    [Header("Playback Settings")]
     [SerializeField] private PlaybackMode _currentPlaybackMode = PlaybackMode.File;
     [SerializeField] private bool _clampNotes = true;
 
-    [Header("Configurações de Análise")]
+    [Header("Analysis Settings")]
     [SerializeField]
     [Range(0.1f, 0.01f)]
     private float _analysisSensitivity = 0.03f;
     [SerializeField]
     [Range(0.01f, 0.5f)]
-    private float _analysisInterval = 0.01f; // Intervalo de análise mais rápido
+    private float _analysisInterval = 0.01f; // Faster analysis interval
 
-    [Header("Modo de Cores")]
+    [Header("Color Mode")]
     [SerializeField] private ColorMode _currentColorMode = ColorMode.ByRing;
 
-    [Header("Cores por Ring (Arco-íris)")]
+    [Header("Colors by Ring (Rainbow)")]
     [SerializeField]
     public Color[] _ringColors = new Color[7]
     {
-        new Color(1f, 0f, 0f),       // Vermelho
-        new Color(1f, 0.5f, 0f),     // Laranja
-        new Color(1f, 1f, 0f),       // Amarelo
-        new Color(0f, 1f, 0f),       // Verde     
-        new Color(0f, 0f, 1f),       // Azul
-        new Color(0.29f, 0f, 0.51f), // Anil (índigo)
-        new Color(0.56f, 0f, 1f)     // Violeta
+        new Color(1f, 0f, 0f),       // Red
+        new Color(1f, 0.5f, 0f),     // Orange
+        new Color(1f, 1f, 0f),       // Yellow
+        new Color(0f, 1f, 0f),       // Green     
+        new Color(0f, 0f, 1f),       // Blue
+        new Color(0.29f, 0f, 0.51f), // Indigo
+        new Color(0.56f, 0f, 1f)     // Violet
     };
 
-    [Header("Cores por Nota (Cromático)")]
+    [Header("Colors by Note (Chromatic)")]
     [SerializeField]
     public Color[] _noteColors = new Color[12];
 
     [SerializeField] private Sprite _segSprite;
 
-    [Header("Configurações Visuais")]
+    [Header("Visual Settings")]
     [SerializeField] private float _dimIntensity = 0.1f;
     [SerializeField] private float _pulseDuration = 0.1f;
     [SerializeField] private float _strobeDuration = 0.2f;
 
     [SerializeField]
-    private float _extraFadeOutTime = 2f; // Tempo extra para suavizar o fade-out
-    [Header("Atrasos")]
+    private float _extraFadeOutTime = 2f; // Extra time to smooth the fade-out
+    [Header("Delays")]
     [SerializeField] private float[] _ringDelays = new float[7];
     [SerializeField] private float[] _noteDelays = new float[12];
 
-    private class ActiveFade
+    private class ActiveFadeUI
     {
         public Image Segment;
         public Color StartColor;
@@ -94,8 +107,21 @@ public class BaluMidiController : MonoBehaviour
         public float Timer;
     }
 
-    private List<ActiveFade> _activeFades = new List<ActiveFade>();
-    private Image[] _segs = new Image[84];
+    private class ActiveFadeBaluminaria
+    {
+        public Segment Segment;
+        public float StartIntensity;
+        public float EndIntensity;
+        public float Duration;
+        public float Timer;
+    }
+
+    private List<ActiveFadeUI> _activeFadesUI = new List<ActiveFadeUI>();
+    private List<ActiveFadeBaluminaria> _activeFadesBaluminaria = new List<ActiveFadeBaluminaria>();
+
+    private Image[] _uiSegments = new Image[84];
+    private Segment[] _baluSegments = new Segment[84];
+
     private Coroutine[] _activeCoroutines = new Coroutine[84];
 
     private bool _isSustainPedalDown = false;
@@ -103,15 +129,13 @@ public class BaluMidiController : MonoBehaviour
 
     private void Awake()
     {
-        // Awake permanece o mesmo
-        #region Awake Content
-        _noteColors[0] = new Color(1f, 0.0f, 0.0f); // C
-        _noteColors[2] = new Color(1f, 0.5f, 0.0f); // D
-        _noteColors[4] = new Color(1f, 1.0f, 0.0f); // E
-        _noteColors[5] = new Color(0.5f, 1.0f, 0.0f); // F
-        _noteColors[7] = new Color(0.0f, 1.0f, 0.0f); // G
-        _noteColors[9] = new Color(0.0f, 0.5f, 1.0f); // A
-        _noteColors[11] = new Color(0.5f, 0.0f, 1.0f); // B
+        _noteColors[0] = new Color(1f, 0.0f, 0.0f);
+        _noteColors[2] = new Color(1f, 0.5f, 0.0f);
+        _noteColors[4] = new Color(1f, 1.0f, 0.0f);
+        _noteColors[5] = new Color(0.5f, 1.0f, 0.0f);
+        _noteColors[7] = new Color(0.0f, 1.0f, 0.0f);
+        _noteColors[9] = new Color(0.0f, 0.5f, 1.0f);
+        _noteColors[11] = new Color(0.5f, 0.0f, 1.0f);
         _noteColors[1] = Color.Lerp(_noteColors[0], _noteColors[2], 0.5f);
         _noteColors[3] = Color.Lerp(_noteColors[2], _noteColors[4], 0.5f);
         _noteColors[6] = Color.Lerp(_noteColors[5], _noteColors[7], 0.5f);
@@ -120,49 +144,24 @@ public class BaluMidiController : MonoBehaviour
 
         if (_ringDelays.Length < 7) _ringDelays = new float[] { 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f };
         if (_noteDelays.Length < 12) _noteDelays = new float[] { 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f };
-        #endregion
     }
 
     private void Start()
     {
-        // Start permanece o mesmo
-        #region Start Content
-        foreach (Transform child in _ringsParent) Destroy(child.gameObject);
-        string[] noteNames = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
-        int segIndex = 0;
-        for (int midiNote = 24; midiNote <= 107; midiNote++, segIndex++)
-        {
-            int octave = (midiNote / 12) - 1;
-            int noteInOctave = midiNote % 12;
-            string segName = $"Seg{octave:00}[{noteNames[noteInOctave]}{octave}]";
-            GameObject segGO = new GameObject(segName, typeof(RectTransform), typeof(Image), typeof(Text));
-            segGO.transform.SetParent(_ringsParent, false);
-            Image img = segGO.GetComponent<Image>();
-            if (_segSprite != null) img.sprite = _segSprite;
-            img.type = Image.Type.Filled;
-            img.fillMethod = Image.FillMethod.Radial360;
-            img.rectTransform.sizeDelta = new Vector2(32, 32);
-            img.color = GetInitialDimColor(segIndex);
-
-            _segs[segIndex] = img;
-
-
-        }
+        SetOutputMode(_currentOutputMode);
         SetPlaybackMode(_currentPlaybackMode);
-        #endregion
     }
 
     private void Update()
     {
-        // O Update para gerenciar fades continua igual e correto
-        for (int i = _activeFades.Count - 1; i >= 0; i--)
+        for (int i = _activeFadesUI.Count - 1; i >= 0; i--)
         {
-            var fade = _activeFades[i];
+            var fade = _activeFadesUI[i];
             fade.Timer += Time.deltaTime;
             if (fade.Timer >= fade.Duration)
             {
                 fade.Segment.color = fade.EndColor;
-                _activeFades.RemoveAt(i);
+                _activeFadesUI.RemoveAt(i);
             }
             else
             {
@@ -170,27 +169,36 @@ public class BaluMidiController : MonoBehaviour
                 fade.Segment.color = Color.Lerp(fade.StartColor, fade.EndColor, progress);
             }
         }
+
+        for (int i = _activeFadesBaluminaria.Count - 1; i >= 0; i--)
+        {
+            var fade = _activeFadesBaluminaria[i];
+            fade.Timer += Time.deltaTime;
+            if (fade.Timer >= fade.Duration)
+            {
+                fade.Segment.SetIntensity(fade.EndIntensity);
+                _activeFadesBaluminaria.RemoveAt(i);
+            }
+            else
+            {
+                float progress = fade.Timer / fade.Duration;
+                float currentIntensity = Mathf.Lerp(fade.StartIntensity, fade.EndIntensity, progress);
+                fade.Segment.SetIntensity(currentIntensity);
+            }
+        }
     }
 
-    private void StartFade(Image segment, Color startColor, Color endColor, float duration)
+    private void StartFadeUI(Image segment, Color startColor, Color endColor, float duration)
     {
-        // O método StartFade continua igual e correto
-        int segIndex = System.Array.IndexOf(_segs, segment);
-        if (segIndex != -1 && _activeCoroutines[segIndex] != null)
-        {
-            StopCoroutine(_activeCoroutines[segIndex]);
-            _activeCoroutines[segIndex] = null;
-        }
-        _activeFades.RemoveAll(f => f.Segment == segment);
+        _activeFadesUI.RemoveAll(f => f.Segment == segment);
 
-        // Se a duração for zero, aplica a cor final imediatamente e não adiciona à lista
         if (duration <= 0)
         {
             segment.color = endColor;
             return;
         }
 
-        _activeFades.Add(new ActiveFade
+        _activeFadesUI.Add(new ActiveFadeUI
         {
             Segment = segment,
             StartColor = startColor,
@@ -198,12 +206,30 @@ public class BaluMidiController : MonoBehaviour
             Duration = duration,
             Timer = 0f
         });
-        segment.color = startColor;
+    }
+
+    private void StartFadeBaluminaria(Segment segment, float startIntensity, float endIntensity, float duration)
+    {
+        _activeFadesBaluminaria.RemoveAll(f => f.Segment == segment);
+
+        if (duration <= 0)
+        {
+            segment.SetIntensity(endIntensity);
+            return;
+        }
+
+        _activeFadesBaluminaria.Add(new ActiveFadeBaluminaria
+        {
+            Segment = segment,
+            StartIntensity = startIntensity,
+            EndIntensity = endIntensity,
+            Duration = duration,
+            Timer = 0f
+        });
     }
 
     public void HandleSustainPedal(bool isDown)
     {
-        // A lógica do sustain continua igual e correta
         _isSustainPedalDown = isDown;
         if (!isDown)
         {
@@ -224,8 +250,6 @@ public class BaluMidiController : MonoBehaviour
     public void HandleNoteOn(MPTKEvent noteEvent)
     {
         bool isNoteOff = noteEvent.Velocity == 0;
-
-        // Se for um Note Off e o pedal de sustain estiver pressionado, armazena a nota e ignora o resto.
         if (isNoteOff && _isSustainPedalDown)
         {
             _sustainedNotes.Add(noteEvent.Value);
@@ -238,7 +262,6 @@ public class BaluMidiController : MonoBehaviour
             {
                 midiNote = Mathf.Clamp(midiNote, 24, 107);
             }
-            // Se _clampNotes for false, a nota ainda precisa estar dentro do range válido para ser processada.
             else if (midiNote < 24 || midiNote > 107) return;
 
             int segIndex = midiNote - 24;
@@ -246,27 +269,15 @@ public class BaluMidiController : MonoBehaviour
             int noteInOctave = midiNote % 12;
             int ring = Mathf.Clamp(octave - 1, 0, _ringColors.Length - 1);
 
-
-
-
-            // --- LÓGICA CORRIGIDA ---
-            // Separa completamente o que fazer ao PRESSIONAR e ao SOLTAR a tecla.
             if (isNoteOff)
             {
-                // ### EVENTO DE NOTE OFF (Soltar a tecla) ###
-                // A única responsabilidade aqui é iniciar o fade-out.
                 float fadeDuration = _ringDelays[ring] + _noteDelays[noteInOctave];
-
-                // Aplica o fade de acordo com o modo de cor atual
                 ApplyFadeOutByColorMode(midiNote, segIndex, ring, noteInOctave, fadeDuration);
             }
             else
             {
-                // ### EVENTO DE NOTE ON (Pressionar a tecla) ###
-                // A responsabilidade aqui é acender o LED com a cor certa e mantê-lo aceso.
-                float intensity = Mathf.Clamp01(noteEvent.Velocity / 127f);
-                // Aplica a cor de acordo com o modo atual
-                ApplyLightUpByColorMode(midiNote, segIndex, ring, noteInOctave, intensity);
+                float velocityIntensity = Mathf.Clamp01(noteEvent.Velocity / 127f);
+                ApplyLightUpByColorMode(midiNote, segIndex, ring, noteInOctave, velocityIntensity);
                 if (_currentPlaybackMode == PlaybackMode.File)
                 {
                     float fadeDuration = _ringDelays[ring] + _noteDelays[noteInOctave];
@@ -274,7 +285,6 @@ public class BaluMidiController : MonoBehaviour
                 }
             }
 
-            // Atualização de texto e debug continuam iguais
             string[] noteNames = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
             string noteName = noteNames[noteInOctave];
             double frequency = 440.0 * System.Math.Pow(2, (midiNote - 69) / 12.0);
@@ -286,146 +296,222 @@ public class BaluMidiController : MonoBehaviour
         }
     }
 
-    // NOVO: Método auxiliar para acender os segmentos no Note On
     private void ApplyLightUpByColorMode(int midiNote, int segIndex, int ring, int noteInOctave, float intensity)
     {
-        Color baseColor, peakColor;
+        Color baseColor;
+        float targetIntensity = intensity * _baluminaria.maxIntensity;
 
-        // Para a maioria dos modos, cancelamos qualquer fade que esteja ocorrendo no segmento atual.
-        if (_currentColorMode != ColorMode.FullBoardPulse && _currentColorMode != ColorMode.Strobe)
-        {
-            _activeFades.RemoveAll(f => f.Segment == _segs[segIndex]);
-        }
-
-        // A lógica para cada modo de cor define a cor e a aplica diretamente.
         switch (_currentColorMode)
         {
             case ColorMode.ByRing:
                 baseColor = _ringColors[ring];
-                peakColor = Color.Lerp(Color.black, baseColor, intensity);
-                _segs[segIndex].color = peakColor;
+                if (_currentOutputMode == OutputMode.UI)
+                {
+                    _activeFadesUI.RemoveAll(f => f.Segment == _uiSegments[segIndex]);
+                    _uiSegments[segIndex].color = Color.Lerp(Color.black, baseColor, intensity);
+                }
+                else
+                {
+                    _baluSegments[segIndex].ChangeLightColor(baseColor);
+                    StartFadeBaluminaria(_baluSegments[segIndex], 0f, targetIntensity, _pulseDuration);
+                }
                 break;
-
+            
             case ColorMode.ByNote:
                 baseColor = _noteColors[noteInOctave];
-                peakColor = Color.Lerp(Color.black, baseColor, intensity);
-                _segs[segIndex].color = peakColor;
+                if (_currentOutputMode == OutputMode.UI)
+                {
+                    _activeFadesUI.RemoveAll(f => f.Segment == _uiSegments[segIndex]);
+                    _uiSegments[segIndex].color = Color.Lerp(Color.black, baseColor, intensity);
+                }
+                else
+                {
+                    _baluSegments[segIndex].ChangeLightColor(baseColor);
+                    StartFadeBaluminaria(_baluSegments[segIndex], 0f, targetIntensity, _pulseDuration);
+                }
                 break;
-
             case ColorMode.AcrossOctaves:
                 baseColor = _noteColors[noteInOctave];
-                peakColor = Color.Lerp(Color.black, baseColor, intensity);
-                for (int i = 0; i < _segs.Length; i++)
+                if (_currentOutputMode == OutputMode.UI)
                 {
-                    int currentNoteInOctave = (i + 24) % 12;
-                    if (currentNoteInOctave == noteInOctave)
+                    for (int i = 0; i < _uiSegments.Length; i++)
                     {
-                        _activeFades.RemoveAll(f => f.Segment == _segs[i]);
-                        _segs[i].color = peakColor;
+                        int currentNoteInOctave = (i + 24) % 12;
+                        if (currentNoteInOctave == noteInOctave)
+                        {
+                            _activeFadesUI.RemoveAll(f => f.Segment == _uiSegments[i]);
+                            _uiSegments[i].color = Color.Lerp(Color.black, baseColor, intensity);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < _baluSegments.Length; i++)
+                    {
+                        int currentNoteInOctave = (i + 24) % 12;
+                        if (currentNoteInOctave == noteInOctave)
+                        {
+                            _baluSegments[i].ChangeLightColor(baseColor);
+                            StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity, _pulseDuration);
+                        }
                     }
                 }
                 break;
-
             case ColorMode.VerticalColor:
                 baseColor = _ringColors[ring];
-                peakColor = Color.Lerp(Color.black, baseColor, intensity);
-                for (int i = 0; i < _segs.Length; i++)
+                if (_currentOutputMode == OutputMode.UI)
                 {
-                    int currentNoteInOctave = (i + 24) % 12;
-                    if (currentNoteInOctave == noteInOctave)
+                    for (int i = 0; i < _uiSegments.Length; i++)
                     {
-                        _activeFades.RemoveAll(f => f.Segment == _segs[i]);
-                        _segs[i].color = peakColor;
+                        int currentNoteInOctave = (i + 24) % 12;
+                        if (currentNoteInOctave == noteInOctave)
+                        {
+                            _activeFadesUI.RemoveAll(f => f.Segment == _uiSegments[i]);
+                            _uiSegments[i].color = Color.Lerp(Color.black, baseColor, intensity);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < _baluSegments.Length; i++)
+                    {
+                        int currentNoteInOctave = (i + 24) % 12;
+                        if (currentNoteInOctave == noteInOctave)
+                        {
+                            _baluSegments[i].ChangeLightColor(baseColor);
+                            StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity, _pulseDuration);
+                        }
                     }
                 }
                 break;
 
             case ColorMode.TwoPaths:
             case ColorMode.OctavesBattle:
-                if (_currentColorMode == ColorMode.TwoPaths)
-                {
-                    baseColor = _noteColors[noteInOctave];
-                }
-                else
-                {
-                    baseColor = _noteColors[ring];
-                }
-
-                peakColor = Color.Lerp(Color.black, baseColor, intensity);
-                // Acende a linha vertical (AcrossOctaves)
-                for (int i = 0; i < _segs.Length; i++)
+                baseColor = (_currentColorMode == ColorMode.TwoPaths) ? _noteColors[noteInOctave] : _noteColors[ring];
+                // Acende a linha vertical
+                for (int i = 0; i < _uiSegments.Length; i++)
                 {
                     int currentNoteInOctave = (i + 24) % 12;
                     if (currentNoteInOctave == noteInOctave)
                     {
-                        _activeFades.RemoveAll(f => f.Segment == _segs[i]);
-                        _segs[i].color = peakColor;
+                        if (_currentOutputMode == OutputMode.UI)
+                        {
+                            _activeFadesUI.RemoveAll(f => f.Segment == _uiSegments[i]);
+                            _uiSegments[i].color = Color.Lerp(Color.black, baseColor, intensity);
+                        }
+                        else
+                        {
+                            _baluSegments[i].ChangeLightColor(baseColor);
+                            StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity, _pulseDuration);
+                        }
                     }
                 }
-                // Acende o anel horizontal (FullRing)
+                // Acende o anel horizontal
                 int startMidi = ((ring + 2) * 12);
                 int endMidi = startMidi + 11;
                 for (int m = startMidi; m <= endMidi; m++)
                 {
                     int currentSegIndex = m - 24;
-                    if (currentSegIndex >= 0 && currentSegIndex < _segs.Length)
+                    if (currentSegIndex >= 0 && currentSegIndex < _uiSegments.Length)
                     {
-                        _activeFades.RemoveAll(f => f.Segment == _segs[currentSegIndex]);
-                        _segs[currentSegIndex].color = peakColor;
+                        if (_currentOutputMode == OutputMode.UI)
+                        {
+                            _activeFadesUI.RemoveAll(f => f.Segment == _uiSegments[currentSegIndex]);
+                            _uiSegments[currentSegIndex].color = Color.Lerp(Color.black, baseColor, intensity);
+                        }
+                        else
+                        {
+                            _baluSegments[currentSegIndex].ChangeLightColor(baseColor);
+                            StartFadeBaluminaria(_baluSegments[currentSegIndex], 0f, targetIntensity, _pulseDuration);
+                        }
                     }
                 }
                 break;
-
             case ColorMode.FullRing:
                 baseColor = _ringColors[ring];
-                peakColor = Color.Lerp(Color.black, baseColor, intensity);
                 int startMidiFullRing = ((ring + 2) * 12);
                 int endMidiFullRing = startMidiFullRing + 11;
                 for (int m = startMidiFullRing; m <= endMidiFullRing; m++)
                 {
                     int currentSegIndex = m - 24;
-                    if (currentSegIndex >= 0 && currentSegIndex < _segs.Length)
+                    if (currentSegIndex >= 0 && currentSegIndex < _uiSegments.Length)
                     {
-                        _activeFades.RemoveAll(f => f.Segment == _segs[currentSegIndex]);
-                        _segs[currentSegIndex].color = peakColor;
+                        if (_currentOutputMode == OutputMode.UI)
+                        {
+                            _activeFadesUI.RemoveAll(f => f.Segment == _uiSegments[currentSegIndex]);
+                            _uiSegments[currentSegIndex].color = Color.Lerp(Color.black, baseColor, intensity);
+                        }
+                        else
+                        {
+                            _baluSegments[currentSegIndex].ChangeLightColor(baseColor);
+                            StartFadeBaluminaria(_baluSegments[currentSegIndex], 0f, targetIntensity, _pulseDuration);
+                        }
+                    }
+                }
+                break;
+            case ColorMode.Strobe:
+                baseColor = _noteColors[noteInOctave];
+                if (_currentOutputMode == OutputMode.UI)
+                {
+                    _activeFadesUI.RemoveAll(f => f.Segment == _uiSegments[segIndex]);
+                    _uiSegments[segIndex].color = Color.Lerp(Color.black, baseColor, intensity);
+                }
+                else
+                {
+                    _baluSegments[segIndex].ChangeLightColor(baseColor);
+                }
+                StartCoroutine(StrobeEffect(segIndex, targetIntensity));
+                break;
+            case ColorMode.FullBoardPulse:
+                baseColor = _noteColors[noteInOctave];
+                for (int i = 0; i < _uiSegments.Length; i++)
+                {
+                    if (_currentOutputMode == OutputMode.UI)
+                    {
+                        _activeFadesUI.RemoveAll(f => f.Segment == _uiSegments[i]);
+                        _uiSegments[i].color = Color.Lerp(Color.black, baseColor, intensity);
+                    }
+                    else
+                    {
+                        _baluSegments[i].ChangeLightColor(baseColor);
+                        StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity, _pulseDuration);
                     }
                 }
                 break;
 
-            case ColorMode.Strobe:
-                baseColor = _noteColors[noteInOctave];
-                peakColor = Color.Lerp(Color.black, baseColor, intensity);
-                StartCoroutine(StrobeEffect(segIndex, peakColor));
-                break;
-
-            case ColorMode.FullBoardPulse:
-                peakColor = Color.Lerp(Color.black, _noteColors[noteInOctave], intensity);
-                for (int i = 0; i < _segs.Length; i++)
-                {
-                    _activeFades.RemoveAll(f => f.Segment == _segs[i]);
-                    _segs[i].color = peakColor;
-                }
-                break;
-
             case ColorMode.RandomNoteColor:
-                peakColor = Color.Lerp(Color.black, new Color(Random.value, Random.value, Random.value), intensity);
-                _segs[segIndex].color = peakColor;
+                baseColor = new Color(Random.value, Random.value, Random.value);
+                if (_currentOutputMode == OutputMode.UI)
+                {
+                    _activeFadesUI.RemoveAll(f => f.Segment == _uiSegments[segIndex]);
+                    _uiSegments[segIndex].color = Color.Lerp(Color.black, baseColor, intensity);
+                }
+                else
+                {
+                    _baluSegments[segIndex].ChangeLightColor(baseColor);
+                    StartFadeBaluminaria(_baluSegments[segIndex], 0f, targetIntensity, _pulseDuration);
+                }
                 break;
         }
     }
 
-    // NOVO: Método auxiliar para iniciar o fade-out dos segmentos no Note Off
     private void ApplyFadeOutByColorMode(int midiNote, int segIndex, int ring, int noteInOctave, float fadeDuration)
     {
-        Color dimColor;
         fadeDuration = _isSustainPedalDown ? fadeDuration + _extraFadeOutTime : fadeDuration;
+        float dimIntensity = _dimIntensity * _baluminaria.maxIntensity;
 
         switch (_currentColorMode)
         {
             case ColorMode.ByRing:
             case ColorMode.FullRing:
-                dimColor = _ringColors[ring] * _dimIntensity;
-                StartFade(_segs[segIndex], _segs[segIndex].color, dimColor, fadeDuration);
+                if (_currentOutputMode == OutputMode.UI)
+                {
+                    StartFadeUI(_uiSegments[segIndex], _uiSegments[segIndex].color, _ringColors[ring] * _dimIntensity, fadeDuration);
+                }
+                else
+                {
+                    StartFadeBaluminaria(_baluSegments[segIndex], _baluSegments[segIndex].GetComponentInChildren<Light>().intensity, dimIntensity, fadeDuration);
+                }
                 if (_currentColorMode == ColorMode.FullRing)
                 {
                     int startMidiFullRing = ((ring + 2) * 12);
@@ -433,9 +519,16 @@ public class BaluMidiController : MonoBehaviour
                     for (int m = startMidiFullRing; m <= endMidiFullRing; m++)
                     {
                         int currentSegIndex = m - 24;
-                        if (currentSegIndex >= 0 && currentSegIndex < _segs.Length)
+                        if (currentSegIndex >= 0 && currentSegIndex < _uiSegments.Length)
                         {
-                            StartFade(_segs[currentSegIndex], _segs[currentSegIndex].color, dimColor, fadeDuration);
+                            if (_currentOutputMode == OutputMode.UI)
+                            {
+                                StartFadeUI(_uiSegments[currentSegIndex], _uiSegments[currentSegIndex].color, _ringColors[ring] * _dimIntensity, fadeDuration);
+                            }
+                            else
+                            {
+                                StartFadeBaluminaria(_baluSegments[currentSegIndex], _baluSegments[currentSegIndex].GetComponentInChildren<Light>().intensity, dimIntensity, fadeDuration);
+                            }
                         }
                     }
                 }
@@ -443,51 +536,68 @@ public class BaluMidiController : MonoBehaviour
 
             case ColorMode.ByNote:
             case ColorMode.RandomNoteColor:
-                dimColor = _noteColors[noteInOctave] * _dimIntensity;
-                StartFade(_segs[segIndex], _segs[segIndex].color, dimColor, fadeDuration);
-                break;
-
-            case ColorMode.AcrossOctaves:
-                dimColor = _noteColors[noteInOctave] * _dimIntensity;
-                for (int i = 0; i < _segs.Length; i++)
+                if (_currentOutputMode == OutputMode.UI)
                 {
-                    int currentNoteInOctave = (i + 24) % 12;
-                    if (currentNoteInOctave == noteInOctave)
-                    {
-                        StartFade(_segs[i], _segs[i].color, dimColor, fadeDuration);
-                    }
+                    StartFadeUI(_uiSegments[segIndex], _uiSegments[segIndex].color, _noteColors[noteInOctave] * _dimIntensity, fadeDuration);
+                }
+                else
+                {
+                    StartFadeBaluminaria(_baluSegments[segIndex], _baluSegments[segIndex].GetComponentInChildren<Light>().intensity, dimIntensity, fadeDuration);
                 }
                 break;
 
-            case ColorMode.VerticalColor:
-                dimColor = _ringColors[ring] * _dimIntensity;
-                for (int i = 0; i < _segs.Length; i++)
+            case ColorMode.AcrossOctaves:
+                for (int i = 0; i < _uiSegments.Length; i++)
                 {
                     int currentNoteInOctave = (i + 24) % 12;
                     if (currentNoteInOctave == noteInOctave)
                     {
-                        StartFade(_segs[i], _segs[i].color, dimColor, fadeDuration);
+                        if (_currentOutputMode == OutputMode.UI)
+                        {
+                            StartFadeUI(_uiSegments[i], _uiSegments[i].color, _noteColors[noteInOctave] * _dimIntensity, fadeDuration);
+                        }
+                        else
+                        {
+                            StartFadeBaluminaria(_baluSegments[i], _baluSegments[i].GetComponentInChildren<Light>().intensity, dimIntensity, fadeDuration);
+                        }
+                    }
+                }
+                break;
+            case ColorMode.VerticalColor:
+                for (int i = 0; i < _uiSegments.Length; i++)
+                {
+                    int currentNoteInOctave = (i + 24) % 12;
+                    if (currentNoteInOctave == noteInOctave)
+                    {
+                        if (_currentOutputMode == OutputMode.UI)
+                        {
+                            StartFadeUI(_uiSegments[i], _uiSegments[i].color, _ringColors[ring] * _dimIntensity, fadeDuration);
+                        }
+                        else
+                        {
+                            StartFadeBaluminaria(_baluSegments[i], _baluSegments[i].GetComponentInChildren<Light>().intensity, dimIntensity, fadeDuration);
+                        }
                     }
                 }
                 break;
 
             case ColorMode.TwoPaths:
             case ColorMode.OctavesBattle:
-                if (_currentColorMode == ColorMode.TwoPaths)
-                {
-                    dimColor = _noteColors[noteInOctave] * _dimIntensity;
-                }
-                else
-                {
-                    dimColor = _noteColors[ring] * _dimIntensity;
-                }
+                Color dimColor = (_currentColorMode == ColorMode.TwoPaths) ? _noteColors[noteInOctave] * _dimIntensity : _noteColors[ring] * _dimIntensity;
                 // Fade-out da linha vertical
-                for (int i = 0; i < _segs.Length; i++)
+                for (int i = 0; i < _uiSegments.Length; i++)
                 {
                     int currentNoteInOctave = (i + 24) % 12;
                     if (currentNoteInOctave == noteInOctave)
                     {
-                        StartFade(_segs[i], _segs[i].color, dimColor, fadeDuration);
+                        if (_currentOutputMode == OutputMode.UI)
+                        {
+                            StartFadeUI(_uiSegments[i], _uiSegments[i].color, dimColor, fadeDuration);
+                        }
+                        else
+                        {
+                            StartFadeBaluminaria(_baluSegments[i], _baluSegments[i].GetComponentInChildren<Light>().intensity, dimIntensity, fadeDuration);
+                        }
                     }
                 }
                 // Fade-out do anel horizontal
@@ -496,27 +606,43 @@ public class BaluMidiController : MonoBehaviour
                 for (int m = startMidiTwoPaths; m <= endMidiTwoPaths; m++)
                 {
                     int currentSegIndex = m - 24;
-                    if (currentSegIndex >= 0 && currentSegIndex < _segs.Length)
+                    if (currentSegIndex >= 0 && currentSegIndex < _uiSegments.Length)
                     {
-                        StartFade(_segs[currentSegIndex], _segs[currentSegIndex].color, dimColor, fadeDuration);
+                        if (_currentOutputMode == OutputMode.UI)
+                        {
+                            StartFadeUI(_uiSegments[currentSegIndex], _uiSegments[currentSegIndex].color, dimColor, fadeDuration);
+                        }
+                        else
+                        {
+                            StartFadeBaluminaria(_baluSegments[currentSegIndex], _baluSegments[currentSegIndex].GetComponentInChildren<Light>().intensity, dimIntensity, fadeDuration);
+                        }
                     }
                 }
                 break;
-
             case ColorMode.FullBoardPulse:
-                for (int i = 0; i < _segs.Length; i++)
+                for (int i = 0; i < _uiSegments.Length; i++)
                 {
                     Color initialDimColor = GetInitialDimColor(i);
-                    StartFade(_segs[i], _segs[i].color, initialDimColor, fadeDuration);
+                    if (_currentOutputMode == OutputMode.UI)
+                    {
+                        StartFadeUI(_uiSegments[i], _uiSegments[i].color, initialDimColor, fadeDuration);
+                    }
+                    else
+                    {
+                        StartFadeBaluminaria(_baluSegments[i], _baluSegments[i].GetComponentInChildren<Light>().intensity, dimIntensity, fadeDuration);
+                    }
                 }
+                break;
+            case ColorMode.Strobe:
+                // O fade-out já é tratado dentro da corrotina de Strobe, então não faz nada aqui.
                 break;
         }
     }
 
-    private IEnumerator StrobeEffect(int segIndex, Color peakColor)
+    private IEnumerator StrobeEffect(int segIndex, float targetIntensity)
     {
-        if (segIndex < 0 || segIndex >= _segs.Length) yield break;
-        _activeFades.RemoveAll(f => f.Segment == _segs[segIndex]);
+        if (segIndex < 0 || segIndex >= _uiSegments.Length) yield break;
+
         if (_activeCoroutines[segIndex] != null) StopCoroutine(_activeCoroutines[segIndex]);
 
         IEnumerator strobe()
@@ -524,15 +650,25 @@ public class BaluMidiController : MonoBehaviour
             float timer = 0f;
             while (timer < _strobeDuration)
             {
-                _segs[segIndex].color = peakColor;
+                if (_currentOutputMode == OutputMode.UI) _uiSegments[segIndex].color = _uiSegments[segIndex].color;
+                else _baluSegments[segIndex].SetIntensity(targetIntensity);
                 yield return new WaitForSeconds(0.05f);
-                _segs[segIndex].color = Color.black;
+
+                if (_currentOutputMode == OutputMode.UI) _uiSegments[segIndex].color = Color.black;
+                else _baluSegments[segIndex].SetIntensity(0);
                 yield return new WaitForSeconds(0.05f);
                 timer += 0.1f;
             }
-            Color finalColor = GetInitialDimColor(segIndex);
             float fadeDuration = _ringDelays[0];
-            StartFade(_segs[segIndex], _segs[segIndex].color, finalColor, fadeDuration);
+            float finalIntensity = _dimIntensity * _baluminaria.maxIntensity;
+            if (_currentOutputMode == OutputMode.UI)
+            {
+                StartFadeUI(_uiSegments[segIndex], _uiSegments[segIndex].color, GetInitialDimColor(segIndex), fadeDuration);
+            }
+            else
+            {
+                StartFadeBaluminaria(_baluSegments[segIndex], _baluSegments[segIndex].GetComponentInChildren<Light>().intensity, finalIntensity, fadeDuration);
+            }
             _activeCoroutines[segIndex] = null;
         }
         _activeCoroutines[segIndex] = StartCoroutine(strobe());
@@ -602,6 +738,58 @@ public class BaluMidiController : MonoBehaviour
                 if (_baluAudioReactive != null) _baluAudioReactive.gameObject.SetActive(true);
                 if (_audioSource != null) _audioSource.gameObject.SetActive(true);
                 break;
+        }
+    }
+
+    public void SetOutputMode(OutputMode mode)
+    {
+        _currentOutputMode = mode;
+
+        if (_uiCanvas != null)
+        {
+            _uiCanvas.SetActive(mode == OutputMode.UI);
+        }
+
+        if (_baluminaria != null)
+        {
+            Segment[] allSegments = _baluminaria.GetSegments();
+            int baluSegmentIndex = 0;
+            for (int i = 0; i < 7; i++) // Itera sobre os 7 anéis
+            {
+                for (int j = 0; j < 12; j++) // Itera sobre os 12 segmentos de cada anel que serão controlados
+                {
+                    // O índice correto na array allSegments é j*7 + i
+                    int baluminariaIndex = (j * 7) + i;
+                    _baluSegments[baluSegmentIndex] = allSegments[baluminariaIndex];
+                    baluSegmentIndex++;
+                }
+            }
+        }
+
+        if (_currentOutputMode == OutputMode.UI)
+        {
+            if (_ringsParent != null)
+            {
+                foreach (Transform child in _ringsParent) Destroy(child.gameObject);
+
+                string[] noteNames = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+                int segIndex = 0;
+                for (int midiNote = 24; midiNote <= 107; midiNote++, segIndex++)
+                {
+                    int octave = (midiNote / 12) - 1;
+                    int noteInOctave = midiNote % 12;
+                    string segName = $"Seg{octave:00}[{noteNames[noteInOctave]}{octave}]";
+                    GameObject segGO = new GameObject(segName, typeof(RectTransform), typeof(Image), typeof(Text));
+                    segGO.transform.SetParent(_ringsParent, false);
+                    Image img = segGO.GetComponent<Image>();
+                    if (_segSprite != null) img.sprite = _segSprite;
+                    img.type = Image.Type.Filled;
+                    img.fillMethod = Image.FillMethod.Radial360;
+                    img.rectTransform.sizeDelta = new Vector2(32, 32);
+                    img.color = GetInitialDimColor(segIndex);
+                    _uiSegments[segIndex] = img;
+                }
+            }
         }
     }
 

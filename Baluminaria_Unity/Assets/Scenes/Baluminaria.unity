@@ -1136,8 +1136,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 0.9785366, b: 0.92, a: 1}
-  m_Intensity: 0.55
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1146,7 +1146,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.8
+    m_Strength: 0.5
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -1181,7 +1181,7 @@ Light:
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
+  m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
@@ -1572,11 +1572,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: midiNameToPlay
-      value: Beethoven-sonata-14-3
+      value: Satie - Gymnopedie 1
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: midiIndexToPlay
-      value: 15
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: showMidiPlaying
@@ -1585,7 +1585,7 @@ PrefabInstance:
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: MPTK_EffectSoundFont
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1203090490}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: showUnitySynthEffect
       value: 0
@@ -2217,10 +2217,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1061115397}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 508.2, y: 50}
+  m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &484925748
 MonoBehaviour:
@@ -2251,8 +2251,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2269,8 +2269,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
-  m_fontSizeBase: 64
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2336,7 +2336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &505702790
 Transform:
   m_ObjectHideFlags: 0
@@ -2388,10 +2388,10 @@ RectTransform:
   - {fileID: 2056527931}
   m_Father: {fileID: 1061115397}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1580, y: 830}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &511397009
 MonoBehaviour:
@@ -2831,6 +2831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefabSegments: []
+  maxIntensity: 0.5
 --- !u!1 &603522985
 GameObject:
   m_ObjectHideFlags: 0
@@ -4027,11 +4028,14 @@ MonoBehaviour:
   _audioSource: {fileID: 0}
   _text: {fileID: 1798677227}
   _ringsParent: {fileID: 2056527931}
+  _currentOutputMode: 0
+  _uiCanvas: {fileID: 1061115396}
+  _baluminaria: {fileID: 1886229337}
   _currentPlaybackMode: 0
   _clampNotes: 1
   _analysisSensitivity: 0.03
   _analysisInterval: 0.01
-  _currentColorMode: 8
+  _currentColorMode: 2
   _ringColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 1, g: 0.5, b: 0, a: 1}
@@ -4055,7 +4059,7 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 0, a: 0}
   _segSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   _dimIntensity: 0
-  _pulseDuration: 1
+  _pulseDuration: 0.1
   _strobeDuration: 0.5
   _extraFadeOutTime: 2
   _ringDelays:
@@ -4370,8 +4374,8 @@ Camera:
   m_GameObject: {fileID: 961739749}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4421,7 +4425,7 @@ Transform:
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.20297027, y: 0.6159072, z: -6.4692974}
+  m_LocalPosition: {x: 0, y: 0.5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5438,6 +5442,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178693634}
   m_CullTransparentMesh: 1
+--- !u!114 &1203090490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2b118d1a6c1154983be5ee4bf1b510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  applySFReverb: 0
+  applySFChorus: 0
+  applySFFilter: 1
 --- !u!1 &1256170653
 GameObject:
   m_ObjectHideFlags: 0
@@ -7156,6 +7175,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 02471c185d5bdd14e8b83f2b2c7602f6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: eb83e992933abe14eb4e828f1b09c6b7, type: 2}
     - target: {fileID: 919132149155446097, guid: 02471c185d5bdd14e8b83f2b2c7602f6, type: 3}
       propertyPath: m_Name
       value: Baluminaria-Boca
@@ -7480,8 +7503,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -8037,10 +8060,11 @@ MonoBehaviour:
   - {fileID: 1057392004975985407, guid: 0308342b739877a47963c18be65a67f8, type: 3}
   - {fileID: 8078509700047175975, guid: 0c63e953fcd159243a49c4438bf6acd5, type: 3}
   - {fileID: 6524055898887000128, guid: 16a80754ac972394ea0d4078c3d9fe5e, type: 3}
-  - {fileID: 5224214319966192168, guid: 518e236c764d7354bb348547989b3893, type: 3}
+  - {fileID: 338443101023115145, guid: 518e236c764d7354bb348547989b3893, type: 3}
   - {fileID: 3181332989991305630, guid: 2e2da1d9fbfa38d49abd98f46cf4adc8, type: 3}
   - {fileID: 5507492165183826708, guid: eb1a3095660504d4b85e34e56d2f5f07, type: 3}
   - {fileID: 6428150953228895480, guid: 6bb91eb359bfb8146a851a1e9ccd8d48, type: 3}
+  maxIntensity: 1
 --- !u!1 &1920162440
 GameObject:
   m_ObjectHideFlags: 0
@@ -8781,7 +8805,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -30}
+  m_AnchoredPosition: {x: 0, y: -200}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!225 &2056527932
@@ -10250,9 +10274,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1559361851}
-  - {fileID: 1886229336}
-  - {fileID: 1061115397}
   - {fileID: 918980737}
   - {fileID: 1371874676}
   - {fileID: 991713502}
+  - {fileID: 1061115397}
+  - {fileID: 1886229336}
   - {fileID: 363476460}

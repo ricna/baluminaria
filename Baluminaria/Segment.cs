@@ -1,4 +1,3 @@
-using UnityEngine;
 
 public class Segment : MonoBehaviour
 {
@@ -7,11 +6,21 @@ public class Segment : MonoBehaviour
     [SerializeField]
     private BoxCollider _boxCollider;
 
-    private void Start()
+    public Color CurrentColor
     {
+        get { return _light.color; }
+        set { _light.color = value; }
+    }
+
+    private void Awake()
+    {
+        // É melhor inicializar os componentes no Awake para garantir que estejam prontos
         AddLight();
         AddBoxCollider();
     }
+    
+    // O método Start pode ser removido ou deixado vazio se a inicialização for movida para o Awake
+    // private void Start() { }
 
     private void AddBoxCollider()
     {
@@ -44,9 +53,9 @@ public class Segment : MonoBehaviour
         }
     }
 
+    // Este método agora é redundante devido à propriedade CurrentColor, mas pode ser mantido por compatibilidade.
     public void ChangeLightColor(Color color)
     {
         _light.color = color;
     }
-
 }

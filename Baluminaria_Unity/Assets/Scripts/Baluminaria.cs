@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class Baluminaria : MonoBehaviour
 {
+    private Transform _transform;
+    [SerializeField]
+    private bool _autoRotate = true;
+    [SerializeField]
+    private float _rotationSpeed = 10f;
     [SerializeField]
     private Segment[] _prefabSegments; // Array para os 7 prefabs de segmento
     private Segment[] _allSegments;
@@ -16,6 +21,12 @@ public class Baluminaria : MonoBehaviour
         Initialize();
     }
 
+    private void Update()
+    {
+        if (!_autoRotate) return;
+        _transform = transform;
+        _transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime);
+    }
     private void Initialize()
     {
         if (_allSegments != null && _allSegments.Length > 0)

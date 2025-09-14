@@ -209,9 +209,17 @@ public class BaluMidiController : MonoBehaviour
         });
     }
 
-    private void StartFadeBaluminaria(Segment segment, float startIntensity, float endIntensity, float duration)
+    private void StartFadeBaluminaria(Segment segment, float startIntensity, float endIntensity, float duration = 0)
     {
+
         _activeFadesBaluminaria.RemoveAll(f => f.Segment == segment);
+        
+        /*if (endIntensity > 0 && _currentPlaybackMode == PlaybackMode.File)
+        {
+            //Fade imediato para evitar delay no ataque
+            segment.SetIntensity(endIntensity);
+            return;
+        }*/
 
         if (duration <= 0)
         {
@@ -245,10 +253,10 @@ public class BaluMidiController : MonoBehaviour
     public void HandleNoteOn(int midiNote, int velocity)
     {
         MPTKEvent ev = new MPTKEvent { Command = MPTKCommand.NoteOn, Value = midiNote, Velocity = Mathf.Clamp(velocity, 0, 127) };
-        HandleNoteOn(ev);
+        HandleNoteEvent(ev);
     }
 
-    public void HandleNoteOn(MPTKEvent noteEvent)
+    public void HandleNoteEvent(MPTKEvent noteEvent)
     {
         bool isNoteOff = noteEvent.Velocity == 0;
         if (isNoteOff && _isSustainPedalDown)
@@ -273,16 +281,16 @@ public class BaluMidiController : MonoBehaviour
             if (isNoteOff)
             {
                 float fadeDuration = _ringDelays[ring] + _noteDelays[noteInOctave];
-                ApplyFadeOutByColorMode(midiNote, segIndex, ring, noteInOctave, fadeDuration);
+                FadeOut(midiNote, segIndex, ring, noteInOctave, fadeDuration);
             }
             else
             {
                 float velocityIntensity = Mathf.Clamp01(noteEvent.Velocity / 127f);
-                ApplyLightUpByColorMode(midiNote, segIndex, ring, noteInOctave, velocityIntensity);
+                LightUp(midiNote, segIndex, ring, noteInOctave, velocityIntensity);
                 if (_currentPlaybackMode == PlaybackMode.File)
                 {
                     float fadeDuration = _ringDelays[ring] + _noteDelays[noteInOctave];
-                    ApplyFadeOutByColorMode(midiNote, segIndex, ring, noteInOctave, fadeDuration);
+                    FadeOut(midiNote, segIndex, ring, noteInOctave, fadeDuration);
                 }
             }
 
@@ -297,7 +305,7 @@ public class BaluMidiController : MonoBehaviour
         }
     }
 
-    private void ApplyLightUpByColorMode(int midiNote, int segIndex, int ring, int noteInOctave, float intensity)
+    private void LightUp(int midiNote, int segIndex, int ring, int noteInOctave, float intensity)
     {
         Color baseColor;
         float targetIntensity = intensity * _baluminaria.maxIntensity;
@@ -314,7 +322,7 @@ public class BaluMidiController : MonoBehaviour
                 else
                 {
                     _baluSegments[segIndex].ChangeLightColor(baseColor);
-                    StartFadeBaluminaria(_baluSegments[segIndex], 0f, targetIntensity, _pulseDuration);
+                    StartFadeBaluminaria(_baluSegments[segIndex], 0f, targetIntensity);
                 }
                 break;
 
@@ -328,7 +336,7 @@ public class BaluMidiController : MonoBehaviour
                 else
                 {
                     _baluSegments[segIndex].ChangeLightColor(baseColor);
-                    StartFadeBaluminaria(_baluSegments[segIndex], 0f, targetIntensity, _pulseDuration);
+                    StartFadeBaluminaria(_baluSegments[segIndex], 0f, targetIntensity);
                 }
                 break;
             case ColorMode.AcrossOctaves:
@@ -353,7 +361,7 @@ public class BaluMidiController : MonoBehaviour
                         if (currentNoteInOctave == noteInOctave)
                         {
                             _baluSegments[i].ChangeLightColor(baseColor);
-                            StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity, _pulseDuration);
+                            StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity);
                         }
                     }
                 }
@@ -380,7 +388,7 @@ public class BaluMidiController : MonoBehaviour
                         if (currentNoteInOctave == noteInOctave)
                         {
                             _baluSegments[i].ChangeLightColor(baseColor);
-                            StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity, _pulseDuration);
+                            StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity);
                         }
                     }
                 }
@@ -403,7 +411,7 @@ public class BaluMidiController : MonoBehaviour
                         else
                         {
                             _baluSegments[i].ChangeLightColor(baseColor);
-                            StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity, _pulseDuration);
+                            StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity);
                         }
                     }
                 }
@@ -423,7 +431,7 @@ public class BaluMidiController : MonoBehaviour
                         else
                         {
                             _baluSegments[currentSegIndex].ChangeLightColor(baseColor);
-                            StartFadeBaluminaria(_baluSegments[currentSegIndex], 0f, targetIntensity, _pulseDuration);
+                            StartFadeBaluminaria(_baluSegments[currentSegIndex], 0f, targetIntensity);
                         }
                     }
                 }
@@ -445,7 +453,7 @@ public class BaluMidiController : MonoBehaviour
                         else
                         {
                             _baluSegments[currentSegIndex].ChangeLightColor(baseColor);
-                            StartFadeBaluminaria(_baluSegments[currentSegIndex], 0f, targetIntensity, _pulseDuration);
+                            StartFadeBaluminaria(_baluSegments[currentSegIndex], 0f, targetIntensity);
                         }
                     }
                 }
@@ -475,7 +483,7 @@ public class BaluMidiController : MonoBehaviour
                     else
                     {
                         _baluSegments[i].ChangeLightColor(baseColor);
-                        StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity, _pulseDuration);
+                        StartFadeBaluminaria(_baluSegments[i], 0f, targetIntensity);
                     }
                 }
                 break;
@@ -490,13 +498,13 @@ public class BaluMidiController : MonoBehaviour
                 else
                 {
                     _baluSegments[segIndex].ChangeLightColor(baseColor);
-                    StartFadeBaluminaria(_baluSegments[segIndex], 0f, targetIntensity, _pulseDuration);
+                    StartFadeBaluminaria(_baluSegments[segIndex], 0f, targetIntensity);
                 }
                 break;
         }
     }
 
-    private void ApplyFadeOutByColorMode(int midiNote, int segIndex, int ring, int noteInOctave, float fadeDuration)
+    private void FadeOut(int midiNote, int segIndex, int ring, int noteInOctave, float fadeDuration)
     {
         fadeDuration = _isSustainPedalDown ? fadeDuration + _extraFadeOutTime : fadeDuration;
         float dimIntensity = _dimIntensity * _baluminaria.maxIntensity;
@@ -710,7 +718,7 @@ public class BaluMidiController : MonoBehaviour
     {
         foreach (var noteEvent in noteEvents)
         {
-            HandleNoteOn(noteEvent);
+            HandleNoteEvent(noteEvent);
             Debug.Log($"<color=magenta>Evento FILE MIDI: {noteEvent.Command}, Nota: {noteEvent.Value}, Velocidade: {noteEvent.Velocity}</color>");
         }
     }

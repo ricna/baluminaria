@@ -1,9 +1,10 @@
-using UnityEngine;
 using MidiPlayerTK;
-using UnityEngine.UI;
+using MPTK.NAudio.Midi;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class BaluMidiController : MonoBehaviour
 {
@@ -36,6 +37,10 @@ public class BaluMidiController : MonoBehaviour
         UI,
         Baluminaria
     }
+
+    [SerializeField]
+    private ScoreGenerator _scoreGenerator;
+
 
     [Header("MPTK Components")]
     [SerializeField] private MidiFilePlayer _midiFilePlayer;
@@ -213,7 +218,7 @@ public class BaluMidiController : MonoBehaviour
     {
 
         _activeFadesBaluminaria.RemoveAll(f => f.Segment == segment);
-        
+
         /*if (endIntensity > 0 && _currentPlaybackMode == PlaybackMode.File)
         {
             //Fade imediato para evitar delay no ataque
@@ -254,55 +259,6 @@ public class BaluMidiController : MonoBehaviour
     {
         MPTKEvent ev = new MPTKEvent { Command = MPTKCommand.NoteOn, Value = midiNote, Velocity = Mathf.Clamp(velocity, 0, 127) };
         HandleNoteEvent(ev);
-    }
-
-    public void HandleNoteEvent(MPTKEvent noteEvent)
-    {
-        bool isNoteOff = noteEvent.Velocity == 0;
-        if (isNoteOff && _isSustainPedalDown)
-        {
-            _sustainedNotes.Add(noteEvent.Value);
-        }
-
-        try
-        {
-            int midiNote = noteEvent.Value;
-            if (_clampNotes)
-            {
-                midiNote = Mathf.Clamp(midiNote, 24, 107);
-            }
-            else if (midiNote < 24 || midiNote > 107) return;
-
-            int segIndex = midiNote - 24;
-            int octave = (midiNote / 12) - 1;
-            int noteInOctave = midiNote % 12;
-            int ring = Mathf.Clamp(octave - 1, 0, _ringColors.Length - 1);
-
-            if (isNoteOff)
-            {
-                float fadeDuration = _ringDelays[ring] + _noteDelays[noteInOctave];
-                FadeOut(midiNote, segIndex, ring, noteInOctave, fadeDuration);
-            }
-            else
-            {
-                float velocityIntensity = Mathf.Clamp01(noteEvent.Velocity / 127f);
-                LightUp(midiNote, segIndex, ring, noteInOctave, velocityIntensity);
-                if (_currentPlaybackMode == PlaybackMode.File)
-                {
-                    float fadeDuration = _ringDelays[ring] + _noteDelays[noteInOctave];
-                    FadeOut(midiNote, segIndex, ring, noteInOctave, fadeDuration);
-                }
-            }
-
-            string[] noteNames = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
-            string noteName = noteNames[noteInOctave];
-            double frequency = 440.0 * System.Math.Pow(2, (midiNote - 69) / 12.0);
-            _text.text = $"Nota: {noteName}{octave} | MIDI: {midiNote} | Velocidade: {noteEvent.Velocity} | Freq: {frequency:F2} Hz";
-        }
-        catch (System.Exception ex)
-        {
-            Debug.LogError($"Erro em HandleNoteOn: {ex.Message}\n{ex.StackTrace}");
-        }
     }
 
     private void LightUp(int midiNote, int segIndex, int ring, int noteInOctave, float intensity)
@@ -714,12 +670,101 @@ public class BaluMidiController : MonoBehaviour
         return initialColor;
     }
 
-    private void OnNotesMidi(List<MPTKEvent> noteEvents)
+    // This method will be called by the MIDI sequencer just before the notes
+    // are playing by the MIDI synthesizer (if 'Send To Synth' is enabled)
+    private void OnNotesMidi(List<MPTKEvent> mptkEvents)
     {
-        foreach (var noteEvent in noteEvents)
+        foreach (var mptkEvent in mptkEvents)
         {
-            HandleNoteEvent(noteEvent);
-            Debug.Log($"<color=magenta>Evento FILE MIDI: {noteEvent.Command}, Nota: {noteEvent.Value}, Velocidade: {noteEvent.Velocity}</color>");
+
+            if (mptkEvent.Command == MPTKCommand.NoteOn)
+            {
+                Debug.Log($"Note on Time:{mptkEvent.RealTime} millisecond  Note:{mptkEvent.Value}  Duration:{mptkEvent.Duration} millisecond  Velocity:{mptkEvent.Velocity}");
+            }
+
+            if (mptkEvent.Command == MPTKCommand.MetaEvent)
+            {
+                switch (mptkEvent.Meta)
+                {
+                    case MPTKMeta.Lyric:
+                        Debug.Log($"Lyric: {mptkEvent.Info}");
+                        break;
+                    case MPTKMeta.CuePoint:
+                        Debug.Log($"Cue Point: {mptkEvent.Info}");
+                        break;
+                    case MPTKMeta.Marker:
+                        Debug.Log($"Marker: {mptkEvent.Info}");
+                        break;
+                    case MPTKMeta.SequenceTrackName:
+                        Debug.Log($"Track Name: {mptkEvent.Info}");
+                        break;
+                    case MPTKMeta.TrackInstrumentName:
+                        Debug.Log($"Instrument Name: {mptkEvent.Info}");
+                        break;
+                    case MPTKMeta.Copyright:
+                        Debug.Log($"Copyright: {mptkEvent.Info}");
+                        break;
+                    default:
+                        Debug.Log($"Meta Event: {mptkEvent.Meta} - {mptkEvent.Info}");
+                        break;
+                }
+            }
+            HandleNoteEvent(mptkEvent);
+            Debug.Log($"<color=magenta>Evento FILE MIDI: {mptkEvent.Command}, Nota: {mptkEvent.Value}, Velocidade: {mptkEvent.Velocity}</color>");
+            if (_scoreGenerator != null)
+            {
+                _scoreGenerator.AddNoteEvent(mptkEvent);
+            }
+        }
+    }
+
+    public void HandleNoteEvent(MPTKEvent noteEvent)
+    {
+        bool isNoteOff = noteEvent.Velocity == 0;
+        isNoteOff = noteEvent.Command == MPTKCommand.NoteOff;
+        if (isNoteOff && _isSustainPedalDown)
+        {
+            _sustainedNotes.Add(noteEvent.Value);
+        }
+
+        try
+        {
+            int midiNote = noteEvent.Value;
+            if (_clampNotes)
+            {
+                midiNote = Mathf.Clamp(midiNote, 24, 107);
+            }
+            else if (midiNote < 24 || midiNote > 107) return;
+
+            int segIndex = midiNote - 24;
+            int octave = (midiNote / 12) - 1;
+            int noteInOctave = midiNote % 12;
+            int ring = Mathf.Clamp(octave - 1, 0, _ringColors.Length - 1);
+
+            if (isNoteOff)
+            {
+                float fadeDuration = _ringDelays[ring] + _noteDelays[noteInOctave];
+                FadeOut(midiNote, segIndex, ring, noteInOctave, fadeDuration);
+            }
+            else
+            {
+                float velocityIntensity = Mathf.Clamp01(noteEvent.Velocity / 127f);
+                LightUp(midiNote, segIndex, ring, noteInOctave, velocityIntensity);
+                /*if (_currentPlaybackMode == PlaybackMode.File)
+                {
+                    float fadeDuration = _ringDelays[ring] + _noteDelays[noteInOctave];
+                    FadeOut(midiNote, segIndex, ring, noteInOctave, fadeDuration);
+                }*/
+            }
+
+            string[] noteNames = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+            string noteName = noteNames[noteInOctave];
+            double frequency = 440.0 * System.Math.Pow(2, (midiNote - 69) / 12.0);
+            _text.text = $"Nota: {noteName}{octave} | MIDI: {midiNote} | Velocidade: {noteEvent.Velocity} | Freq: {frequency:F2} Hz";
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"Erro em HandleNoteOn: {ex.Message}\n{ex.StackTrace}");
         }
     }
 
@@ -824,6 +869,16 @@ public class BaluMidiController : MonoBehaviour
         else if (_currentPlaybackMode == PlaybackMode.AudioSource)
         {
             _baluAudioReactive.RestartAudioClip();
+        }
+    }
+
+    // Crie um método público para exportar a partitura
+    [ContextMenu("Generate MusicXML")]
+    public void GenerateAndSaveMusicXML()
+    {
+        if (_scoreGenerator != null)
+        {
+            _scoreGenerator.SaveMusicXMLFile();
         }
     }
 }

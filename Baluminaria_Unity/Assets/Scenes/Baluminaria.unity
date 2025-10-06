@@ -1572,11 +1572,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: midiNameToPlay
-      value: Beethoven-sonata-14-3
+      value: Debussy - Clair De Lune
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: midiIndexToPlay
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: showMidiPlaying
@@ -1686,7 +1686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &307493907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2191,10 +2191,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1655448942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 10}
+  m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &409156596
 MonoBehaviour:
@@ -2243,8 +2243,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4190,6 +4190,7 @@ GameObject:
   - component: {fileID: 918980737}
   - component: {fileID: 918980735}
   - component: {fileID: 918980736}
+  - component: {fileID: 918980738}
   m_Layer: 0
   m_Name: BaluMidiController
   m_TagString: Untagged
@@ -4209,6 +4210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b423d21035afee4b9fa1606bcfc2981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreGenerator: {fileID: 918980738}
   _midiFilePlayer: {fileID: 2011084819}
   _midiStreamPlayer: {fileID: 1689470358}
   _baluAudioReactive: {fileID: 1371874675}
@@ -4218,7 +4220,7 @@ MonoBehaviour:
   _currentOutputMode: 1
   _uiCanvas: {fileID: 1061115396}
   _baluminaria: {fileID: 1886229337}
-  _currentPlaybackMode: 1
+  _currentPlaybackMode: 0
   _clampNotes: 1
   _analysisSensitivity: 0.05
   _analysisInterval: 0.02
@@ -4298,6 +4300,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &918980738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918980734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19fd67ba71774642897956b64302a4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bpm: 120
+  _timeSignatureNumerator: 4
+  _timeSignatureDenominator: 4
+  _scoreNotes: []
 --- !u!1 &958973375
 GameObject:
   m_ObjectHideFlags: 0
@@ -7510,7 +7528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.019607844}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

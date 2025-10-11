@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ae945fcb8d33c5941b1d5eda9bec3777
+guid: c821c9a5ece8ec04d89f97208d200adb
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Saw-Incline-6000Hz.wav
-  uploadId: 767293
+  uploadId: 786004

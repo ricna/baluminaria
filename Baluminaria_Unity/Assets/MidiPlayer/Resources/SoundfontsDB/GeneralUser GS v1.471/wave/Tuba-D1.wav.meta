@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: aec5fd29c66f23e47b55afa520aa0d52
+guid: 394fd7a60a7f9b643bd8ee0eeb342c4c
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Tuba-D1.wav
-  uploadId: 767293
+  uploadId: 786004

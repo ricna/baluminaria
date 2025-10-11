@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9d52d167c6f90e447a3b2706e03301cc
+guid: 7a9d906494aa5694393eafe942d63e24
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Triangle-750Hz.wav
-  uploadId: 767293
+  uploadId: 786004

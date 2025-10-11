@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 43a1f553a6af65e448b85145ff0c0a25
+guid: 2c43f023863e8b94d9a1fb4479bf660c
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Clarinet-E5.wav
-  uploadId: 767293
+  uploadId: 786004

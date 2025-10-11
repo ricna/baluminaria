@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 708fd70067366de40b95de16b929c949
+guid: 6884208f4432d744683a7c7493ada814
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Ride-Cymbal.wav
-  uploadId: 767293
+  uploadId: 786004

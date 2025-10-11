@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: af91751d419803a4a91992dbcca27e79
+guid: 29d626f5130e56a4598caacf07ce1170
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Ride-Bell.wav
-  uploadId: 767293
+  uploadId: 786004

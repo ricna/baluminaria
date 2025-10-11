@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4e36454a95c4b1744a7b44b14a6edebb
+guid: bad6fd36770421b4e8a8d83500b80337
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Steel-Guitar-D4.wav
-  uploadId: 767293
+  uploadId: 786004

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fd24f6135116d514c947af08414803bd
+guid: b621ef72f33876c4bb0f19c9ec2d9760
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Hi-Hat-Open.wav
-  uploadId: 767293
+  uploadId: 786004

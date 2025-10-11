@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d4f839f4af7922c41b4de6bed4057d40
+guid: 35aa6393d6357c84aa2ab80ec3c871a1
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Claves.wav
-  uploadId: 767293
+  uploadId: 786004

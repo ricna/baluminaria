@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 40fe2b8027676ec4e8a727878f2426c1
+guid: 2d6be5b20c1e0f84fa9380d4e9e43924
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Piccolo-Ad1.wav
-  uploadId: 767293
+  uploadId: 786004

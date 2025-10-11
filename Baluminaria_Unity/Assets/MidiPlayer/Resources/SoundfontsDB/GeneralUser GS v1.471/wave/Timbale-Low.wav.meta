@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 967b9b9000705824aa018fcee26e4c48
+guid: df915d3ce3ac74045965b6441cfbe466
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Timbale-Low.wav
-  uploadId: 767293
+  uploadId: 786004

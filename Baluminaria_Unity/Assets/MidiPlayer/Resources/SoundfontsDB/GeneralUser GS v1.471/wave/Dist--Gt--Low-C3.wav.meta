@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f027da2c30049994fbfb431f5b2f88c9
+guid: e52023e3a1e0feb4a87514de37b20d84
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Dist--Gt--Low-C3.wav
-  uploadId: 767293
+  uploadId: 786004

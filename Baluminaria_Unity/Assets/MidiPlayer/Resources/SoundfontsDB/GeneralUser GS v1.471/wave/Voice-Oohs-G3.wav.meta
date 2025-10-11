@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4945f06aeea2ec746969490a62a686b3
+guid: 353d0a2a6568ed142b3d93146d696503
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Voice-Oohs-G3.wav
-  uploadId: 767293
+  uploadId: 786004

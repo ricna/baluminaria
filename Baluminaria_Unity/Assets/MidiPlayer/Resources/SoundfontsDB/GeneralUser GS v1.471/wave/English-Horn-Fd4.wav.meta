@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2b316c0c3cfd35244baf50f59f9952f5
+guid: 1f3e20462d3f1144a886befc8b80c5c9
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/English-Horn-Fd4.wav
-  uploadId: 767293
+  uploadId: 786004

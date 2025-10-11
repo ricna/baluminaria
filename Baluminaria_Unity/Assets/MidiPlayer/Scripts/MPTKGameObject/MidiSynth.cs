@@ -747,6 +747,14 @@ namespace MidiPlayerTK
             }
         }
 
+        [HideInInspector]
+        /// <summary>
+        /// If true, the MIDI player will be automatically paused 
+        /// when the distance from the listener exceeds MPTK_MaxDistance.
+        /// @version 2.16.1
+        /// </summary>
+        public bool MPTK_PauseOnMaxDistance = true;
+
         protected void SetSpatialization()
         {
             //Debug.Log("Set Max Distance " + maxDistance);
@@ -797,15 +805,6 @@ namespace MidiPlayerTK
         [HideInInspector]
         private float maxDistance;
 
-        /// <summary>@brief 
-        /// [obsolete] replaced by MPTK_Spatialize"); V2.83
-        /// </summary>
-        [HideInInspector]
-        public bool MPTK_PauseOnDistance
-        {
-            get { Debug.LogWarning("MPTK_PauseOnDistance is obsolete, replaced by MPTK_Spatialize"); return spatialize; }
-            set { Debug.LogWarning("MPTK_PauseOnDistance is obsolete, replaced by MPTK_Spatialize"); spatialize = value; }
-        }
 
         /// <summary>@brief 
         /// Should the Spatialization effect must be enabled?\n

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3ce82a4099b1a70429f6710c0d47fc5d
+guid: 79f748f4b0edc864eba789ca8dc079ef
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/TR-808-Clap.wav
-  uploadId: 767293
+  uploadId: 786004

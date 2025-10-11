@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 96676c83535a15045afb0faa147a9b22
+guid: b93451879ec34aa43bbfe3f2ec6575d7
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Cuica-Open.wav
-  uploadId: 767293
+  uploadId: 786004

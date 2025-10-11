@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 37221c9f804de2541a806f94e6a503e1
+guid: bec510d5594825c43ba08aaa413bf3d0
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/FilterSnap.wav
-  uploadId: 767293
+  uploadId: 786004

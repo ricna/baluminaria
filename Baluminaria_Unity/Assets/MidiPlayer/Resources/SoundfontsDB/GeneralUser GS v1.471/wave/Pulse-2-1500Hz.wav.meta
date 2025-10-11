@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1a89f11c5877fb44d901f679474a4c72
+guid: 8958c3d4ff5e7524ea618380250e18cc
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Pulse-2-1500Hz.wav
-  uploadId: 767293
+  uploadId: 786004

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e2e76078640dcd04fb0323d5b0378ce0
+guid: 2c5da368d4eff4243945c6b5f29ca2d1
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Shenai-Fd3.wav
-  uploadId: 767293
+  uploadId: 786004

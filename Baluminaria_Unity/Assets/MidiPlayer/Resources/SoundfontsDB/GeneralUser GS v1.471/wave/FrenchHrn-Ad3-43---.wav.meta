@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ed9abbcba249f3c46ac702b82bb5e608
+guid: 07893910a21acb8468c5ceb88702b699
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/FrenchHrn-Ad3-43---.wav
-  uploadId: 767293
+  uploadId: 786004

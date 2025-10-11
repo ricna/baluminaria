@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2e8b9d5ee94185d47b6090ce09e3e0e4
+guid: 5e6a2858182c57c47a6a6313386fc98f
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Stacked-Saw-C62.wav
-  uploadId: 767293
+  uploadId: 786004

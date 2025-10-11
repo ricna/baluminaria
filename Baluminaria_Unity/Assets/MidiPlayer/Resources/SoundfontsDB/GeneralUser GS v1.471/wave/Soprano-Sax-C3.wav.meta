@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 262a3670f57d1094d87b65af8b5b25be
+guid: 83c17827451d2334e9516b583480fa27
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Soprano-Sax-C3.wav
-  uploadId: 767293
+  uploadId: 786004

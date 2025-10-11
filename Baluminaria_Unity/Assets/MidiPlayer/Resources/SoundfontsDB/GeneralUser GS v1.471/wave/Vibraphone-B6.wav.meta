@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 162f7b55f31900648b2119c4dfcf6d76
+guid: 5797d1722915e214182da9e4f812c9ab
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Vibraphone-B6.wav
-  uploadId: 767293
+  uploadId: 786004

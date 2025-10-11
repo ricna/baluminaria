@@ -189,6 +189,8 @@ namespace MidiPlayerTK
                 }
                 else
                 {
+                    // Specific inspector value for MidiSpatilizer prefab
+                    // --------------------------------------------------
                     // Need to be forced to true, here to check.
                     EditorGUILayout.LabelField(labelSpatialization, new GUIContent(instance.MPTK_Spatialize ? "True" : "False"));
                     bool mode = EditorGUILayout.Toggle(new GUIContent("Channel Spatialization", "Enable channel spatialization effect"), instance.MPTK_ModeSpatializer == MidiSynth.ModeSpatializer.Channel);
@@ -209,19 +211,16 @@ namespace MidiPlayerTK
                 }
 #endif
 
-                //EditorGUILayout.BeginHorizontal();
                 string tooltipDistance = "Playing is paused if distance between AudioListener and this component is greater than MaxDistance";
                 float distance = EditorGUILayout.IntField(new GUIContent("Max Distance", tooltipDistance), (int)instance.MPTK_MaxDistance);
-                if (instance.MPTK_MaxDistance != distance)
-                    instance.MPTK_MaxDistance = distance;
-                //float distanceToListener = MidiPlayerGlobal.MPTK_DistanceToListener(instance.transform);
+                if (instance.MPTK_MaxDistance != distance) instance.MPTK_MaxDistance = distance;
+                instance.MPTK_PauseOnMaxDistance = EditorGUILayout.Toggle(new GUIContent("Pause On Distance", "If true, the MIDI player will be automatically paused when the distance from the listener exceeds MPTK_MaxDistance."), instance.MPTK_PauseOnMaxDistance);
                 if (instance.distanceToListener > instance.MPTK_MaxDistance)
                     EditorGUILayout.LabelField(new GUIContent($"Midi sequencer is paused, current distance to AudioListener: {Math.Round(instance.distanceToListener, 2)}",
                         tooltipDistance), MPTKGui.myStyle.LabelAlert);
                 else
                     //Debug.Log("Camera: " + instance.distanceEditorModeOnly);
                     EditorGUILayout.LabelField(new GUIContent($"Current distance to AudioListener: {Math.Round(instance.distanceToListener, 2)}", tooltipDistance));
-                //EditorGUILayout.EndHorizontal();
 
                 EditorGUI.indentLevel--;
             }

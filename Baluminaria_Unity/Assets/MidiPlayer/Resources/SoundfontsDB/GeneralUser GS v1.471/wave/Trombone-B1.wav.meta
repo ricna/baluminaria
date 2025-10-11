@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 417b3fbd5832ed74590e84ad8052cc2e
+guid: e5791cbbf42b5d54d93b2417011cd504
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Trombone-B1.wav
-  uploadId: 767293
+  uploadId: 786004

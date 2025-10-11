@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c546b38d6c7576a4ca3682833941c509
+guid: f8d0be61d6737be4aad8eeaf285baafd
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/TR-808-Hat-1.wav
-  uploadId: 767293
+  uploadId: 786004

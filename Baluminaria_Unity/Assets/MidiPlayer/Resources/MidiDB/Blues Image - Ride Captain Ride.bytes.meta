@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 743d7a5f27a3bbd4c9f4d06dadeff859
+guid: b77351c17b10f6d4eb0418f7e0118e29
 TextScriptImporter:
   externalObjects: {}
   userData: 
@@ -9,6 +9,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/MidiDB/Blues Image - Ride Captain Ride.bytes
-  uploadId: 767293
+  uploadId: 786004

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b1b56f5e610e5524b8abb3cea6f6a016
+guid: 2052491ac1d21224389ddb8d1cadd8a2
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Stream.wav
-  uploadId: 767293
+  uploadId: 786004

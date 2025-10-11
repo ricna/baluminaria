@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6696e662b9ca9eb4e9ec4087f257bba3
+guid: a14450343e65fd74d9ecb140e30c276c
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Orchestral-Cymbal.wav
-  uploadId: 767293
+  uploadId: 786004

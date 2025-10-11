@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d7ed7ddf6836421418e6ce17476f6f7c
+guid: 58d31151e70ba124180053dedc02afde
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Shamisen-Cd4.wav
-  uploadId: 767293
+  uploadId: 786004

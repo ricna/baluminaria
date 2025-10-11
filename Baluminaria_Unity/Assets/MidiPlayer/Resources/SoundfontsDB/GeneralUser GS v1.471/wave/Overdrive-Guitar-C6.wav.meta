@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 68211f9b184454b438c21d476534c8e0
+guid: bc74f37b84098bc468546e90aaa828fb
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Overdrive-Guitar-C6.wav
-  uploadId: 767293
+  uploadId: 786004

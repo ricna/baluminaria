@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 06a12afe891ab9e46afc586d27529b76
+guid: 43e4f83ef5fe2bf4fa346424579ff31b
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/French-Horn-Ad2.wav
-  uploadId: 767293
+  uploadId: 786004

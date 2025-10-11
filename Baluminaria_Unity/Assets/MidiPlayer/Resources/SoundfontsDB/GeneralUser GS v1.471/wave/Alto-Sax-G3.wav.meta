@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e60ef925e5987944e875830b795a0f81
+guid: 711f4a81dcc410a49bde77e0d3db53f9
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Alto-Sax-G3.wav
-  uploadId: 767293
+  uploadId: 786004

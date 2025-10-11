@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a3c52f07489a2f34ea10dcee8483818d
+guid: 4d619e9ebe89cb34cae7069ecc0e29b8
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Timbale-Rim.wav
-  uploadId: 767293
+  uploadId: 786004

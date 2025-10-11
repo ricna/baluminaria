@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c34d706772ea7d742949d20c52de6969
+guid: edd0770906350d24daf282a3144d6205
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Bassoon-D2.wav
-  uploadId: 767293
+  uploadId: 786004

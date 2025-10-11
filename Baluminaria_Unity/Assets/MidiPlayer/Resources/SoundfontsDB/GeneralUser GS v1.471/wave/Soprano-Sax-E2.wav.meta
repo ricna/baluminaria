@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 68925aed397fefa409292a726ffac8a1
+guid: b385172a4cf88f043b1f7df2d4bf7f54
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Soprano-Sax-E2.wav
-  uploadId: 767293
+  uploadId: 786004

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac2a95e8d02452e4db0225ea47742ad7
+guid: 911f53d1d5a128840aa164aa7b080768
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/KPianoDx5.wav
-  uploadId: 767293
+  uploadId: 786004

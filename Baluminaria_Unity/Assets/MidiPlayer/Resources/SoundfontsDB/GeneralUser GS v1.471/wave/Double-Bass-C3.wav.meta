@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 24c00654f92da174686669ac0dbee1ad
+guid: 266a4727920cc4b4aadeb91eedd229fe
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Double-Bass-C3.wav
-  uploadId: 767293
+  uploadId: 786004

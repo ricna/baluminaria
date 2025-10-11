@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 81044748f853dc344a85b252a2858716
+guid: abfffc0b3f108c64b83ed64ee7fff196
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Distortion-Gt-B4.wav
-  uploadId: 767293
+  uploadId: 786004

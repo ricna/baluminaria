@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c103992425759654ead4c2eb0c356d78
+guid: 8a12c1695c1155b4097b02d178564f81
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Gtr-Cut-Up.wav
-  uploadId: 767293
+  uploadId: 786004

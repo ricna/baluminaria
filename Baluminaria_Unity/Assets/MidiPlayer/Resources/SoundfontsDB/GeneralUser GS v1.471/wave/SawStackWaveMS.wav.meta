@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 18b6d47b9e9d71248a396cc6baca63db
+guid: 64e68fa06e1eac74fa1920ea42baf82d
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/SawStackWaveMS.wav
-  uploadId: 767293
+  uploadId: 786004

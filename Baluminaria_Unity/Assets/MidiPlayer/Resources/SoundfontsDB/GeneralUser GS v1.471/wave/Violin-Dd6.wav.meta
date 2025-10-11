@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1444d257e4fc9064789806a645465222
+guid: 37b8104bea39f564082d0b4894e6d00f
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Violin-Dd6.wav
-  uploadId: 767293
+  uploadId: 786004

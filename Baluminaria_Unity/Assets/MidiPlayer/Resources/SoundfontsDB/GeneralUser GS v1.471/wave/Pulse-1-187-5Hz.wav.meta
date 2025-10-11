@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ba595ceb2700a754fa1110c75162fda7
+guid: 71de60ef16846054786d9d98d71e0cbe
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Pulse-1-187-5Hz.wav
-  uploadId: 767293
+  uploadId: 786004

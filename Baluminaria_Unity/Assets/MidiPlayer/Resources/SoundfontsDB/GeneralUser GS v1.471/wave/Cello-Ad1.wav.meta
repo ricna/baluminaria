@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 09c0527d7affd80428128777e5ea168b
+guid: 339c4723288899c4c9ce50a60a84922e
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Cello-Ad1.wav
-  uploadId: 767293
+  uploadId: 786004

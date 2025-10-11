@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7a5f3d3f3a860be438c080f450ae66f6
+guid: 1f5eea3954a20d44abbe8fe6af64c69f
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Synth-Strings-1-C6.wav
-  uploadId: 767293
+  uploadId: 786004

@@ -236,8 +236,15 @@ namespace MidiPlayerTK
                 GUIStyle styleButtonPlayAndPause = midiPlayerLib.MidiPlayer.MPTK_IsPlaying && !midiPlayerLib.MidiPlayer.MPTK_IsPaused ? MPTKGui.ButtonHighLight : MPTKGui.Button;
                 if (GUILayout.Button("Play", styleButtonPlayAndPause, GUILayout.Width(WIDTH_BUTTON_PLAYER)))
                 {
-                    LoadMidiFileSelected(IndexEditItem, true);
-                    PlayMidiFileSelected();
+                    if (!midiPlayerLib.MidiPlayer.MPTK_CorePlayer)
+                    {
+                        EditorUtility.DisplayDialog("MIDI Player ", "Can't play MIDI in non core mode. WebGL build enabled?", "Ok");
+                    }
+                    else
+                    {
+                        LoadMidiFileSelected(IndexEditItem, true);
+                        PlayMidiFileSelected();
+                    }
                 }
 
                 styleButtonPlayAndPause = midiPlayerLib.MidiPlayer.MPTK_IsPaused ? MPTKGui.ButtonHighLight : MPTKGui.Button;

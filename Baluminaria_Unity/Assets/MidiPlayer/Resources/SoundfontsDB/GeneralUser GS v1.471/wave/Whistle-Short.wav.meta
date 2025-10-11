@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e542925d134b1b6439c2141a507d88f6
+guid: 1ea27db98fbc6c5459a4083491a7d8ea
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Whistle-Short.wav
-  uploadId: 767293
+  uploadId: 786004

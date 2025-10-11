@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: caa6e312d5eb224479720b43e1a5fb46
+guid: e4d28c11db2f76140827eff5b4ab0ab5
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Grand-Piano-G6.wav
-  uploadId: 767293
+  uploadId: 786004

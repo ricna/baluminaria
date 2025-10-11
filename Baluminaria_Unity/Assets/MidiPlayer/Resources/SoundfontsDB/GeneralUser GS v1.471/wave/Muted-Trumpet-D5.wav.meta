@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5c8aff4e60ea5e740968069078bb051d
+guid: fe87dc01ffc960f4792a5043ff7afb1b
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Muted-Trumpet-D5.wav
-  uploadId: 767293
+  uploadId: 786004

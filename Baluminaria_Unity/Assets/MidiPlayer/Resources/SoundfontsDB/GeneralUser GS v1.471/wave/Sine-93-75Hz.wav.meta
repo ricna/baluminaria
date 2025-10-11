@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a17b5eaeb890b7e43bb212a836a48f22
+guid: d10a17f7ac84c844d949a96265547b31
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Sine-93-75Hz.wav
-  uploadId: 767293
+  uploadId: 786004

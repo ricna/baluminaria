@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 02f836eb60fe3b34e8ed4088839a9d4a
+guid: b9f43409c3cd1bb41a11b7b45781bade
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Tubular-Bells-G4.wav
-  uploadId: 767293
+  uploadId: 786004

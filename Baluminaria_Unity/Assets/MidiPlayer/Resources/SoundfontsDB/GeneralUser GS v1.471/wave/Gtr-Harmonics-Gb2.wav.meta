@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a6bf728ba5e8201409dd692143776f4a
+guid: 0c788890e411072438736c6f3d4f2cac
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Gtr-Harmonics-Gb2.wav
-  uploadId: 767293
+  uploadId: 786004

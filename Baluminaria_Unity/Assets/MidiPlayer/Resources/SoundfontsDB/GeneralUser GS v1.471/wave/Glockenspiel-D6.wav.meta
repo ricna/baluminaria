@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a07961f8610d5214896b763aa268effb
+guid: f654a36b76e4ea045a7b77db59e9ca95
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Glockenspiel-D6.wav
-  uploadId: 767293
+  uploadId: 786004

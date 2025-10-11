@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e7f131ed229f51848971424010c2ea78
+guid: f6ad20b682b5e3a4b9b789d879c47bae
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Square-375Hz.wav
-  uploadId: 767293
+  uploadId: 786004

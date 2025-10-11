@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f24a4c193b0e6164c85072b7c7ac0f05
+guid: 4bbbe18edc5ee0b448da81f80ab9f69c
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Harmonica-A3.wav
-  uploadId: 767293
+  uploadId: 786004

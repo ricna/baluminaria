@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f935687750bdccb479a54d9a3440150e
+guid: f9b78d8fb6400ee4c9346041e5881c58
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Hi-Hat-Closed-Hard.wav
-  uploadId: 767293
+  uploadId: 786004

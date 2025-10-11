@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 943004745402d234fb18cb9f44b57f3f
+guid: 0795f1793eaf72945ba5289590bb4c43
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Organ-Slow-C4.wav
-  uploadId: 767293
+  uploadId: 786004

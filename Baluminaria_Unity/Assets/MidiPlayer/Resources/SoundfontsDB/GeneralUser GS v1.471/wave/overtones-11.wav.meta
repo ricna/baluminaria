@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8ee431a1f7e07284e975abe582c0a6b0
+guid: 84685485d8061374ca0130c20daf0246
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/overtones-11.wav
-  uploadId: 767293
+  uploadId: 786004

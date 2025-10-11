@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 89af9c06da83e734e89d3edd99bfd2f5
+guid: fc152c8bce11f494ba4af5d96cdb6ff3
 TextScriptImporter:
   externalObjects: {}
   userData: 
@@ -9,7 +9,7 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/MidiDB/@ All Rights Reserved for these Midi
     Files.bytes
-  uploadId: 767293
+  uploadId: 786004

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 408a4f567f9840b449ebdfb855b599aa
+guid: 6f11e29ebf65f15448d29a8e38861e04
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Brush-Swirl.wav
-  uploadId: 767293
+  uploadId: 786004

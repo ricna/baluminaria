@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a11c00482a65eb1449706242cbc3f71b
+guid: 103c09f6f943ca348864227ca54129da
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/GUTest-love.wav
-  uploadId: 767293
+  uploadId: 786004

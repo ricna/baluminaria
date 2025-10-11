@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 33997eda41a06f3448533ef80773dee1
+guid: d6f30793b8cccc34186e21c5a425bdb0
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Rhodes-Bb5-M.wav
-  uploadId: 767293
+  uploadId: 786004

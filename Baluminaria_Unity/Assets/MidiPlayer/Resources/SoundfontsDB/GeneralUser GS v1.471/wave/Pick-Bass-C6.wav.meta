@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a6bf29b4c6fb92747801b67346a0c498
+guid: 3084f8c4871693d4c8cdb8af0539d81c
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Pick-Bass-C6.wav
-  uploadId: 767293
+  uploadId: 786004

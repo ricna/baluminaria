@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e3e64dede49b4d746aee8c5cca25388b
+guid: cf3ce01039d863a47b96623bc00fd155
 TextScriptImporter:
   externalObjects: {}
   userData: 
@@ -9,6 +9,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/MidiDB/Albinoni - Adagio.bytes
-  uploadId: 767293
+  uploadId: 786004

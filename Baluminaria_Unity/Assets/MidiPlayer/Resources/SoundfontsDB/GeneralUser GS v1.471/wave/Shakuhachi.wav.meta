@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 902fcf0803c10fa4bb956701a87c9c32
+guid: fc83ed7988866e04faacf5c6fb194362
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Shakuhachi.wav
-  uploadId: 767293
+  uploadId: 786004

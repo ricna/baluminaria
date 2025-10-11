@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e3bd91c799f88c249baff33e63e5a108
+guid: 8810c8de664769e4f913d1dedbf69795
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/ColdGlass12Wave.wav
-  uploadId: 767293
+  uploadId: 786004

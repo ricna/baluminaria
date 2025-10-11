@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0a542b79eade49243a3409d62b6ce1f4
+guid: 6c6f765ad1d3f674382bfd8876bb802e
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Jazz-Snare-Soft-1.wav
-  uploadId: 767293
+  uploadId: 786004

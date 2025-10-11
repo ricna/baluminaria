@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b07ccf53cd5100d408fd5ecff74c4163
+guid: ee02b818e2ca56b4fbc48f605354cdb3
 TextScriptImporter:
   externalObjects: {}
   userData: 
@@ -9,6 +9,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/MidiDB/DarkCloud2.bytes
-  uploadId: 767293
+  uploadId: 786004

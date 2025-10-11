@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0dfaa54ac7995414c8cb2fb9a9b32067
+guid: 9dfe128048e48804380334e427e5e388
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Synth-Hand-Clap.wav
-  uploadId: 767293
+  uploadId: 786004

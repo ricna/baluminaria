@@ -7,6 +7,16 @@ Please, before updating:
 
 Thank for your comments and talks, that help a lot to make Maestro better.
 
+V2.16.1 2025-09-06
+	New Feature
+		MPTK_PauseOnMaxDistance: MIDI player automatically paused when the distance from the listener exceeds MPTK_MaxDistance.
+			- Default is true (pause)
+	Demo & MVP
+		Helper to migrate MPTK demos to Unity 6.
+		Remove some design not compliant to Unity 6 :
+			- Water in TestMidiFilePlayerMulti
+			- Shadow in TestMidiFilePlayerScripting
+
 V2.16.0 2025-06-16
 	New Features
 		Official version compatible WebGL.

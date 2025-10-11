@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7d92489b9aac4ac4ba36a93466ac9d48
+guid: b34ffb36eb31fdc428d20eda86183cf6
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Trumpet-B5.wav
-  uploadId: 767293
+  uploadId: 786004

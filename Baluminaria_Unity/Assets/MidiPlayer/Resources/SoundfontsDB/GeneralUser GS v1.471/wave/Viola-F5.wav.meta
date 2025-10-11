@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9a5a4a4705976f04b902fc70b71e23d9
+guid: 4c4b71ad84953a84cbec8008e2466c07
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Viola-F5.wav
-  uploadId: 767293
+  uploadId: 786004

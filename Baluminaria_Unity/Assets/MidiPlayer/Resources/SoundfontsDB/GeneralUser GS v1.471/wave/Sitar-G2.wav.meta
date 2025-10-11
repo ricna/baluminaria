@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b3bcbfc191be5e64080c1501a38ab234
+guid: 45af3fe21c9ce3e48a6d9b8a39ce88a0
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Sitar-G2.wav
-  uploadId: 767293
+  uploadId: 786004

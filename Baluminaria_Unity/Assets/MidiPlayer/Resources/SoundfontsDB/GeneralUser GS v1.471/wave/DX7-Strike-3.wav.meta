@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 860ead32f5eb4bb4d9628ea419de7553
+guid: 7c64dc4e4fd4e654d8f58d6b2a593e79
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/DX7-Strike-3.wav
-  uploadId: 767293
+  uploadId: 786004

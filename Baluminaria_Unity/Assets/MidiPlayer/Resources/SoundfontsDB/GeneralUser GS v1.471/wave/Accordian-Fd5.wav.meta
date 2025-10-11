@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fa20bfe445b06e04ca3f97f3e93f1db1
+guid: 8aa8fbd9e7d15684c8f5f443a8f640a2
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Accordian-Fd5.wav
-  uploadId: 767293
+  uploadId: 786004

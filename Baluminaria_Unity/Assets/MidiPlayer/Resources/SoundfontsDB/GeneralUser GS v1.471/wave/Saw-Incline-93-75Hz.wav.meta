@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a3914ca8d7d652a4e9b77a22570ce603
+guid: 3e00ddf97c5380a40b6ab5c182d9c79e
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Saw-Incline-93-75Hz.wav
-  uploadId: 767293
+  uploadId: 786004

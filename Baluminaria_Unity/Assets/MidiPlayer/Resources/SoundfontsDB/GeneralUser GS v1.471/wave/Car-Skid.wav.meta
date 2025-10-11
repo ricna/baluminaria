@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5408d855c0accba43bb301b6f7159bd6
+guid: 6d4ece426e481db4bb673357cf8e6ca4
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Car-Skid.wav
-  uploadId: 767293
+  uploadId: 786004

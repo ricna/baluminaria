@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: be0483b3d89156c49a16bac4974b01a1
+guid: 629dc8dfe69c8d248bcad997d006c6ff
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/White-Noise.wav
-  uploadId: 767293
+  uploadId: 786004

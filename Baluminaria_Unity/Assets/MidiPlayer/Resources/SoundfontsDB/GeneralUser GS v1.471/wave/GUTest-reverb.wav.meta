@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0310316e217388d45a3cad0f76b97034
+guid: 948297b78068c1f45bc9f26965d8f090
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/GUTest-reverb.wav
-  uploadId: 767293
+  uploadId: 786004

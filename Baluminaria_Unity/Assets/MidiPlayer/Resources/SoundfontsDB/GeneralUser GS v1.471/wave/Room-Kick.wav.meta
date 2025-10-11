@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bb228ffe50ea5844986ebec3712a04c6
+guid: d8332b2e30af54943ad633956e16b8ea
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Room-Kick.wav
-  uploadId: 767293
+  uploadId: 786004

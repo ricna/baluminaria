@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6ddf5592f746dcd45b2d020b512fe7e9
+guid: be49cc1da35b82649ad334d36ad16030
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Agogo.wav
-  uploadId: 767293
+  uploadId: 786004

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 81eee8e333eef9148a06391e5d9fc042
+guid: ca01f0914e9722840a59b8c465b17a7f
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Brass-Section-C5.wav
-  uploadId: 767293
+  uploadId: 786004

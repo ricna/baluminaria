@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d8990a08ec120f84d8077bd0e5ca6a50
+guid: 5a66513a473069246b43f7abd2df3b7a
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Hi-Hat-Pedal.wav
-  uploadId: 767293
+  uploadId: 786004

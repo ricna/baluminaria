@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 833ca72cca5b2564b9671c7b434bc908
+guid: c334fb3d6fb8d384599bca158951ba2f
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Tubular-Bells-A6.wav
-  uploadId: 767293
+  uploadId: 786004

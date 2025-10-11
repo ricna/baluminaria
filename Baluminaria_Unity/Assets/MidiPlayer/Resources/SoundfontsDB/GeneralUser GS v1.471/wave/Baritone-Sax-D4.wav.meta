@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 17243b506f8e50d439a85f57e52f5bf5
+guid: 1f9857c8bdfc2d34b8f53ca7e152d5d6
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Baritone-Sax-D4.wav
-  uploadId: 767293
+  uploadId: 786004

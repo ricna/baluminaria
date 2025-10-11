@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1c79171315f5df242b6b522b7aa26d57
+guid: 2388b1e826add494bbf5ccbfde5fa076
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Sine-6000Hz.wav
-  uploadId: 767293
+  uploadId: 786004

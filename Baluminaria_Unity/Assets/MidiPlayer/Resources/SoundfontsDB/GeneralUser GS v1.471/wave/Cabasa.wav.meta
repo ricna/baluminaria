@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0ff23695743c5534d8dd0c2af52a17b2
+guid: 3f3389caffb196046a148f53e97998d1
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Cabasa.wav
-  uploadId: 767293
+  uploadId: 786004

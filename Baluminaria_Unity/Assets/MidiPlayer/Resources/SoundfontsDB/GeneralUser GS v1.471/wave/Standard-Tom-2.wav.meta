@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ef95f50f52b720a40af90b83baa5cf14
+guid: 0a122b82586ee6147aa791482def854d
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Standard-Tom-2.wav
-  uploadId: 767293
+  uploadId: 786004

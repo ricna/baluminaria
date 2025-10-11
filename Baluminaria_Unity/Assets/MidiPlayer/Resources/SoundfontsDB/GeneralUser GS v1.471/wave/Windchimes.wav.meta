@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 79dd735b24a2de74eb16a0597c8b3f80
+guid: c2c320253cac84c4d9b41c66c56f12b1
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Windchimes.wav
-  uploadId: 767293
+  uploadId: 786004

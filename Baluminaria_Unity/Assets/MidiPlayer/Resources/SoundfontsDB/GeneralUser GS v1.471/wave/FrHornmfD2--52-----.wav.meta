@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a3c64d1e5d72e524f802d86528ac1f4a
+guid: bc48f370bbb776a449e5612dff8c3ce1
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/FrHornmfD2--52-----.wav
-  uploadId: 767293
+  uploadId: 786004

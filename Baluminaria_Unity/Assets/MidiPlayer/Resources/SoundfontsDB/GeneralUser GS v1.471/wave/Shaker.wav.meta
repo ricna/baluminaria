@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 890d35ea293a23b49aa4250f6fb8386d
+guid: 395498df01970fa45b30f20233b3bca5
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Shaker.wav
-  uploadId: 767293
+  uploadId: 786004

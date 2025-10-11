@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a5b17270459f4b946b98110e039c8fe0
+guid: 11b67d0253a913f4a8b5720fada77fa7
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Muted-Guitar-E4.wav
-  uploadId: 767293
+  uploadId: 786004

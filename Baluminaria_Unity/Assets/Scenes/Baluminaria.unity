@@ -1046,19 +1046,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28f6d21019ce1bd47ba89c5d85b8a89f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28f6d21019ce1bd47ba89c5d85b8a89f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28f6d21019ce1bd47ba89c5d85b8a89f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.70710677
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28f6d21019ce1bd47ba89c5d85b8a89f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28f6d21019ce1bd47ba89c5d85b8a89f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1520,7 +1520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1668918397659358, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4314086310842868, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1572,11 +1572,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: midiNameToPlay
-      value: Debussy - Clair De Lune
+      value: Mozart - Sonate 11 Alla Turca
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: midiIndexToPlay
-      value: 30
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: showMidiPlaying
@@ -2971,54 +2971,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 576982092}
   m_CullTransparentMesh: 1
---- !u!1 &598713231
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 598713232}
-  - component: {fileID: 598713233}
-  m_Layer: 0
-  m_Name: Segments
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &598713232
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598713231}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1886229336}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &598713233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598713231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b8297462caedaa44a9db13c91be32c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _autoRotate: 1
-  _rotationSpeed: 10
-  _prefabSegments: []
-  maxIntensity: 0.5
 --- !u!1 &603522985
 GameObject:
   m_ObjectHideFlags: 0
@@ -4210,7 +4162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b423d21035afee4b9fa1606bcfc2981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreGenerator: {fileID: 918980738}
   _midiFilePlayer: {fileID: 2011084819}
   _midiStreamPlayer: {fileID: 1689470358}
   _baluAudioReactive: {fileID: 1371874675}
@@ -4224,7 +4175,7 @@ MonoBehaviour:
   _clampNotes: 1
   _analysisSensitivity: 0.05
   _analysisInterval: 0.02
-  _currentColorMode: 1
+  _currentColorMode: 2
   _ringColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 1, g: 0.5, b: 0, a: 1}
@@ -4629,13 +4580,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -4}
+  m_LocalRotation: {x: 0.043619405, y: 0, z: 0, w: 0.9990483}
+  m_LocalPosition: {x: 0, y: 0, z: -4.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1559361851}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 5, y: 0, z: 0}
 --- !u!1 &978965859
 GameObject:
   m_ObjectHideFlags: 0
@@ -6290,8 +6241,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: edc3ecfd958d8b842b2ae0980c30b119, type: 3}
-  m_Resource: {fileID: 8300000, guid: edc3ecfd958d8b842b2ae0980c30b119, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -7275,6 +7226,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MidiStreamPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 1367716147436054, guid: f1aa4788763f8854c9826e449686c328, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4977113046780174, guid: f1aa4788763f8854c9826e449686c328, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7354,19 +7309,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02471c185d5bdd14e8b83f2b2c7602f6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9807853
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02471c185d5bdd14e8b83f2b2c7602f6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02471c185d5bdd14e8b83f2b2c7602f6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.19509038
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02471c185d5bdd14e8b83f2b2c7602f6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02471c185d5bdd14e8b83f2b2c7602f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8412,8 +8367,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886229335}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9238796, z: -0, w: -0.38268325}
-  m_LocalPosition: {x: 0, y: 1.327, z: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8422,9 +8377,8 @@ Transform:
   - {fileID: 748604736}
   - {fileID: 1524373046}
   - {fileID: 632655322}
-  - {fileID: 598713232}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 225, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &1886229337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10914,10 +10868,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1559361851}
+  - {fileID: 991713502}
+  - {fileID: 363476460}
+  - {fileID: 1061115397}
+  - {fileID: 307493908}
   - {fileID: 918980737}
   - {fileID: 1371874676}
-  - {fileID: 991713502}
-  - {fileID: 1061115397}
   - {fileID: 1886229336}
-  - {fileID: 363476460}
-  - {fileID: 307493908}

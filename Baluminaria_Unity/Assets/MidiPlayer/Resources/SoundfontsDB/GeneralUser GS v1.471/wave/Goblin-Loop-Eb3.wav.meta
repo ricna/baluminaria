@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a8ef9989c4d463046ab653f399d19d13
+guid: 6182fd36fdf32084281f264f93a28244
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Goblin-Loop-Eb3.wav
-  uploadId: 767293
+  uploadId: 786004

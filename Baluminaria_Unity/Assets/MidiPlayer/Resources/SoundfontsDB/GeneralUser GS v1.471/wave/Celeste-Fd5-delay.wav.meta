@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a0c9ee4ce3f1d284c8f571947de8ec85
+guid: f9007754483e55648b4fcc0ca6b09ee2
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Celeste-Fd5-delay.wav
-  uploadId: 767293
+  uploadId: 786004

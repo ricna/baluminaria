@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e3a5f51cd6397554c99600029b8c182e
+guid: dd48e2cdd9b27524ca526e25d7e894c2
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Rhodes-E3-F.wav
-  uploadId: 767293
+  uploadId: 786004

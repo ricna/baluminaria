@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c60c39ebb69700c45bd350ed3a4a622d
+guid: 113a9972b482ffd4fa00d93bc90f139f
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Whistle-Long.wav
-  uploadId: 767293
+  uploadId: 786004

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6ed3942f5b2edc34f90f6b813b3a2e15
+guid: 379a0b4719f6f084d99ea211dc8363d6
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Jazz-Rim-Shot.wav
-  uploadId: 767293
+  uploadId: 786004

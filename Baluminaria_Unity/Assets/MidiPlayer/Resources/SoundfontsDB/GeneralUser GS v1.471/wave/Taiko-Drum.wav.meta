@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8daa4924533149e46bf64184c6bb8087
+guid: 23da975d91493a6488aa8befc3d98de9
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Taiko-Drum.wav
-  uploadId: 767293
+  uploadId: 786004

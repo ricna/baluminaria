@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3efc53361c2036f4c8eded71f560f1f6
+guid: e40ca2e390808694b9b2e5b849ddbabe
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/TR-808-Kick.wav
-  uploadId: 767293
+  uploadId: 786004

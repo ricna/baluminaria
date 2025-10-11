@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ade915a42cc23c04b98353c23600c4fe
+guid: 6d84c30b508bbd34697133bf7d4992c9
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Saw-Decline-6000Hz.wav
-  uploadId: 767293
+  uploadId: 786004

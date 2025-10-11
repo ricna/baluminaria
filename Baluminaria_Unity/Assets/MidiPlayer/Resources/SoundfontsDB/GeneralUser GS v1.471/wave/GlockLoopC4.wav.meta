@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 46352b202993ed64f908087a17e015ea
+guid: 030e0ca302e8d1f4cb87924503f66c10
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/GlockLoopC4.wav
-  uploadId: 767293
+  uploadId: 786004

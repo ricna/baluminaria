@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ffb7399b4a875de45ae00aea4e27783a
+guid: 319dbe9a16e74794380c9d549807473c
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Electric-Snare.wav
-  uploadId: 767293
+  uploadId: 786004

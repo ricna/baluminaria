@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5cd979231c12fb14d90f1d2b2d6e6cda
+guid: f2ed238f219820a4c89ccee035c1ee30
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Clavinet-Fd2.wav
-  uploadId: 767293
+  uploadId: 786004

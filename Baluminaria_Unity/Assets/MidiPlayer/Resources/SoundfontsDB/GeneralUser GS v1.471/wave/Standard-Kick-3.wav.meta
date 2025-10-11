@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2d8ef875377ca3949817c25a2837e727
+guid: f7d0e1b4c94d334418882c63b24e8c49
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Standard-Kick-3.wav
-  uploadId: 767293
+  uploadId: 786004

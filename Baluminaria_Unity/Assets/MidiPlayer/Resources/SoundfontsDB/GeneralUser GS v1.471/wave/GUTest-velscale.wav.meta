@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 88e28fb0c4bcf06468a65286339bea08
+guid: 187e17fadaf3dc14ba5aaf8204fd84b9
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/GUTest-velscale.wav
-  uploadId: 767293
+  uploadId: 786004

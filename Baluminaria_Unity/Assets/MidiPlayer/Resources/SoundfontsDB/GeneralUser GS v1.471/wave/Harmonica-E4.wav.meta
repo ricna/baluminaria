@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 46f7d566634758041b9cc24512d792da
+guid: 258eacdb7f8d4874caef09e352e7f1b1
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Harmonica-E4.wav
-  uploadId: 767293
+  uploadId: 786004

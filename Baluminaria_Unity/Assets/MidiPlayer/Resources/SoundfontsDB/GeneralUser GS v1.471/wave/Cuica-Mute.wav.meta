@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 92899e8cfc3c5a44ab1ae15c653e1d3b
+guid: 69d024d4c8926344f881a3c03f61b8f6
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Cuica-Mute.wav
-  uploadId: 767293
+  uploadId: 786004

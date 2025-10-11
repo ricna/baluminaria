@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 51efad6b3d4d41643bdc0c55e7e15a80
+guid: d1cb3bf77a74ef343a2917827aa5973c
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Synth-Vox-Oohs-C3.wav
-  uploadId: 767293
+  uploadId: 786004

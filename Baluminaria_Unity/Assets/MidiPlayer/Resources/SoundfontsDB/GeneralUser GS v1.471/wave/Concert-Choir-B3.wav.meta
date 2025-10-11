@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 53bc3b8feffd4cd41aef0361d9ee24b7
+guid: 09ea0e90543119e4686e2a10c8d1e2b3
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/Concert-Choir-B3.wav
-  uploadId: 767293
+  uploadId: 786004

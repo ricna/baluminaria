@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a8ae52ba336654e478cc07c078c76d3f
+guid: ce0eeb065016e594fa8a9c71d5df67f1
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -25,6 +25,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 107994
   packageName: Maestro - Midi Player Tool Kit - Free
-  packageVersion: 2.16.0
+  packageVersion: 2.16.1
   assetPath: Assets/MidiPlayer/Resources/SoundfontsDB/GeneralUser GS v1.471/wave/TR-909-Kick.wav
-  uploadId: 767293
+  uploadId: 786004

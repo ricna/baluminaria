@@ -54,6 +54,14 @@ public class BaluMidiController : MonoBehaviour
     [SerializeField] private GameObject _uiCanvas;
     [SerializeField] private Baluminaria _baluminaria;
 
+    [Header("Instrument Settings")]
+    [Range(0, 127)] // MIDI Program Change vai de 0 a 127
+    [SerializeField] private int _currentInstrumentProgram = 0; // 0 é geralmente Piano Acústico
+
+    // Novo campo para o canal MIDI
+    [Range(0, 15)] // Canais MIDI vão de 0 a 15
+    [SerializeField] private int _midiChannel = 0; // Canal MIDI padrão
+
     [Header("Playback Settings")]
     [SerializeField] private PlaybackMode _currentPlaybackMode = PlaybackMode.File;
     [SerializeField] private bool _clampNotes = true;
@@ -152,6 +160,8 @@ public class BaluMidiController : MonoBehaviour
         SetOutputMode(_currentOutputMode);
         yield return new WaitForSeconds(0.2f);
         SetPlaybackMode(_currentPlaybackMode);
+        SetInstrument(_currentInstrumentProgram, _midiChannel);
+
     }
 
     private void Update()
@@ -813,6 +823,25 @@ public class BaluMidiController : MonoBehaviour
                 if (_audioSource != null) _audioSource.gameObject.SetActive(true);
                 break;
         }
+    }
+
+    public void SetInstrument(int programNumber, int channel)
+    {
+        StartCoroutine(Delay());
+        IEnumerator Delay()
+        {
+            yield return new WaitForSeconds(1f);
+            MidiPlayerGlobal.MPTK_SelectBankInstrument(_currentInstrumentProgram);
+            Debug.Log($"<color=blue>Instrumento definido para Programa {programNumber} no Canal {channel}</color>");
+        }
+
+    }
+    
+    // Se você quiser mudar o instrumento do BaluMidiController no editor ou runtime:
+  
+    public void ChangeInstrumentInEditor(int programNumber)
+    {
+        SetInstrument(programNumber, _midiChannel);
     }
 
     public void SetOutputMode(OutputMode mode)

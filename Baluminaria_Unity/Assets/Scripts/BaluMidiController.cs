@@ -1,9 +1,10 @@
-using UnityEngine;
 using MidiPlayerTK;
-using UnityEngine.UI;
+using MPTK.NAudio.Midi;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class BaluMidiController : MonoBehaviour
 {
@@ -213,7 +214,7 @@ public class BaluMidiController : MonoBehaviour
     {
 
         _activeFadesBaluminaria.RemoveAll(f => f.Segment == segment);
-        
+
         /*if (endIntensity > 0 && _currentPlaybackMode == PlaybackMode.File)
         {
             //Fade imediato para evitar delay no ataque
@@ -237,32 +238,26 @@ public class BaluMidiController : MonoBehaviour
         });
     }
 
-    public void HandleSustainPedal(bool isDown)
-    {
-        _isSustainPedalDown = isDown;
-        if (!isDown)
-        {
-            foreach (int midiNote in _sustainedNotes)
-            {
-                HandleNoteOn(midiNote, 0);
-            }
-            _sustainedNotes.Clear();
-        }
-    }
-
     public void HandleNoteOn(int midiNote, int velocity)
     {
         MPTKEvent ev = new MPTKEvent { Command = MPTKCommand.NoteOn, Value = midiNote, Velocity = Mathf.Clamp(velocity, 0, 127) };
         HandleNoteEvent(ev);
     }
-
     public void HandleNoteEvent(MPTKEvent noteEvent)
     {
-        bool isNoteOff = noteEvent.Velocity == 0;
-        if (isNoteOff && _isSustainPedalDown)
+        bool isNoteOffEvent = noteEvent.Velocity == 0; // Se o evento original vindo do MidiJack é um Note Off.
+
+        // Lógica de sustain: Adiciona a nota à lista de sustentadas SE o evento original é Note Off E o pedal está pressionado.
+        if (isNoteOffEvent && _isSustainPedalDown)
         {
             _sustainedNotes.Add(noteEvent.Value);
+            // IMPORTANTE: Não enviamos o Note Off para o MidiStreamPlayer AINDA,
+            // pois o pedal está segurando a nota. Saímos daqui para não processar
+            // o Note Off para o som, mas a visualização ainda pode ser atualizada
+            // se o FadeOut for inteligente sobre o sustain.
+            // Para a visualização, o FadeOut é chamado abaixo, e ele já tem a lógica do _isSustainPedalDown.
         }
+
 
         try
         {
@@ -278,12 +273,51 @@ public class BaluMidiController : MonoBehaviour
             int noteInOctave = midiNote % 12;
             int ring = Mathf.Clamp(octave - 1, 0, _ringColors.Length - 1);
 
-            if (isNoteOff)
+            // --- BLOCO PARA O SOM (AGORA COM SUSTAIN) ---
+            if (_currentPlaybackMode == PlaybackMode.Stream && _midiStreamPlayer != null)
             {
+                if (noteEvent.Velocity > 0) // É um evento Note On (nota sendo pressionada)
+                {
+                    // Diz ao MidiStreamPlayer para tocar a nota.
+                    // Se esta nota estava sustentada por um pedal, ela não está mais.
+                    _sustainedNotes.Remove(noteEvent.Value);
+                    _midiStreamPlayer.MPTK_PlayEvent(noteEvent);
+                    Debug.Log($"<color=green>StreamPlayer: Tocou Nota {noteEvent.Value} com Vel. {noteEvent.Velocity}</color>");
+                }
+                else // É um evento Note Off (nota sendo liberada pelo teclado)
+                {
+                    // VERIFICAR SUSTAIN ANTES DE ENVIAR O NOTE OFF AO MidiStreamPlayer
+                    if (!_isSustainPedalDown || !_sustainedNotes.Contains(noteEvent.Value))
+                    {
+                        // Se o pedal NÃO está pressionado OU a nota NÃO está na lista de sustentadas,
+                        // então podemos enviar o Note Off para o MidiStreamPlayer.
+                        _midiStreamPlayer.MPTK_PlayEvent(noteEvent); // noteEvent.Velocity já é 0 aqui.
+                        _sustainedNotes.Remove(noteEvent.Value); // Remove da lista de sustentadas, pois a nota realmente parou.
+                        Debug.Log($"<color=red>StreamPlayer: Parou Nota {noteEvent.Value}</color>");
+                    }
+                    else
+                    {
+                        // A nota é um Note Off do teclado, mas está sendo sustentada pelo pedal.
+                        // Não enviamos o Note Off para o MidiStreamPlayer.
+                        Debug.Log($"<color=orange>StreamPlayer: Nota {noteEvent.Value} sustentada pelo pedal, não enviou Note Off.</color>");
+                    }
+                }
+            }
+            // --- FIM DO BLOCO PARA O SOM ---
+
+            // --- Lógica da Visualização (já lida com sustain através do fadeDuration) ---
+            if (isNoteOffEvent) // Se o evento original era um Note Off (do MidiJack)
+            {
+                // A visualização deve sempre ter um FadeOut, mas sua duração depende do sustain.
+                // Note: O FadeOut da visualização pode ser prolongado pelo sustain,
+                // mesmo que o som continue se o pedal estiver pressionado. Isso é um design
+                // a ser considerado. Se você quer que a visualização fique 'acesa' enquanto
+                // o som é sustentado, talvez o FadeOut só devesse ocorrer quando o som realmente parar.
+                // Mas a lógica atual já é mais robusta que antes.
                 float fadeDuration = _ringDelays[ring] + _noteDelays[noteInOctave];
                 FadeOut(midiNote, segIndex, ring, noteInOctave, fadeDuration);
             }
-            else
+            else // É um Note On
             {
                 float velocityIntensity = Mathf.Clamp01(noteEvent.Velocity / 127f);
                 LightUp(midiNote, segIndex, ring, noteInOctave, velocityIntensity);
@@ -302,6 +336,37 @@ public class BaluMidiController : MonoBehaviour
         catch (System.Exception ex)
         {
             Debug.LogError($"Erro em HandleNoteOn: {ex.Message}\n{ex.StackTrace}");
+        }
+    }
+
+
+    // Método que é chamado quando o pedal de sustain muda de estado
+    // Este método é chamado do BaluMidiAdapter
+    public void HandleSustainPedal(bool isDown)
+    {
+        _isSustainPedalDown = isDown;
+        if (!isDown) // Se o pedal foi liberado
+        {
+            Debug.Log("<color=purple>Pedal de Sustain LIBERADO. Parando notas sustentadas.</color>");
+            foreach (int midiNote in _sustainedNotes)
+            {
+                // Criamos um Note Off manual para cada nota que estava sendo sustentada
+                MPTKEvent noteOffEvent = new MPTKEvent { Command = MPTKCommand.NoteOn, Value = midiNote, Velocity = 0 };
+                if (_currentPlaybackMode == PlaybackMode.Stream && _midiStreamPlayer != null)
+                {
+                    _midiStreamPlayer.MPTK_PlayEvent(noteOffEvent); // Envia o Note Off para o MidiStreamPlayer
+                }
+                // Também chamamos HandleNoteEvent para que a visualização reaja ao fim do sustain
+                // (isso fará o FadeOut final, se ele ainda não tiver ocorrido).
+                // Precisamos ter cuidado para não entrar em loop infinito aqui se HandleNoteEvent chamar HandleSustainPedal.
+                // No seu caso, HandleNoteEvent NÃO chama HandleSustainPedal, então é seguro.
+                HandleNoteEvent(noteOffEvent); // Atualiza a visualização para o Note Off final
+            }
+            _sustainedNotes.Clear(); // Limpa todas as notas sustentadas
+        }
+        else
+        {
+            Debug.Log("<color=purple>Pedal de Sustain PRESSIONADO.</color>");
         }
     }
 
@@ -714,12 +779,12 @@ public class BaluMidiController : MonoBehaviour
         return initialColor;
     }
 
-    private void OnNotesMidi(List<MPTKEvent> noteEvents)
+    private void OnNotesMidiFromFile(List<MPTKEvent> noteEvents)
     {
         foreach (var noteEvent in noteEvents)
         {
             HandleNoteEvent(noteEvent);
-            Debug.Log($"<color=magenta>Evento FILE MIDI: {noteEvent.Command}, Nota: {noteEvent.Value}, Velocidade: {noteEvent.Velocity}</color>");
+            Debug.Log($"<color=magenta>Evento FILE MIDI: {noteEvent.Command}, Nota: {noteEvent.Value}, Velocidade: {noteEvent.Velocity}, Channel: {noteEvent.Channel}</color>");
         }
     }
 
@@ -729,7 +794,7 @@ public class BaluMidiController : MonoBehaviour
         if (_midiStreamPlayer != null) _midiStreamPlayer.gameObject.SetActive(false);
         if (_baluAudioReactive != null) _baluAudioReactive.gameObject.SetActive(false);
         if (_audioSource != null) _audioSource.gameObject.SetActive(false);
-        if (_midiFilePlayer != null) _midiFilePlayer.OnEventNotesMidi.RemoveListener(OnNotesMidi);
+        if (_midiFilePlayer != null) _midiFilePlayer.OnEventNotesMidi.RemoveListener(OnNotesMidiFromFile);
 
         switch (mode)
         {
@@ -737,7 +802,7 @@ public class BaluMidiController : MonoBehaviour
                 if (_midiFilePlayer != null)
                 {
                     _midiFilePlayer.gameObject.SetActive(true);
-                    _midiFilePlayer.OnEventNotesMidi.AddListener(OnNotesMidi);
+                    _midiFilePlayer.OnEventNotesMidi.AddListener(OnNotesMidiFromFile);
                 }
                 break;
             case PlaybackMode.Stream:

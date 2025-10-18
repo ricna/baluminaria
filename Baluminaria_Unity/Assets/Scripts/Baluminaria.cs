@@ -4,7 +4,7 @@ public class Baluminaria : MonoBehaviour
 {
     private Transform _transform;
     [SerializeField]
-    private bool _autoRotate = true;
+    private bool _autoRotate = true; // Agora público para controle externo
     [SerializeField]
     private float _rotationSpeed = 10f;
     [SerializeField]
@@ -67,5 +67,11 @@ public class Baluminaria : MonoBehaviour
             Initialize();
         }
         return _allSegments;
+    }
+
+    // Método público para controlar a rotação automática (chamado pelo GameManager)
+    public void SetAutoRotate(bool rotate)
+    {
+        _autoRotate = rotate;
     }
 }

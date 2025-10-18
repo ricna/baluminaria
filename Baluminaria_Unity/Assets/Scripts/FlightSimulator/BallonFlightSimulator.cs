@@ -16,6 +16,7 @@ public class BalloonFlightController : MonoBehaviour
     public float angularDrag = 1f;
 
     [Header("Sistema de Temperatura e Queimador")]
+    public float initBalloonTemperatureCelsius = 44f;
     public float minBalloonTemperatureCelsius = 20f;
     public float maxBalloonTemperatureCelsius = 120f;
     public float heatingRatePerSecond = 10f;
@@ -46,6 +47,8 @@ public class BalloonFlightController : MonoBehaviour
     public float smoothingFactor = 0.1f; // suavização da direção do movimento
     [Tooltip("Fator de mistura ao aplicar a nova velocidade (quanto mais baixo, mais suave).")]
     public float velocityBlend = 0.05f;
+    [Tooltip("Suavização da desaceleração quando soltar WASD (0..1, quanto menor, mais suave).")]
+    public float decelerationSmoothness = 0.02f;
 
     [Header("Vento Simulado")]
     public float windStrength = 0.5f;
@@ -118,7 +121,7 @@ public class BalloonFlightController : MonoBehaviour
         _inputActions.BalloonControls.ToggleAutomatic.performed += ctx => ToggleAutomaticMode();
 
         // Inicializar estados
-        CurrentBalloonTemperatureCelsius = minBalloonTemperatureCelsius;
+        CurrentBalloonTemperatureCelsius = initBalloonTemperatureCelsius;
         CurrentFuel = maxFuel;
 
         if (burnerLight != null)
@@ -145,7 +148,7 @@ public class BalloonFlightController : MonoBehaviour
         UpdateBalloonTemperatureAndFuel();
         ApplyDynamicBuoyancy();
         ApplyWind();
-
+        ApplyAutoStabilization();
         if (IsAutomaticMode)
         {
             // Automatic mode - AI externa deve controlar via ActivateBurner/ApplyAIForce/ApplyAITurn
@@ -272,7 +275,7 @@ public class BalloonFlightController : MonoBehaviour
             Vector3 horizontalVelocity = new Vector3(currentVelocity.x, 0f, currentVelocity.z);
 
             // Reduz gradualmente a velocidade horizontal sem afetar o eixo Y
-            horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, velocityBlend * 0.5f);
+            horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, decelerationSmoothness);
 
             _rb.linearVelocity = new Vector3(horizontalVelocity.x, currentVelocity.y, horizontalVelocity.z);
         }
@@ -386,6 +389,26 @@ public class BalloonFlightController : MonoBehaviour
             transform.Rotate(Vector3.up, turnAmount * Time.fixedDeltaTime);
         }
     }
+
+    public float stabilizeStrength = 0.5f; // força de estabilização (ajuste conforme)
+    public float stabilizeDamping = 0.2f;  // amortecimento da oscilação (0 = sem amortecimento)
+    private void ApplyAutoStabilization()
+    {
+        // Calcula o quanto o balão está inclinado em X/Z
+        Vector3 currentEuler = transform.rotation.eulerAngles;
+
+        // Converte para intervalo [-180, 180]
+        if (currentEuler.x > 180f) currentEuler.x -= 360f;
+        if (currentEuler.z > 180f) currentEuler.z -= 360f;
+
+        Vector3 correctiveTorque = new Vector3(-currentEuler.x * stabilizeStrength, 0f, -currentEuler.z * stabilizeStrength);
+
+        // Aplica torque suavizado
+        Vector3 dampedTorque = Vector3.Lerp(Vector3.zero, correctiveTorque, 1f - stabilizeDamping);
+
+        _rb.AddTorque(dampedTorque, ForceMode.Acceleration);
+    }
+
 
     public Rigidbody GetRigidbody()
     {

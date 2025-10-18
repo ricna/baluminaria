@@ -9320,8 +9320,9 @@ MonoBehaviour:
   envelopeVolume: 2500
   dragCoefficient: 0.5
   angularDrag: 5
-  minBalloonTemperatureCelsius: 30
-  maxBalloonTemperatureCelsius: 60
+  initBalloonTemperatureCelsius: 42
+  minBalloonTemperatureCelsius: 20
+  maxBalloonTemperatureCelsius: 120
   heatingRatePerSecond: 2
   coolingRatePerSecond: 1
   selfCoolingRateForSecond: 0.1
@@ -9336,10 +9337,11 @@ MonoBehaviour:
   temperatureLapseRate: 0.0065
   groundLevelPressurePascals: 101325
   R_air: 287.05
-  turnSmoothSpeed: 0.5
-  forwardThrust: 1
+  turnSmoothSpeed: 0.1
+  forwardThrust: 2
   smoothingFactor: 0.1
   velocityBlend: 0.05
+  decelerationSmoothness: 0.02
   windStrength: 0
   windTurbulenceFrequency: 0
   windTurbulenceAmplitude: 0
@@ -9350,6 +9352,8 @@ MonoBehaviour:
   fuelText: {fileID: 1530665367}
   modeText: {fileID: 1009175401}
   cameraController: {fileID: 0}
+  stabilizeStrength: 2
+  stabilizeDamping: 1
 --- !u!65 &1886229341
 BoxCollider:
   m_ObjectHideFlags: 0

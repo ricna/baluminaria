@@ -267,7 +267,14 @@ public class BalloonFlightController : MonoBehaviour
         }
         else
         {
-            // sem input: manter inércia natural (não fazemos nada agressivo)
+            // Quando o jogador solta o WASD, desacelera suavemente a velocidade horizontal
+            Vector3 currentVelocity = _rb.linearVelocity;
+            Vector3 horizontalVelocity = new Vector3(currentVelocity.x, 0f, currentVelocity.z);
+
+            // Reduz gradualmente a velocidade horizontal sem afetar o eixo Y
+            horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, velocityBlend * 0.5f);
+
+            _rb.linearVelocity = new Vector3(horizontalVelocity.x, currentVelocity.y, horizontalVelocity.z);
         }
     }
 

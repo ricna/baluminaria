@@ -9323,7 +9323,7 @@ MonoBehaviour:
   minBalloonTemperatureCelsius: 30
   maxBalloonTemperatureCelsius: 60
   heatingRatePerSecond: 2
-  coolingRatePerSecond: 5
+  coolingRatePerSecond: 1
   selfCoolingRateForSecond: 0.1
   coolingRatePerVelocity: 0
   burnerLight: {fileID: 654717546}
@@ -9336,8 +9336,10 @@ MonoBehaviour:
   temperatureLapseRate: 0.0065
   groundLevelPressurePascals: 101325
   R_air: 287.05
-  turnRate: 5
+  turnSmoothSpeed: 0.5
   forwardThrust: 1
+  smoothingFactor: 0.1
+  velocityBlend: 0.05
   windStrength: 0
   windTurbulenceFrequency: 0
   windTurbulenceAmplitude: 0

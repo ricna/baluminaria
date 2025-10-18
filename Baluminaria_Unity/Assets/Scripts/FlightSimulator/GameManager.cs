@@ -6,13 +6,13 @@ public class GameManager : MonoBehaviour
     public BalloonFlightController balloonFlightController;
     public CameraController cameraController;
     public Baluminaria baluminaria;
-
+    /*
     [Header("Configurações do Ambiente")]
     public Material skyboxMaterial;
     public Color manualSkyColor = Color.cyan;
     public Color automaticSkyColor = Color.blue;
     public Light directionalLight;
-
+    */
     [Header("Configurações de Áudio")]
     public AudioSource windSoundSource;
     public AudioSource ambientMusicSource;
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
         balloonFlightController.OnAutomaticModeChanged += OnAutomaticModeChanged;
 
-        SetSkyColors(balloonFlightController.IsAutomaticMode ? automaticSkyColor : manualSkyColor);
+        //SetSkyColors(balloonFlightController.IsAutomaticMode ? automaticSkyColor : manualSkyColor);
         UpdateAudioSettings();
 
         if (baluminaria != null)
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     private void OnAutomaticModeChanged(bool isAutomatic)
     {
         Debug.Log($"GameMode Changed: {(isAutomatic ? "Automatic" : "Manual")}");
-        SetSkyColors(isAutomatic ? automaticSkyColor : manualSkyColor);
+        //SetSkyColors(isAutomatic ? automaticSkyColor : manualSkyColor);
         UpdateAudioSettings();
     }
 
@@ -84,13 +84,13 @@ public class GameManager : MonoBehaviour
 
     public void SetSkyColors(Color newColor)
     {
-        RenderSettings.skybox = skyboxMaterial;
+        /*RenderSettings.skybox = skyboxMaterial;
         RenderSettings.ambientLight = newColor;
 
         if (directionalLight != null)
         {
             directionalLight.color = newColor * 0.8f;
-        }
+        }*/
     }
 
     private void UpdateAudioSettings()

@@ -15,18 +15,18 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  m_FogColor: {r: 0.45349768, g: 0.745283, b: 0.73093295, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.02
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.5
+  m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.0627451, g: 0.0627451, b: 0.0627451, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 9148f41a1d8f7b44ca404ffd9a354c36, type: 2}
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 59573b088aaea0442bf29e0a0e9d1339, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -353,15 +353,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1475,15 +1475,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2087,11 +2087,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: midiNameToPlay
-      value: Bjork - Venus As A Boy
+      value: Satie - Gymnopedie 1
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: midiIndexToPlay
-      value: 19
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 114662785300262660, guid: 32a8d8859acf18d4ba134834a876d5ea, type: 3}
       propertyPath: showMidiPlaying
@@ -2940,7 +2940,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &471609289
 Transform:
   m_ObjectHideFlags: 0
@@ -3909,7 +3909,7 @@ Transform:
   m_GameObject: {fileID: 654717545}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4674,15 +4674,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -4843,7 +4843,7 @@ MonoBehaviour:
   _baluminaria: {fileID: 1886229337}
   _currentInstrumentProgram: 103
   _midiChannel: 0
-  _currentPlaybackMode: 1
+  _currentPlaybackMode: 0
   _clampNotes: 1
   _analysisSensitivity: 0.05
   _analysisInterval: 0.02
@@ -5144,13 +5144,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.043619405, y: -0, z: -0, w: 0.9990483}
-  m_LocalPosition: {x: 0, y: 1.2, z: -4}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1305025556}
-  m_LocalEulerAnglesHint: {x: 5, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &978965859
 GameObject:
   m_ObjectHideFlags: 0
@@ -5343,15 +5343,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -5470,6 +5470,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014480731}
   m_CullTransparentMesh: 1
+--- !u!1 &1044667445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044667448}
+  - component: {fileID: 1044667447}
+  - component: {fileID: 1044667446}
+  m_Layer: 0
+  m_Name: Terrain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!154 &1044667446
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044667445}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_TerrainData: {fileID: 15600000, guid: fbfb2c95ffaeb7f408611ac520b9ab56, type: 2}
+  m_EnableTreeColliders: 1
+--- !u!218 &1044667447
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044667445}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: fbfb2c95ffaeb7f408611ac520b9ab56, type: 2}
+  m_TreeDistance: 5000
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 50
+  m_DetailObjectDistance: 128
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 5
+  m_SplatMapDistance: 1000
+  m_HeightmapMinimumLODSimplification: 0
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 2
+  m_DrawHeightmap: 1
+  m_DrawInstanced: 0
+  m_DrawTreesAndFoliage: 1
+  m_StaticShadowCaster: 0
+  m_IgnoreQualitySettings: 0
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
+  m_BakeLightProbesForTrees: 1
+  m_PreserveTreePrototypeLayers: 0
+  m_DeringLightProbesForTrees: 1
+  m_ReceiveGI: 1
+  m_ScaleInLightmap: 0.0256
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 1
+  m_EnableHeightmapRayTracing: 1
+  m_EnableTreesAndDetailsRayTracing: 0
+  m_TreeMotionVectorModeOverride: 3
+--- !u!4 &1044667448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044667445}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044776156
 GameObject:
   m_ObjectHideFlags: 0
@@ -6141,12 +6234,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1160234425}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.085308366, y: -0.06733245, z: -0.005778343, w: 0.99406016}
+  m_LocalPosition: {x: -175.9976, y: -14.4440975, z: -26.80516}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1559361851}
+  m_Father: {fileID: 1305025556}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1162887488
 GameObject:
@@ -6495,10 +6588,6 @@ MonoBehaviour:
   balloonFlightController: {fileID: 1886229340}
   cameraController: {fileID: 1305025557}
   baluminaria: {fileID: 1886229337}
-  skyboxMaterial: {fileID: 2100000, guid: 9148f41a1d8f7b44ca404ffd9a354c36, type: 2}
-  manualSkyColor: {r: 0.4669811, g: 0.6571957, b: 1, a: 1}
-  automaticSkyColor: {r: 1, g: 0.8365737, b: 0, a: 1}
-  directionalLight: {fileID: 203844588}
   windSoundSource: {fileID: 117413666}
   ambientMusicSource: {fileID: 2011084822}
   burnerSoundSource: {fileID: 654717549}
@@ -6677,6 +6766,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1305025556}
   - component: {fileID: 1305025557}
+  - component: {fileID: 1305025558}
   m_Layer: 0
   m_Name: MainCameraFollower
   m_TagString: Untagged
@@ -6693,10 +6783,11 @@ Transform:
   m_GameObject: {fileID: 1305025555}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 439, y: 38.82, z: 559.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1160234427}
   - {fileID: 961739753}
   m_Father: {fileID: 1559361851}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6713,12 +6804,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1886229336}
-  distance: 2
-  height: 0
+  distance: 30
+  height: 10
   smoothSpeed: 1
-  mouseSensitivityX: 5
-  mouseSensitivityY: 5
+  mouseSensitivityX: 4
+  mouseSensitivityY: 4
   pitchLimits: {x: -45, y: 80}
+--- !u!135 &1305025558
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305025555}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1333620141
 GameObject:
   m_ObjectHideFlags: 0
@@ -7769,15 +7881,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -8077,7 +8189,6 @@ Transform:
   m_Children:
   - {fileID: 1305025556}
   - {fileID: 604712594}
-  - {fileID: 1160234427}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1580481367
@@ -9104,9 +9215,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886229335}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 439, y: 49.11, z: 578}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 161713057}
@@ -9116,7 +9227,7 @@ Transform:
   - {fileID: 632655322}
   - {fileID: 654717548}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1886229337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9139,7 +9250,7 @@ MonoBehaviour:
   - {fileID: 3181332989991305630, guid: 2e2da1d9fbfa38d49abd98f46cf4adc8, type: 3}
   - {fileID: 5507492165183826708, guid: eb1a3095660504d4b85e34e56d2f5f07, type: 3}
   - {fileID: 6428150953228895480, guid: 6bb91eb359bfb8146a851a1e9ccd8d48, type: 3}
-  maxIntensity: 0.1
+  maxIntensity: 1
 --- !u!54 &1886229338
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9207,28 +9318,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalMass: 200
   envelopeVolume: 2500
-  dragCoefficient: 0.05
-  angularDrag: 1
-  minBalloonTemperatureCelsius: 20
-  maxBalloonTemperatureCelsius: 120
-  heatingRatePerSecond: 10
-  coolingRatePerSecond: 0.5
-  coolingRatePerVelocity: 0.01
+  dragCoefficient: 0.5
+  angularDrag: 5
+  minBalloonTemperatureCelsius: 30
+  maxBalloonTemperatureCelsius: 60
+  heatingRatePerSecond: 2
+  coolingRatePerSecond: 5
+  selfCoolingRateForSecond: 0.1
+  coolingRatePerVelocity: 0
   burnerLight: {fileID: 654717546}
   maxBurnerLightIntensity: 5
   burnerLightFlickerFrequency: 10
   burnerLightFlickerAmplitude: 0.2
-  maxFuel: 100
-  fuelConsumptionRate: 0.1
+  maxFuel: 1000
+  fuelConsumptionRate: 0.001
   groundLevelTemperatureCelsius: 20
   temperatureLapseRate: 0.0065
   groundLevelPressurePascals: 101325
   R_air: 287.05
-  turnSpeed: 0.1
+  turnRate: 5
   forwardThrust: 1
-  windStrength: 0.5
-  windTurbulenceFrequency: 0.1
-  windTurbulenceAmplitude: 0.2
+  windStrength: 0
+  windTurbulenceFrequency: 0
+  windTurbulenceAmplitude: 0
   altitudeText: {fileID: 813082345}
   verticalSpeedText: {fileID: 188606118}
   internalTempText: {fileID: 30046219}
@@ -9255,8 +9367,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.51, z: 1}
-  m_Center: {x: 0, y: 0.04, z: 0}
+  m_Size: {x: 1, y: 0.7773107, z: 1}
+  m_Center: {x: 0, y: -0.32634482, z: 0}
 --- !u!1 &1920162440
 GameObject:
   m_ObjectHideFlags: 0
@@ -9757,7 +9869,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 460, y: 60}
+  m_CellSize: {x: 300, y: 30}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 1
@@ -9768,7 +9880,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977489131}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -10721,15 +10833,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -10929,3 +11041,4 @@ SceneRoots:
   - {fileID: 1886229336}
   - {fileID: 117413667}
   - {fileID: 471609289}
+  - {fileID: 1044667448}

@@ -1,23 +1,38 @@
-using TMPro; // Para UI de medidores
+using MPTK.NAudio.Midi;
+using System;
+using System.IO;
 using UnityEngine;
-using Unrez.BackyardShowdown;
 
 public class GameManager : MonoBehaviour
 {
-    public BalloonFlightController balloonFlightController;
+    public BaluminariaFlightController balloonFlightController;
     public CameraController cameraController;
     public Baluminaria baluminaria;
 
     [Header("Configurações de Áudio")]
     public AudioSource windSoundSource;
     public AudioSource ambientMusicSource;
-    public AudioSource burnerSoundSource; // NOVO: Adicione uma fonte de áudio para o queimador
+    public AudioSource burnerSoundSource;
     [SerializeField]
-    private BalloonInputActions _inputActions;
+    private AudioClip _burnerStart;
+    [SerializeField]
+    private AudioClip _burnerLoop;
+    [SerializeField]
+    private AudioClip _burnerStop;
+    private AudioSource _audioSourceBurner;
+
+    private bool _isAscending = false;
+    private bool _isDescending = false;
+
+
+    [Header("Personalização")]
+    [SerializeField]
+    private PersonalizationManager _personalizationManager;
+    [SerializeField]
+    private BaluMidiController _baluMidiController;
 
     private void Start()
     {
-        _inputActions = new BalloonInputActions();
         if (balloonFlightController == null)
         {
             Debug.LogError("balloonFlightController não atribuído no GameManager!");
@@ -36,45 +51,36 @@ public class GameManager : MonoBehaviour
 
         if (baluminaria != null)
         {
-            baluminaria.SetAutoRotate(false);
+            baluminaria.SetAutoRotate(false); // bloqueia rotação até personalização/confirm
         }
 
         AssignOnEvents();
-    }
 
-    private bool _isAscending = false;
-    private bool _isDescending = false;
-
-    [SerializeField]
-    private AudioClip _burnerStart;
-    [SerializeField]
-    private AudioClip _burnerLoop;
-    [SerializeField]
-    private AudioClip _burnerStop;
-    private AudioSource _audioSourceBurner;
-    private void AssignOnEvents()
-    {
-        _inputActions.BalloonControls.Enable();
-
-        baluminaria.InputReader.OnAscendEvent += (isPressed) =>
+        // Fluxo: checar se existe arquivo salvo; se não, iniciar personalização.
+        string path = Path.Combine(Application.persistentDataPath, "baluminaria_config.json");
+        if (File.Exists(path))
         {
-            if (isPressed && !_isAscending)
+            Debug.Log("Design existente encontrado. Carregando e aplicando...");
+            string json = File.ReadAllText(path);
+            BaluminariaData loaded = JsonUtility.FromJson<BaluminariaData>(json);
+            if (loaded != null)
             {
-                _audioSourceBurner = AudioManager.Instance.PlaySFXStartThenLoop(_burnerStart, _burnerLoop);
+                ApplyDesignImmediately(loaded);
+                // inicia modo de voo + MIDI automaticamente
+                StartExperienceFromDesign(loaded);
             }
-            else if (!isPressed && _isAscending)
+            else
             {
-                AudioManager.Instance.PlayOnceAfterLoop(_audioSourceBurner);
-                AudioManager.Instance.PlaySFX(_burnerStop);
+                Debug.LogWarning("Arquivo de design encontrado mas não pôde ser desserializado. Entrando em modo de personalização.");
+                StartPersonalizationFlow();
             }
-            _isAscending = isPressed;
-        };
-        baluminaria.InputReader.OnDescendEvent += (isPressed) =>
+        }
+        else
         {
-            _isDescending = isPressed;
-        };
+            Debug.Log("Nenhum design salvo encontrado. Iniciando personalização.");
+            StartPersonalizationFlow();
+        }
     }
-
 
     private void OnDestroy()
     {
@@ -101,6 +107,91 @@ public class GameManager : MonoBehaviour
         {
             if (windSoundSource != null) windSoundSource.volume = 1.0f;
             if (ambientMusicSource != null && ambientMusicSource.isPlaying) ambientMusicSource.Stop();
+        }
+    }
+
+
+    private void AssignOnEvents()
+    {
+        baluminaria.InputReader.OnAscendEvent += (isPressed) =>
+        {
+            if (isPressed && !_isAscending)
+            {
+                _audioSourceBurner = AudioManager.Instance.PlaySFXStartThenLoop(_burnerStart, _burnerLoop);
+            }
+            else if (!isPressed && _isAscending)
+            {
+                AudioManager.Instance.PlayOnceAfterLoop(_audioSourceBurner);
+                AudioManager.Instance.PlaySFX(_burnerStop);
+            }
+            _isAscending = isPressed;
+        };
+        baluminaria.InputReader.OnDescendEvent += (isPressed) =>
+        {
+            _isDescending = isPressed;
+        };
+    }
+    // --------------------------------------------------------
+    // Personalization / Experience Flow
+    // --------------------------------------------------------
+    private void StartPersonalizationFlow()
+    {
+        if (_personalizationManager != null)
+        {
+            _personalizationManager.StartPersonalization();
+        }
+        else
+        {
+            Debug.LogError("PersonalizationManager não atribuído no GameManager.");
+        }
+    }
+
+    public void StartExperienceFromDesign(BaluminariaData design)
+    {
+        if (design == null)
+        {
+            Debug.LogError("Design nulo passado para StartExperienceFromDesign.");
+            return;
+        }
+
+        // Aplica design na baluminaria (visual imediato)
+        ApplyDesignImmediately(design);
+
+        // Inicia o flight controller (modo de voo)
+        if (balloonFlightController != null)
+        {
+            balloonFlightController.StartFlying();
+        }
+
+        // Inicia o MIDI controller
+        if (_baluMidiController != null)
+        {
+            _baluMidiController.SetOutputMode(BaluMidiController.OutputMode.Baluminaria);
+            _baluMidiController.StartMidiController();
+        }
+
+        // Ativa rotação automática se desejar
+        if (baluminaria != null)
+        {
+            baluminaria.SetAutoRotate(true);
+        }
+    }
+
+    private void ApplyDesignImmediately(BaluminariaData design)
+    {
+        if (design == null || baluminaria == null) return;
+
+        Segment[] segments = baluminaria.GetSegments();
+        int length = Mathf.Min(segments.Length, design.segmentColors.Length);
+        for (int i = 0; i < length; i++)
+        {
+            if (segments[i] != null && design.segmentColors[i] != null)
+            {
+                Color color = design.segmentColors[i].ToColor();
+                segments[i].SetMaterialColors(color, color);
+                segments[i].ChangeLightColor(color);
+                segments[i].SetLightIntensity(0f);
+            }
         }
     }
 }

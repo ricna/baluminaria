@@ -222,16 +222,23 @@ public class BaluMidiController : MonoBehaviour
     #endregion
 
     #region Unity Lifecycle
-    private void Awake()
+    private void Start()
+    {
+
+    }
+
+    public void StartMidiController()
+    {
+        StartCoroutine(StartMidiControllerCoroutine());
+    }
+
+    private IEnumerator StartMidiControllerCoroutine()
     {
         InitializeChromaticColors();
         EnsureDelayArraysSize();
         CalculateCurrentScale();
-        UpdateColorModeFlags(); // Initialize flags on Awake
-    }
-
-    private IEnumerator Start()
-    {
+        UpdateColorModeFlags();
+        yield return new WaitForSeconds(0.1f);
         SetOutputMode(_currentOutputMode);
         yield return new WaitForSeconds(0.2f); // Pequeno atraso para garantir que tudo esteja inicializado
         SetPlaybackMode(_currentPlaybackMode);

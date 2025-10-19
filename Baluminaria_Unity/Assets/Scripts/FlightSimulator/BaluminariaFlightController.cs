@@ -4,7 +4,7 @@ using TMPro;
 using System;
 
 [RequireComponent(typeof(Rigidbody))]
-public class BalloonFlightController : MonoBehaviour
+public class BaluminariaFlightController : MonoBehaviour
 {
     [SerializeField]
     private Baluminaria _baluminaria;
@@ -97,27 +97,32 @@ public class BalloonFlightController : MonoBehaviour
         {
             _rb = gameObject.AddComponent<Rigidbody>();
         }
-
-        // Configurar Rigidbody
-        _rb.mass = totalMass;
-        _rb.useGravity = true;
-        _rb.angularDamping = angularDrag;
-        _rb.isKinematic = false;
-
-        // Note: mantenho linear damping no campo dragCoefficient para reduzir oscilações horizontais
-        _rb.linearDamping = dragCoefficient;
-
-        // Inicializar estados
-        CurrentBalloonTemperatureCelsius = initBalloonTemperatureCelsius;
-        CurrentFuel = maxFuel;
+        _rb.mass = 0;
+        _rb.useGravity = false;
+        _rb.isKinematic = true;
 
         if (burnerLight != null)
         {
             burnerLight.intensity = 0f;
             burnerLight.enabled = false;
         }
-        SubscribeToInputReader();
     }
+
+    private bool _hasStartedFlying = false;
+    public void StartFlying()
+    {
+        // Configurar Rigidbody
+        _rb.mass = totalMass;
+        _rb.useGravity = true;
+        _rb.angularDamping = angularDrag;
+        _rb.isKinematic = false;
+        _rb.linearDamping = dragCoefficient;
+        CurrentBalloonTemperatureCelsius = initBalloonTemperatureCelsius;
+        CurrentFuel = maxFuel;
+        SubscribeToInputReader();
+        _hasStartedFlying = true;
+    }
+
 
     private void OnDestroy()
     {
@@ -126,6 +131,10 @@ public class BalloonFlightController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!_hasStartedFlying)
+        {
+            return;
+        }
         CurrentAltitude = transform.position.y;
         CalculateExternalConditions();
         UpdateBalloonTemperatureAndFuel();

@@ -22,7 +22,7 @@ public class BalloonAIController : MonoBehaviour
     [Header("Waypoints para Piloto Automático")]
     public List<Vector3> waypoints = new List<Vector3>();
 
-    private BalloonFlightController _flightController;
+    private BaluminariaFlightController _flightController;
     private Rigidbody _balloonRigidbody;
     private int _currentWaypointIndex = 0;
     private bool _initializedWaypoints = false;
@@ -34,7 +34,7 @@ public class BalloonAIController : MonoBehaviour
 
     private void Start()
     {
-        _flightController = GetComponent<BalloonFlightController>();
+        _flightController = GetComponent<BaluminariaFlightController>();
         if (_flightController == null)
         {
             Debug.LogError("BalloonAIController requer um BalloonFlightController no mesmo GameObject!");

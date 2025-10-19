@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8153765631579697176}
   - component: {fileID: 8439106058696431301}
   - component: {fileID: 5507492165183826708}
+  - component: {fileID: 3445107637845491211}
+  - component: {fileID: -7688191892007014968}
   m_Layer: 0
   m_Name: Baluminaria-Seg06
   m_TagString: Untagged
@@ -102,6 +104,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _light: {fileID: 0}
   _range: 1
+  _baseColor: {r: 1, g: 1, b: 1, a: 1}
+  _subsurfaceColor: {r: 1, g: 1, b: 1, a: 1}
+  _translucencyPower: 1
+  _translucencyStrength: 5
+--- !u!64 &3445107637845491211
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4983196191025740338}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2167174256734036544, guid: f4458f65908176a4fb22146ffccf3f54, type: 3}
+--- !u!114 &-7688191892007014968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4983196191025740338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde27cc5f58642848984d1357c6bc742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8282088269356902821
 GameObject:
   m_ObjectHideFlags: 0

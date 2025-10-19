@@ -44,11 +44,14 @@ public class Baluminaria : MonoBehaviour
 
     [Header("Material Segments Atributes")]
     [SerializeField, Range(-3f, 3f)]
-    private float _trasnlucencyPower = 2.0f;
+    private float _translucencyPower = 2.0f;
     [SerializeField, Range(-10f, 10f)]
     private float _translucencyStrength = 5.0f;
+    [SerializeField]
+    private Color _colorSegment = Color.cyan;
+    [SerializeField]
+    private Color _colorSegmentSubsurface = Color.cyan;
 
-    [ContextMenu("Initialize Segments")]
     private void Initialize()
     {
         if (_allSegments != null && _allSegments.Length > 0)
@@ -69,9 +72,22 @@ public class Baluminaria : MonoBehaviour
                 newSegment.ChangeLightColor(Color.black);
                 newSegment.SetLightIntensity(0f);
                 Color color = Color.cyan;// Color.HSVToRGB((float)i / 16f, 1f, 1f);
-                newSegment.SetMaterialColors(color, color);
-                newSegment.SetMaterialTranslucency(_trasnlucencyPower,_translucencyStrength);
+                newSegment.SetMaterialColors(_colorSegment, _colorSegmentSubsurface);
+                newSegment.SetMaterialTranslucency(_translucencyPower,_translucencyStrength);
                 segmentIndex++;
+            }
+        }
+    }
+
+    [ContextMenu("Update Material Segments")]
+    private void UpdateMaterialSegments()
+    {
+        foreach (var segment in _allSegments)
+        {
+            if (segment != null)
+            {
+                segment.SetMaterialColors(_colorSegment, _colorSegmentSubsurface);
+                segment.SetMaterialTranslucency(_translucencyPower, _translucencyStrength);
             }
         }
     }
@@ -99,4 +115,6 @@ public class Baluminaria : MonoBehaviour
     {
         _autoRotate = rotate;
     }
+
+
 }

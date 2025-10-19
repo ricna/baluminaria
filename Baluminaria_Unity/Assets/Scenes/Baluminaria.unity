@@ -1852,13 +1852,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203844586}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0019421488, y: -0.9979832, z: -0.03833867, w: -0.05055553}
-  m_LocalPosition: {x: 1236, y: -547, z: 761}
+  m_LocalRotation: {x: 0.09229593, y: -0.7010574, z: 0.09229593, w: 0.7010574}
+  m_LocalPosition: {x: 1235.2, y: 207, z: 524}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 604712594}
-  m_LocalEulerAnglesHint: {x: -4.4, y: -185.8, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: -90, z: 0}
 --- !u!1 &215647291
 GameObject:
   m_ObjectHideFlags: 0
@@ -5585,7 +5585,6 @@ MonoBehaviour:
   _midiFilePlayer: {fileID: 2011084819}
   _midiStreamPlayer: {fileID: 1689470358}
   _baluAudioReactive: {fileID: 1371874675}
-  _audioSource: {fileID: 1371874674}
   _text: {fileID: 1798677227}
   _ringsParent: {fileID: 2056527931}
   _currentOutputMode: 1

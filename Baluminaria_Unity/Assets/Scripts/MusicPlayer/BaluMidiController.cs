@@ -357,14 +357,14 @@ public class BaluMidiController : MonoBehaviour
             fade.Timer += Time.deltaTime;
             if (fade.Timer >= fade.Duration)
             {
-                fade.Segment.SetIntensity(fade.EndIntensity);
+                fade.Segment.SetLightIntensity(fade.EndIntensity);
                 _activeFadesBaluminaria.RemoveAt(i);
             }
             else
             {
                 float progress = fade.Timer / fade.Duration;
                 float currentIntensity = Mathf.Lerp(fade.StartIntensity, fade.EndIntensity, progress);
-                fade.Segment.SetIntensity(currentIntensity);
+                fade.Segment.SetLightIntensity(currentIntensity);
             }
         }
     }
@@ -397,7 +397,7 @@ public class BaluMidiController : MonoBehaviour
 
         if (duration <= 0)
         {
-            segment.SetIntensity(endIntensity);
+            segment.SetLightIntensity(endIntensity);
             return;
         }
 
@@ -788,7 +788,7 @@ public class BaluMidiController : MonoBehaviour
                 }
                 else
                 {
-                    _baluSegments[segIndex]?.SetIntensity(targetIntensity);
+                    _baluSegments[segIndex]?.SetLightIntensity(targetIntensity);
                 }
                 yield return new WaitForSeconds(0.05f);
 
@@ -798,7 +798,7 @@ public class BaluMidiController : MonoBehaviour
                 }
                 else
                 {
-                    _baluSegments[segIndex]?.SetIntensity(0);
+                    _baluSegments[segIndex]?.SetLightIntensity(0);
                 }
                 yield return new WaitForSeconds(0.05f);
                 timer += 0.1f;

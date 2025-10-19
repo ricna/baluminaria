@@ -42,7 +42,13 @@ public class Baluminaria : MonoBehaviour
     }
 
 
+    [Header("Material Segments Atributes")]
+    [SerializeField, Range(0f, 100f)]
+    private float _trasnlucencyPower = 2.0f;
+    [SerializeField, Range(0f, 100f)]
+    private float _translucencyStrength = 5.0f;
 
+    [ContextMenu("Initialize Segments")]
     private void Initialize()
     {
         if (_allSegments != null && _allSegments.Length > 0)
@@ -61,7 +67,10 @@ public class Baluminaria : MonoBehaviour
                 newSegment.transform.Rotate(Vector3.up, i * -22.5f);
                 _allSegments[segmentIndex] = newSegment;
                 newSegment.ChangeLightColor(Color.black);
-                newSegment.SetIntensity(0f);
+                newSegment.SetLightIntensity(0f);
+                Color color = Color.cyan;// Color.HSVToRGB((float)i / 16f, 1f, 1f);
+                newSegment.SetMaterialColors(color, color);
+                newSegment.SetMaterialTranslucency(_trasnlucencyPower,_translucencyStrength);
                 segmentIndex++;
             }
         }

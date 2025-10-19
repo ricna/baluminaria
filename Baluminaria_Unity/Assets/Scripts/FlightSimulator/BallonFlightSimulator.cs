@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System;
 
 [RequireComponent(typeof(Rigidbody))]
 public class BalloonFlightController : MonoBehaviour
 {
+    [SerializeField]
+    private Baluminaria _baluminaria;
     [Header("Propriedades Físicas do Balão")]
     [Tooltip("Massa total do balão (cesta, envelope, piloto, carga) em kg.")]
     public float totalMass = 200f;
@@ -65,7 +68,6 @@ public class BalloonFlightController : MonoBehaviour
 
     // Componentes
     private Rigidbody _rb;
-    private BalloonInputActions _inputActions;
 
     // Variáveis de Input
     private Vector2 _moveInput;
@@ -79,12 +81,11 @@ public class BalloonFlightController : MonoBehaviour
     public float CurrentExternalTemperatureCelsius { get; private set; }
     public float CurrentAltitude { get; private set; }
 
-    // Referência para o CameraController (atribua pelo GameManager ou inspector)
     [HideInInspector]
     public CameraController cameraController;
 
     // Eventos
-    public event System.Action<bool> OnAutomaticModeChanged;
+    public event Action<bool> OnAutomaticModeChanged;
 
     // Suavização de direção
     private Vector3 _targetDirection = Vector3.zero;
@@ -106,20 +107,6 @@ public class BalloonFlightController : MonoBehaviour
         // Note: mantenho linear damping no campo dragCoefficient para reduzir oscilações horizontais
         _rb.linearDamping = dragCoefficient;
 
-        // Inicializar sistema de input
-        _inputActions = new BalloonInputActions();
-
-        _inputActions.BalloonControls.Move.performed += ctx => _moveInput = ctx.ReadValue<Vector2>();
-        _inputActions.BalloonControls.Move.canceled += ctx => _moveInput = Vector2.zero;
-
-        _inputActions.BalloonControls.Ascend.performed += ctx => _burnerActive = true;
-        _inputActions.BalloonControls.Ascend.canceled += ctx => _burnerActive = false;
-
-        _inputActions.BalloonControls.Descend.performed += ctx => { _coolerActive = true; };
-        _inputActions.BalloonControls.Descend.canceled += ctx => { _coolerActive = false; };
-
-        _inputActions.BalloonControls.ToggleAutomatic.performed += ctx => ToggleAutomaticMode();
-
         // Inicializar estados
         CurrentBalloonTemperatureCelsius = initBalloonTemperatureCelsius;
         CurrentFuel = maxFuel;
@@ -129,16 +116,12 @@ public class BalloonFlightController : MonoBehaviour
             burnerLight.intensity = 0f;
             burnerLight.enabled = false;
         }
+        SubscribeToInputReader();
     }
 
-    private void OnEnable()
+    private void OnDestroy()
     {
-        _inputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _inputActions.Disable();
+        UnsubscribeToInputReader();
     }
 
     private void FixedUpdate()
@@ -162,6 +145,39 @@ public class BalloonFlightController : MonoBehaviour
         UpdateBurnerLight();
         UpdateDebugUI();
     }
+
+    private void SubscribeToInputReader()
+    {
+        _baluminaria.InputReader.OnAscendEvent += (isPressed) =>
+        {
+            _burnerActive = isPressed;
+        };
+        _baluminaria.InputReader.OnDescendEvent += (isPressed) =>
+        {
+            _coolerActive = isPressed;
+        };
+        _baluminaria.InputReader.OnMoveEvent += (input) =>
+        {
+            _moveInput = input;
+        };
+    }
+
+    private void UnsubscribeToInputReader()
+    {
+        _baluminaria.InputReader.OnAscendEvent -= (isPressed) =>
+        {
+            _burnerActive = isPressed;
+        };
+        _baluminaria.InputReader.OnDescendEvent -= (isPressed) =>
+        {
+            _coolerActive = isPressed;
+        };
+        _baluminaria.InputReader.OnMoveEvent -= (input) =>
+        {
+            _moveInput = input;
+        };
+    }
+
 
     private void CalculateExternalConditions()
     {
@@ -283,7 +299,7 @@ public class BalloonFlightController : MonoBehaviour
 
     private void HandleVisualRotation()
     {
-        if (cameraController == null)
+        if (cameraController == null || Mathf.Abs(_rb.linearVelocity.y) < 2)
         {
             return;
         }

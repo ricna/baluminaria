@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Baluminaria : MonoBehaviour
 {
+    [SerializeField]
+    private InputReader _inputReader;
     private Transform _transform;
     [SerializeField]
     private bool _autoRotate = true; // Agora público para controle externo
@@ -15,6 +17,17 @@ public class Baluminaria : MonoBehaviour
     [Tooltip("A intensidade máxima que as luzes podem atingir. O valor da velocidade MIDI será multiplicado por essa intensidade.")]
     [Range(0f, 1f)]
     public float maxIntensity = 0.5f;
+    public InputReader InputReader
+    {
+        get
+        {
+            return _inputReader;
+        }
+        private set
+        {
+            _inputReader = value;
+        }
+    }
 
     private void Awake()
     {
@@ -27,6 +40,9 @@ public class Baluminaria : MonoBehaviour
         _transform = transform;
         _transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime);
     }
+
+
+
     private void Initialize()
     {
         if (_allSegments != null && _allSegments.Length > 0)

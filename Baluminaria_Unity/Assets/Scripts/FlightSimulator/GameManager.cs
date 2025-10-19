@@ -1,18 +1,13 @@
 using TMPro; // Para UI de medidores
 using UnityEngine;
+using Unrez.BackyardShowdown;
 
 public class GameManager : MonoBehaviour
 {
     public BalloonFlightController balloonFlightController;
     public CameraController cameraController;
     public Baluminaria baluminaria;
-    /*
-    [Header("Configurações do Ambiente")]
-    public Material skyboxMaterial;
-    public Color manualSkyColor = Color.cyan;
-    public Color automaticSkyColor = Color.blue;
-    public Light directionalLight;
-    */
+
     [Header("Configurações de Áudio")]
     public AudioSource windSoundSource;
     public AudioSource ambientMusicSource;
@@ -22,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _inputActions = new BalloonInputActions();
         if (balloonFlightController == null)
         {
             Debug.LogError("balloonFlightController não atribuído no GameManager!");
@@ -34,17 +30,51 @@ public class GameManager : MonoBehaviour
         }
 
         balloonFlightController.cameraController = cameraController;
-
         balloonFlightController.OnAutomaticModeChanged += OnAutomaticModeChanged;
 
-        //SetSkyColors(balloonFlightController.IsAutomaticMode ? automaticSkyColor : manualSkyColor);
         UpdateAudioSettings();
 
         if (baluminaria != null)
         {
             baluminaria.SetAutoRotate(false);
         }
+
+        AssignOnEvents();
     }
+
+    private bool _isAscending = false;
+    private bool _isDescending = false;
+
+    [SerializeField]
+    private AudioClip _burnerStart;
+    [SerializeField]
+    private AudioClip _burnerLoop;
+    [SerializeField]
+    private AudioClip _burnerStop;
+    private AudioSource _audioSourceBurner;
+    private void AssignOnEvents()
+    {
+        _inputActions.BalloonControls.Enable();
+
+        baluminaria.InputReader.OnAscendEvent += (isPressed) =>
+        {
+            if (isPressed && !_isAscending)
+            {
+                _audioSourceBurner = AudioManager.Instance.PlaySFXStartThenLoop(_burnerStart, _burnerLoop);
+            }
+            else if (!isPressed && _isAscending)
+            {
+                AudioManager.Instance.PlayOnceAfterLoop(_audioSourceBurner);
+                AudioManager.Instance.PlaySFX(_burnerStop);
+            }
+            _isAscending = isPressed;
+        };
+        baluminaria.InputReader.OnDescendEvent += (isPressed) =>
+        {
+            _isDescending = isPressed;
+        };
+    }
+
 
     private void OnDestroy()
     {
@@ -57,40 +87,7 @@ public class GameManager : MonoBehaviour
     private void OnAutomaticModeChanged(bool isAutomatic)
     {
         Debug.Log($"GameMode Changed: {(isAutomatic ? "Automatic" : "Manual")}");
-        //SetSkyColors(isAutomatic ? automaticSkyColor : manualSkyColor);
         UpdateAudioSettings();
-    }
-
-    private void Update() // Update é bom para controlar sons baseados no estado do queimador
-    {
-        // Se o queimador estiver ativo no FlightController, toque o som.
-        // Assumindo que o burnerSoundSource é um loop
-        if (balloonFlightController != null && balloonFlightController.CurrentFuel > 0 && _inputActions.BalloonControls.Ascend.IsPressed())
-        {
-            if (burnerSoundSource != null && !burnerSoundSource.isPlaying)
-            {
-                burnerSoundSource.Play();
-            }
-        }
-        else
-        {
-            if (burnerSoundSource != null && burnerSoundSource.isPlaying)
-            {
-                burnerSoundSource.Stop();
-            }
-        }
-    }
-
-
-    public void SetSkyColors(Color newColor)
-    {
-        /*RenderSettings.skybox = skyboxMaterial;
-        RenderSettings.ambientLight = newColor;
-
-        if (directionalLight != null)
-        {
-            directionalLight.color = newColor * 0.8f;
-        }*/
     }
 
     private void UpdateAudioSettings()

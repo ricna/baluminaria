@@ -43,9 +43,9 @@ public class Baluminaria : MonoBehaviour
 
 
     [Header("Material Segments Atributes")]
-    [SerializeField, Range(0f, 100f)]
+    [SerializeField, Range(-3f, 3f)]
     private float _trasnlucencyPower = 2.0f;
-    [SerializeField, Range(0f, 100f)]
+    [SerializeField, Range(-10f, 10f)]
     private float _translucencyStrength = 5.0f;
 
     [ContextMenu("Initialize Segments")]

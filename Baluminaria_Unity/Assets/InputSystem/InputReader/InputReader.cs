@@ -15,6 +15,10 @@ public class InputReader : ScriptableObject, IBalloonControlsActions
     public event Action<Vector2> OnLookEvent;
     public event Action OnToggleAutomaticEvent;
     public event Action OnToggleMenuEvent;
+    public event Action<Vector2> OnZoomEvent;
+    public event Action<bool> OnZoomOutEvent;
+    public event Action<bool> OnZoomInEvent;
+
 
     private void OnEnable()
     {
@@ -76,7 +80,35 @@ public class InputReader : ScriptableObject, IBalloonControlsActions
         {
             OnToggleMenuEvent?.Invoke();
         }
+    }
 
+    public void OnZoom(InputAction.CallbackContext context)
+    {
+        OnZoomEvent?.Invoke(context.ReadValue<Vector2>());
+    }
+
+    public void OnZoomIn(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnZoomInEvent?.Invoke(true);
+        }
+        else if (context.canceled)
+        {
+            OnZoomInEvent?.Invoke(false);
+        }
+    }
+
+    public void OnZoomOut(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnZoomOutEvent?.Invoke(true);
+        }
+        else if (context.canceled)
+        {
+            OnZoomOutEvent?.Invoke(false);
+        }
     }
 }
 

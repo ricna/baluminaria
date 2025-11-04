@@ -6,73 +6,74 @@ using System;
 [RequireComponent(typeof(Rigidbody))]
 public class BaluminariaFlightController : MonoBehaviour
 {
-    [SerializeField]
-    private Baluminaria _baluminaria;
+    [SerializeField] private Baluminaria baluminaria;
+
+    private Rigidbody _rb;
+    private Vector2 moveInput;
+    private bool burnerActive;
+    private bool coolerActive;
+
+
     [Header("Propriedades Físicas do Balão")]
+
     [Tooltip("Massa total do balão (cesta, envelope, piloto, carga) em kg.")]
-    public float totalMass = 200f;
+    [SerializeField] private float totalMass = 200f;
     [Tooltip("Volume do envelope do balão em metros cúbicos.")]
-    public float envelopeVolume = 2500f;
+    [SerializeField] private float envelopeVolume = 2500f;
     [Tooltip("Arrasto (drag) aerodinâmico do balão. Ajuste para realismo.")]
-    public float dragCoefficient = 0.05f;
+    [SerializeField] private float dragCoefficient = 0.05f;
     [Tooltip("Arrasto angular (angular drag) para rotação.")]
-    public float angularDrag = 1f;
+    [SerializeField] private float angularDrag = 1f;
 
     [Header("Sistema de Temperatura e Queimador")]
-    public float initBalloonTemperatureCelsius = 44f;
-    public float minBalloonTemperatureCelsius = 20f;
-    public float maxBalloonTemperatureCelsius = 120f;
-    public float heatingRatePerSecond = 10f;
-    public float coolingRatePerSecond = 5f;
-    public float selfCoolingRateForSecond = 0.5f;
-    public float coolingRatePerVelocity = 0.01f;
-    public Light burnerLight;
-    public float maxBurnerLightIntensity = 5f;
-    public float burnerLightFlickerFrequency = 10f;
-    public float burnerLightFlickerAmplitude = 0.2f;
+    [SerializeField] private Light burnerLight;
+    [SerializeField] private float initBalloonTemperatureCelsius = 44f;
+    [SerializeField] private float minBalloonTemperatureCelsius = 20f;
+    [SerializeField] private float maxBalloonTemperatureCelsius = 120f;
+    [SerializeField] private float heatingRatePerSecond = 10f;
+    [SerializeField] private float coolingRatePerSecond = 5f;
+    [SerializeField] private float selfCoolingRateForSecond = 0.5f;
+    [SerializeField] private float coolingRatePerVelocity = 0.01f;
+    [SerializeField] private float maxBurnerLightIntensity = 5f;
+    [SerializeField] private float burnerLightFlickerFrequency = 10f;
+    [SerializeField] private float burnerLightFlickerAmplitude = 0.2f;
 
-    [Header("Combustível")]
-    public float maxFuel = 100f;
-    public float fuelConsumptionRate = 1f;
+    [Header("Combustível (Lumiric Flame")]
+    [SerializeField] private float maxFuel = 100f;
+    [SerializeField] private float fuelConsumptionRate = 1f;
 
     [Header("Condições Ambientais")]
-    public float groundLevelTemperatureCelsius = 20f;
-    public float temperatureLapseRate = 0.0065f;
-    public float groundLevelPressurePascals = 101325f;
-    public float R_air = 287.05f;
+    [SerializeField] private float groundLevelTemperatureCelsius = 20f;
+    [SerializeField] private float temperatureLapseRate = 0.0065f;
+    [SerializeField] private float groundLevelPressurePascals = 101325f;
+    [SerializeField] private float R_air = 287.05f;
 
     [Header("Controle e Movimento")]
     [Tooltip("Velocidade de giro visual do balão (quanto menor, mais lento)")]
-    public float turnSmoothSpeed = 0.5f; // quanto mais baixo, mais lento o giro visual
+    [SerializeField] private float turnSmoothSpeed = 0.5f; // quanto mais baixo, mais lento o giro visual
     [Tooltip("Magnitude desejada para 'forward thrust' na direção da câmera (mantém velocidade coerente).")]
-    public float forwardThrust = 1.5f;   // força direcional (valor alvo de velocidade horizontal)
+    [SerializeField] private float forwardThrust = 1.5f;   // força direcional (valor alvo de velocidade horizontal)
     [Tooltip("Suavização na transição de direção (0..1).")]
-    public float smoothingFactor = 0.1f; // suavização da direção do movimento
+    [SerializeField] private float smoothingFactor = 0.1f; // suavização da direção do movimento
     [Tooltip("Fator de mistura ao aplicar a nova velocidade (quanto mais baixo, mais suave).")]
-    public float velocityBlend = 0.05f;
+    [SerializeField] private float velocityBlend = 0.05f;
     [Tooltip("Suavização da desaceleração quando soltar WASD (0..1, quanto menor, mais suave).")]
-    public float decelerationSmoothness = 0.02f;
+    [SerializeField] private float decelerationSmoothness = 0.02f;
 
     [Header("Vento Simulado")]
-    public float windStrength = 0.5f;
-    public float windTurbulenceFrequency = 0.1f;
-    public float windTurbulenceAmplitude = 0.2f;
+    [SerializeField] private float windStrength = 0.5f;
+    [SerializeField] private float windTurbulenceFrequency = 0.1f;
+    [SerializeField] private float windTurbulenceAmplitude = 0.2f;
 
     [Header("UI Debug (TextMeshPro)")]
-    public TextMeshProUGUI altitudeText;
-    public TextMeshProUGUI verticalSpeedText;
-    public TextMeshProUGUI internalTempText;
-    public TextMeshProUGUI externalTempText;
-    public TextMeshProUGUI fuelText;
-    public TextMeshProUGUI modeText;
+    [SerializeField] private TextMeshProUGUI altitudeText;
+    [SerializeField] private TextMeshProUGUI verticalSpeedText;
+    [SerializeField] private TextMeshProUGUI internalTempText;
+    [SerializeField] private TextMeshProUGUI externalTempText;
+    [SerializeField] private TextMeshProUGUI fuelText;
+    [SerializeField] private TextMeshProUGUI modeText;
 
-    // Componentes
-    private Rigidbody _rb;
 
-    // Variáveis de Input
-    private Vector2 _moveInput;
-    private bool _burnerActive;
-    private bool _coolerActive;
 
     // Estado do Balão
     public bool IsAutomaticMode { get; private set; } = false;
@@ -157,33 +158,33 @@ public class BaluminariaFlightController : MonoBehaviour
 
     private void SubscribeToInputReader()
     {
-        _baluminaria.InputReader.OnAscendEvent += (isPressed) =>
+        baluminaria.InputReader.OnAscendEvent += (isPressed) =>
         {
-            _burnerActive = isPressed;
+            burnerActive = isPressed;
         };
-        _baluminaria.InputReader.OnDescendEvent += (isPressed) =>
+        baluminaria.InputReader.OnDescendEvent += (isPressed) =>
         {
-            _coolerActive = isPressed;
+            coolerActive = isPressed;
         };
-        _baluminaria.InputReader.OnMoveEvent += (input) =>
+        baluminaria.InputReader.OnMoveEvent += (input) =>
         {
-            _moveInput = input;
+            moveInput = input;
         };
     }
 
     private void UnsubscribeToInputReader()
     {
-        _baluminaria.InputReader.OnAscendEvent -= (isPressed) =>
+        baluminaria.InputReader.OnAscendEvent -= (isPressed) =>
         {
-            _burnerActive = isPressed;
+            burnerActive = isPressed;
         };
-        _baluminaria.InputReader.OnDescendEvent -= (isPressed) =>
+        baluminaria.InputReader.OnDescendEvent -= (isPressed) =>
         {
-            _coolerActive = isPressed;
+            coolerActive = isPressed;
         };
-        _baluminaria.InputReader.OnMoveEvent -= (input) =>
+        baluminaria.InputReader.OnMoveEvent -= (input) =>
         {
-            _moveInput = input;
+            moveInput = input;
         };
     }
 
@@ -196,7 +197,7 @@ public class BaluminariaFlightController : MonoBehaviour
 
     private void UpdateBalloonTemperatureAndFuel()
     {
-        if (_burnerActive && CurrentFuel > 0 && !IsAutomaticMode)
+        if (burnerActive && CurrentFuel > 0 && !IsAutomaticMode)
         {
             CurrentBalloonTemperatureCelsius += heatingRatePerSecond * Time.fixedDeltaTime;
             CurrentFuel -= fuelConsumptionRate * Time.fixedDeltaTime;
@@ -210,7 +211,7 @@ public class BaluminariaFlightController : MonoBehaviour
             // AI controla o queimador externamente
         }
 
-        if (_coolerActive)
+        if (coolerActive)
         {
             CurrentBalloonTemperatureCelsius -= coolingRatePerSecond * Time.fixedDeltaTime;
         }
@@ -222,7 +223,7 @@ public class BaluminariaFlightController : MonoBehaviour
 
         if (CurrentFuel <= 0f)
         {
-            _burnerActive = false;
+            burnerActive = false;
         }
     }
 
@@ -270,7 +271,7 @@ public class BaluminariaFlightController : MonoBehaviour
         camForward.Normalize();
         camRight.Normalize();
 
-        Vector3 desiredDirection = (camForward * _moveInput.y + camRight * _moveInput.x).normalized;
+        Vector3 desiredDirection = (camForward * moveInput.y + camRight * moveInput.x).normalized;
 
         // Atualiza target direction com suavização (não zera instantaneamente)
         _targetDirection = Vector3.Lerp(_targetDirection, desiredDirection, smoothingFactor);
@@ -326,7 +327,7 @@ public class BaluminariaFlightController : MonoBehaviour
             return;
         }
 
-        if (_burnerActive && CurrentFuel > 0f)
+        if (burnerActive && CurrentFuel > 0f)
         {
             burnerLight.enabled = true;
             float flicker = 1f + Mathf.PerlinNoise(Time.time * burnerLightFlickerFrequency, 0f) * burnerLightFlickerAmplitude;
@@ -380,8 +381,8 @@ public class BaluminariaFlightController : MonoBehaviour
         if (IsAutomaticMode)
         {
             Debug.Log("Modo Automático Ativado.");
-            _moveInput = Vector2.zero;
-            _burnerActive = false;
+            moveInput = Vector2.zero;
+            burnerActive = false;
         }
         else
         {
@@ -395,7 +396,7 @@ public class BaluminariaFlightController : MonoBehaviour
     {
         if (IsAutomaticMode)
         {
-            _burnerActive = activate;
+            burnerActive = activate;
         }
     }
 

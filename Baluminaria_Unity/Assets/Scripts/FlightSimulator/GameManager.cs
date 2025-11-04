@@ -8,6 +8,13 @@ public class GameManager : MonoBehaviour
     public BaluminariaFlightController balloonFlightController;
     public CameraController cameraController;
     public Baluminaria baluminaria;
+    public Light sceneLight;
+    public Color dayLightColor = Color.white;
+    public Color nightLightColor = new Color(0.1f, 0.1f, 0.35f);
+    [SerializeField]
+    private BaluminariaData _defaultDesign;
+
+
 
     [Header("Configurações de Áudio")]
     public AudioSource windSoundSource;
@@ -65,8 +72,8 @@ public class GameManager : MonoBehaviour
             BaluminariaData loaded = JsonUtility.FromJson<BaluminariaData>(json);
             if (loaded != null)
             {
+                Debug.Log("Design carregado com sucesso. Iniciando experiência a partir do design salvo.");
                 ApplyDesignImmediately(loaded);
-                // inicia modo de voo + MIDI automaticamente
                 StartExperienceFromDesign(loaded);
             }
             else
@@ -79,6 +86,17 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Nenhum design salvo encontrado. Iniciando personalização.");
             StartPersonalizationFlow();
+        }
+    }
+
+    private void Update()
+    {
+        // Atualiza luz ambiente com base na altitude da baluminaria
+        if (sceneLight != null && baluminaria != null)
+        {
+            float altitude = baluminaria.transform.position.y;
+            float t = Mathf.InverseLerp(0f, 100f, altitude); // Ajuste os valores conforme necessário
+            sceneLight.color = Color.Lerp(nightLightColor, dayLightColor, t);
         }
     }
 
@@ -168,12 +186,6 @@ public class GameManager : MonoBehaviour
         {
             _baluMidiController.SetOutputMode(BaluMidiController.OutputMode.Baluminaria);
             _baluMidiController.StartMidiController();
-        }
-
-        // Ativa rotação automática se desejar
-        if (baluminaria != null)
-        {
-            baluminaria.SetAutoRotate(true);
         }
     }
 

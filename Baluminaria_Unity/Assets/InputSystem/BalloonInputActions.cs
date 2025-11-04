@@ -80,6 +80,33 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""6c917d04-7187-45fa-b55e-ec0e00a26d50"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ZoomIn"",
+                    ""type"": ""Button"",
+                    ""id"": ""baad8b4a-0e64-479d-b52b-9e6e58db5391"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ZoomOut"",
+                    ""type"": ""Button"",
+                    ""id"": ""e6d705b9-00ca-47a4-8716-27b6147fee5e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -207,21 +234,10 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""283cdc2c-5b94-4401-9d1f-ecb6691a516c"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""Ascend"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8c45b961-aa82-4b5d-b6eb-2e77d64088e0"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard"",
                     ""action"": ""Ascend"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -240,21 +256,10 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ca2a565d-3d65-48c5-aae7-c2f664b7a8a0"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""Descend"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7a1eb843-3478-493d-af9e-f068fa5162bc"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard"",
                     ""action"": ""Descend"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -322,6 +327,61 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToggleMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd008de4-e197-48ca-be23-744a283a6a93"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e78c71a-0de8-4463-b465-bae61e82364e"",
+                    ""path"": ""<Keyboard>/numpadPlus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""ZoomIn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4f2ef46-435d-4508-bec8-ce3c92ef9e19"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""ZoomIn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5f11fb0-fc7b-4a25-b774-a4d6437334f7"",
+                    ""path"": ""<Keyboard>/numpadMinus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""ZoomOut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9f786fe-163c-4ef1-b8f9-8cd73ef3b7c3"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""ZoomOut"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -533,6 +593,9 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
         m_BalloonControls_ToggleAutomatic = m_BalloonControls.FindAction("ToggleAutomatic", throwIfNotFound: true);
         m_BalloonControls_Look = m_BalloonControls.FindAction("Look", throwIfNotFound: true);
         m_BalloonControls_ToggleMenu = m_BalloonControls.FindAction("ToggleMenu", throwIfNotFound: true);
+        m_BalloonControls_Zoom = m_BalloonControls.FindAction("Zoom", throwIfNotFound: true);
+        m_BalloonControls_ZoomIn = m_BalloonControls.FindAction("ZoomIn", throwIfNotFound: true);
+        m_BalloonControls_ZoomOut = m_BalloonControls.FindAction("ZoomOut", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Move = m_UI.FindAction("Move", throwIfNotFound: true);
@@ -611,6 +674,9 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_BalloonControls_ToggleAutomatic;
     private readonly InputAction m_BalloonControls_Look;
     private readonly InputAction m_BalloonControls_ToggleMenu;
+    private readonly InputAction m_BalloonControls_Zoom;
+    private readonly InputAction m_BalloonControls_ZoomIn;
+    private readonly InputAction m_BalloonControls_ZoomOut;
     public struct BalloonControlsActions
     {
         private @BalloonInputActions m_Wrapper;
@@ -621,6 +687,9 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
         public InputAction @ToggleAutomatic => m_Wrapper.m_BalloonControls_ToggleAutomatic;
         public InputAction @Look => m_Wrapper.m_BalloonControls_Look;
         public InputAction @ToggleMenu => m_Wrapper.m_BalloonControls_ToggleMenu;
+        public InputAction @Zoom => m_Wrapper.m_BalloonControls_Zoom;
+        public InputAction @ZoomIn => m_Wrapper.m_BalloonControls_ZoomIn;
+        public InputAction @ZoomOut => m_Wrapper.m_BalloonControls_ZoomOut;
         public InputActionMap Get() { return m_Wrapper.m_BalloonControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -648,6 +717,15 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
             @ToggleMenu.started += instance.OnToggleMenu;
             @ToggleMenu.performed += instance.OnToggleMenu;
             @ToggleMenu.canceled += instance.OnToggleMenu;
+            @Zoom.started += instance.OnZoom;
+            @Zoom.performed += instance.OnZoom;
+            @Zoom.canceled += instance.OnZoom;
+            @ZoomIn.started += instance.OnZoomIn;
+            @ZoomIn.performed += instance.OnZoomIn;
+            @ZoomIn.canceled += instance.OnZoomIn;
+            @ZoomOut.started += instance.OnZoomOut;
+            @ZoomOut.performed += instance.OnZoomOut;
+            @ZoomOut.canceled += instance.OnZoomOut;
         }
 
         private void UnregisterCallbacks(IBalloonControlsActions instance)
@@ -670,6 +748,15 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
             @ToggleMenu.started -= instance.OnToggleMenu;
             @ToggleMenu.performed -= instance.OnToggleMenu;
             @ToggleMenu.canceled -= instance.OnToggleMenu;
+            @Zoom.started -= instance.OnZoom;
+            @Zoom.performed -= instance.OnZoom;
+            @Zoom.canceled -= instance.OnZoom;
+            @ZoomIn.started -= instance.OnZoomIn;
+            @ZoomIn.performed -= instance.OnZoomIn;
+            @ZoomIn.canceled -= instance.OnZoomIn;
+            @ZoomOut.started -= instance.OnZoomOut;
+            @ZoomOut.performed -= instance.OnZoomOut;
+            @ZoomOut.canceled -= instance.OnZoomOut;
         }
 
         public void RemoveCallbacks(IBalloonControlsActions instance)
@@ -775,6 +862,9 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
         void OnToggleAutomatic(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnToggleMenu(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
+        void OnZoomIn(InputAction.CallbackContext context);
+        void OnZoomOut(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

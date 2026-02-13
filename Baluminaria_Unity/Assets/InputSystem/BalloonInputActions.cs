@@ -172,6 +172,33 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LockCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""9250316f-79f6-4261-9d96-4a8000b2705c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""M1"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce532cd8-45c2-46fd-8007-311b7f02edeb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""M2"",
+                    ""type"": ""Button"",
+                    ""id"": ""87174d20-1434-402a-8f28-335834c7c5ff"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -449,6 +476,39 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ZoomOut"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bfe524a6-b245-4a00-bab3-700dcfc3bacd"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""LockCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""afcf7098-0779-4f7d-9a3f-b19ae273c378"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""M1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df772c8e-2e16-4134-bc49-73d556605a5d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""M2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -661,6 +721,9 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
         m_BalloonControls_Zoom = m_BalloonControls.FindAction("Zoom", throwIfNotFound: true);
         m_BalloonControls_ZoomIn = m_BalloonControls.FindAction("ZoomIn", throwIfNotFound: true);
         m_BalloonControls_ZoomOut = m_BalloonControls.FindAction("ZoomOut", throwIfNotFound: true);
+        m_BalloonControls_LockCamera = m_BalloonControls.FindAction("LockCamera", throwIfNotFound: true);
+        m_BalloonControls_M1 = m_BalloonControls.FindAction("M1", throwIfNotFound: true);
+        m_BalloonControls_M2 = m_BalloonControls.FindAction("M2", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Move = m_UI.FindAction("Move", throwIfNotFound: true);
@@ -756,6 +819,9 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_BalloonControls_Zoom;
     private readonly InputAction m_BalloonControls_ZoomIn;
     private readonly InputAction m_BalloonControls_ZoomOut;
+    private readonly InputAction m_BalloonControls_LockCamera;
+    private readonly InputAction m_BalloonControls_M1;
+    private readonly InputAction m_BalloonControls_M2;
     /// <summary>
     /// Provides access to input actions defined in input action map "BalloonControls".
     /// </summary>
@@ -803,6 +869,18 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "BalloonControls/ZoomOut".
         /// </summary>
         public InputAction @ZoomOut => m_Wrapper.m_BalloonControls_ZoomOut;
+        /// <summary>
+        /// Provides access to the underlying input action "BalloonControls/LockCamera".
+        /// </summary>
+        public InputAction @LockCamera => m_Wrapper.m_BalloonControls_LockCamera;
+        /// <summary>
+        /// Provides access to the underlying input action "BalloonControls/M1".
+        /// </summary>
+        public InputAction @M1 => m_Wrapper.m_BalloonControls_M1;
+        /// <summary>
+        /// Provides access to the underlying input action "BalloonControls/M2".
+        /// </summary>
+        public InputAction @M2 => m_Wrapper.m_BalloonControls_M2;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -856,6 +934,15 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
             @ZoomOut.started += instance.OnZoomOut;
             @ZoomOut.performed += instance.OnZoomOut;
             @ZoomOut.canceled += instance.OnZoomOut;
+            @LockCamera.started += instance.OnLockCamera;
+            @LockCamera.performed += instance.OnLockCamera;
+            @LockCamera.canceled += instance.OnLockCamera;
+            @M1.started += instance.OnM1;
+            @M1.performed += instance.OnM1;
+            @M1.canceled += instance.OnM1;
+            @M2.started += instance.OnM2;
+            @M2.performed += instance.OnM2;
+            @M2.canceled += instance.OnM2;
         }
 
         /// <summary>
@@ -894,6 +981,15 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
             @ZoomOut.started -= instance.OnZoomOut;
             @ZoomOut.performed -= instance.OnZoomOut;
             @ZoomOut.canceled -= instance.OnZoomOut;
+            @LockCamera.started -= instance.OnLockCamera;
+            @LockCamera.performed -= instance.OnLockCamera;
+            @LockCamera.canceled -= instance.OnLockCamera;
+            @M1.started -= instance.OnM1;
+            @M1.performed -= instance.OnM1;
+            @M1.canceled -= instance.OnM1;
+            @M2.started -= instance.OnM2;
+            @M2.performed -= instance.OnM2;
+            @M2.canceled -= instance.OnM2;
         }
 
         /// <summary>
@@ -1141,6 +1237,27 @@ public partial class @BalloonInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnZoomOut(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LockCamera" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLockCamera(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "M1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnM1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "M2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnM2(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

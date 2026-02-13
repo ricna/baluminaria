@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "BalloonInputActions",
     "maps": [
         {
@@ -81,6 +82,33 @@
                     "name": "ZoomOut",
                     "type": "Button",
                     "id": "e6d705b9-00ca-47a4-8716-27b6147fee5e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LockCamera",
+                    "type": "Button",
+                    "id": "9250316f-79f6-4261-9d96-4a8000b2705c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "M1",
+                    "type": "Button",
+                    "id": "ce532cd8-45c2-46fd-8007-311b7f02edeb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "M2",
+                    "type": "Button",
+                    "id": "87174d20-1434-402a-8f28-335834c7c5ff",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -360,6 +388,39 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "ZoomOut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bfe524a6-b245-4a00-bab3-700dcfc3bacd",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "LockCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "afcf7098-0779-4f7d-9a3f-b19ae273c378",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "M1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df772c8e-2e16-4134-bc49-73d556605a5d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "M2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

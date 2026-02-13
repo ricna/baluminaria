@@ -23,9 +23,7 @@ namespace BaluminariaBuilder
         public Renderer[] bodyRings = new Renderer[7];
 
         [Header("Pintura e Padrões")]
-        public Color SelectedPaintColor = Color.red; // Cor usada ao clicar
         public ColorPattern envelopePattern = ColorPattern.VerticalStripes;
-        public Color[] colorsForPattern = new Color[] { Color.orange, Color.blue };
 
         // Armazena a referência dos 112 segmentos gerados
         private BuilderSegment[] _segments = new BuilderSegment[112];
@@ -138,6 +136,38 @@ namespace BaluminariaBuilder
 
             File.WriteAllText(filePath, json);
             Debug.Log($"Mockup salvo para o piloto: {filePath}");
+        }
+
+        [ContextMenu("5. Carregar Preset (JSON)")]
+        public void LoadPreset()
+        {
+            GenerateEnvelope(); // Garante que os segmentos existam antes de carregar as cores
+            ApplyPattern(); // Garante que os materiais estejam aplicados antes de carregar as cores
+            string filePath = Path.Combine(Application.dataPath, "BaluminariaPresets", $"{pilotName.Replace(" ", "_")}.json");
+
+            if (!File.Exists(filePath))
+            {
+                Debug.LogError("Arquivo não encontrado: " + filePath);
+                return;
+            }
+
+            string json = File.ReadAllText(filePath);
+            BaluminariaPreset preset = JsonUtility.FromJson<BaluminariaPreset>(json);
+
+            // Aplica as cores nos segmentos
+            for (int i = 0; i < _segments.Length; i++)
+            {
+                if (_segments[i] != null && i < preset.segmentColors.Length)
+                {
+                    Color corCarregada = preset.segmentColors[i].ToColor();
+                    // Segurança: Se o alpha for 0, força 1 (evita objeto invisível)
+                    if (corCarregada.a <= 0) corCarregada.a = 1f;
+
+                    _segments[i].SetColor(corCarregada);
+                }
+            }
+
+            Debug.Log("Preset carregado com sucesso!");
         }
     }
 }

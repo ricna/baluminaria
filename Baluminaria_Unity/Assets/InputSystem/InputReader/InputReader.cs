@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using static BalloonInputActions;
 
@@ -18,7 +19,9 @@ public class InputReader : ScriptableObject, IBalloonControlsActions
     public event Action<Vector2> OnZoomEvent;
     public event Action<bool> OnZoomOutEvent;
     public event Action<bool> OnZoomInEvent;
-
+    public event Action OnLockCameraEvent;
+    public event Action OnM1Event;
+    public event Action OnM2Event;
 
     private void OnEnable()
     {
@@ -109,6 +112,24 @@ public class InputReader : ScriptableObject, IBalloonControlsActions
         {
             OnZoomOutEvent?.Invoke(false);
         }
+    }
+
+    public void OnLockCamera(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+            OnLockCameraEvent?.Invoke();
+    }
+
+    public void OnM1(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+            OnM1Event?.Invoke();
+    }
+
+    public void OnM2(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+            OnM2Event?.Invoke();
     }
 }
 

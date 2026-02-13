@@ -10431,7 +10431,7 @@ MonoBehaviour:
   balloonFlightController: {fileID: 1886229340}
   cameraController: {fileID: 1305025557}
   baluminaria: {fileID: 1886229337}
-  sceneLight: {fileID: 0}
+  sceneLight: {fileID: 203844588}
   dayLightColor: {r: 1, g: 1, b: 1, a: 1}
   nightLightColor: {r: 0.1, g: 0.1, b: 0.35, a: 1}
   _defaultDesign:

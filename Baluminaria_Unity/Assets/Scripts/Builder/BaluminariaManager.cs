@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 namespace BaluminariaBuilder
 {
@@ -7,13 +8,25 @@ namespace BaluminariaBuilder
     {
         public static BaluminariaManager Instance { get; private set; }
 
-        [Header("Configurações do Piloto")]
-        public string pilotName = "NomeDoBalonista";
+        [Header("Pattern")]
+        public ColorPattern envelopePattern = ColorPattern.VerticalStripes;
+        public bool InvertColors = false;
+        public bool InvertDirection = false;
+        public Color[] CurrentColors;
 
-        [Header("Geração do Envelope")]
-        [Tooltip("Arraste os 7 prefabs aqui (do topo até a base, ou vice-versa)")]
-        public BuilderSegment[] rowPrefabs = new BuilderSegment[7];
-        public Transform envelopeParent;
+        [Range(0, 1)]
+        public float AlphaOverride = 1f;
+
+        [Header("Preset")]
+        public string CurrentPreset = "Default";
+        private string[] _allPresets;
+
+        [Header("Prefab - Segments")]
+        public BuilderSegment[] _prefabSegments;
+        private BuilderSegment[] _segments = new BuilderSegment[112];
+
+        [SerializeField]
+        public Transform _parentSegments;
 
         [Header("Partes Estáticas")]
         public Renderer bodyBasket;
@@ -22,45 +35,41 @@ namespace BaluminariaBuilder
         public Renderer bodyMouth;
         public Renderer[] bodyRings = new Renderer[7];
 
-        [Header("Pintura e Padrões")]
-        public ColorPattern envelopePattern = ColorPattern.VerticalStripes;
-
-        // Armazena a referência dos 112 segmentos gerados
-        private BuilderSegment[] _segments = new BuilderSegment[112];
-
         private void Awake()
         {
             Instance = this;
+            FixAlpha();
+            FindPilotNameListFromDisk();
+            LoadPreset();
         }
 
-        [ContextMenu("1. Gerar / Resetar Envelope")]
+        [ContextMenu("1. Generate Envelope")]
         public void GenerateEnvelope()
         {
-            // Limpa o envelope anterior se existir
-            if (envelopeParent != null)
+            if (_parentSegments != null)
             {
-                for (int i = envelopeParent.childCount - 1; i >= 0; i--)
+                for (int i = _parentSegments.childCount - 1; i >= 0; i--)
                 {
-                    DestroyImmediate(envelopeParent.GetChild(i).gameObject);
+                    DestroyImmediate(_parentSegments.GetChild(i).gameObject);
                 }
             }
             else
             {
                 GameObject p = new GameObject("EnvelopeParent");
                 p.transform.SetParent(this.transform);
-                envelopeParent = p.transform;
+                _parentSegments = p.transform;
             }
 
             int index = 0;
             // 7 Linhas
             for (int row = 0; row < 7; row++)
             {
-                if (rowPrefabs[row] == null) continue;
+                if (_prefabSegments[row] == null) continue;
 
                 // 16 Colunas
                 for (int col = 0; col < 16; col++)
                 {
-                    BuilderSegment newSegment = Instantiate(rowPrefabs[row], envelopeParent);
+                    BuilderSegment newSegment = Instantiate(_prefabSegments[row], _parentSegments);
                     // Rotaciona 22.5 graus por coluna (360 / 16)
                     newSegment.transform.Rotate(Vector3.up, col * -22.5f);
                     newSegment.gameObject.name = $"Segment_R{row}_C{col}";
@@ -73,53 +82,102 @@ namespace BaluminariaBuilder
             Debug.Log("Envelope gerado com 112 segmentos!");
         }
 
-        [Header("Materiais Atuais (M1 e M2)")]
-        public Material primaryMaterial;
-        public Material secondaryMaterial;
+        private void FindPilotNameListFromDisk()
+        {
+            string dir = Path.Combine(Application.dataPath, "BaluminariaPresets");
+            if (!Directory.Exists(dir))
+            {
+                Debug.LogWarning("Diretório de presets não encontrado: " + dir);
+                return;
+            }
+            _allPresets = Directory.GetFiles(dir, "*.json")
+                .Select(f => Path.GetFileNameWithoutExtension(f).Replace("_", " "))
+                .ToArray();
 
-        [ContextMenu("2. Aplicar Padrão de Materiais")]
+        }
+
+        private void FixAlpha()
+        {
+            for (int i = 0; i < CurrentColors.Length; i++)
+            {
+                Color tempColor = CurrentColors[i];
+                tempColor.a = AlphaOverride;
+                CurrentColors[i] = tempColor;
+            }
+        }
+        [ContextMenu("2. Apply Pattern")]
         public void ApplyPattern()
         {
+            FixAlpha();
             if (_segments[0] == null) return;
 
-            Material[] currentPalette = new Material[] { primaryMaterial, secondaryMaterial };
-
-            for (int row = 0; row < 7; row++)
+            Color[] currentPalette = CurrentColors;
+            int color0 = 0;
+            int color1 = 1;
+            if (InvertColors)
             {
-                for (int col = 0; col < 16; col++)
+                color0 = 1;
+                color1 = 0;
+            }
+            if (!InvertDirection)
+            {
+                for (int row = 0; row < 7; row++)
                 {
-                    int index = row * 16 + col;
-                    int matIndex = 0;
-
-                    switch (envelopePattern)
+                    for (int col = 0; col < 16; col++)
                     {
-                        case ColorPattern.Solid: matIndex = 0; break;
-                        case ColorPattern.VerticalStripes: matIndex = col % 2; break;
-                        case ColorPattern.HorizontalStripes: matIndex = row % 2; break;
-                        case ColorPattern.DiagonalStripes: matIndex = (col + row) % 2; break;
-                    }
+                        int segmentIndex = row * 16 + col;
+                        int colorIndex = 0;
+                        int length = currentPalette.Length;
 
-                    if (currentPalette[matIndex] != null)
-                        _segments[index].SetMaterial(currentPalette[matIndex]);
+                        switch (envelopePattern)
+                        {
+                            case ColorPattern.Solid: colorIndex = 0; break;
+                            case ColorPattern.VerticalStripes: colorIndex = col % length; break;
+                            case ColorPattern.HorizontalStripes: colorIndex = row % length; break;
+                            case ColorPattern.DiagonalStripes: colorIndex = (col + row) % length; break;
+                            case ColorPattern.DoubleDiagonalStripes: colorIndex = (col + row) % 4 < 2 ? color0 : color1; break;
+                            case ColorPattern.Checkerboard: colorIndex = (col / 2 + row / 2) % 2; break;
+                            case ColorPattern.PingPong: colorIndex = (col + row) % 4 < 2 ? color0 : color1; break;
+                            case ColorPattern.Mandala: colorIndex = (int)(Mathf.Sqrt(col * col + row * row) % 2); break;
+                            case ColorPattern.Circles: colorIndex = (int)(Mathf.Sqrt((col - 7.5f) * (col - 7.5f) + (row - 3f) * (row - 3f)) % 2); break;
+                        }
+                        _segments[segmentIndex].SetColor(currentPalette[colorIndex]);
+                    }
+                }
+            }
+            else
+            {
+                    
+                for (int row = 0; row < 7; row++)
+                {
+                    for (int col = 0; col < 16; col++)
+                    {
+                        int segmentIndex = row * 16 + col;
+                        int colorIndex = 0;
+                        int length = currentPalette.Length;
+                        switch (envelopePattern)
+                        {
+                            case ColorPattern.Solid: colorIndex = 0; break;
+                            case ColorPattern.VerticalStripes: colorIndex = (15 - col) % length; break;
+                            case ColorPattern.HorizontalStripes: colorIndex = row % length; break;
+                            case ColorPattern.DiagonalStripes: colorIndex = (15 - col + row) % length; break;
+                            case ColorPattern.DoubleDiagonalStripes: colorIndex = (15 - col + row) % 4 < 2 ? color0 : color1; break;
+                            case ColorPattern.Checkerboard: colorIndex = ((15 - col) / 2 + row / 2) % 2; break;
+                            case ColorPattern.PingPong: colorIndex = (15 - col + row) % 4 < 2 ? color0 : color1; break;
+                            case ColorPattern.Mandala: colorIndex = (int)(Mathf.Sqrt((15 - col) * (15 - col) + row * row) % 2); break;
+                            case ColorPattern.Circles: colorIndex = (int)(Mathf.Sqrt((col - 7.5f) * (col - 7.5f) + (row - 3f) * (row - 3f)) % 2); break;
+                        }
+                        _segments[segmentIndex].SetColor(currentPalette[colorIndex]);
+                    }
                 }
             }
         }
-        private void SetRendererColor(Renderer r, Color c)
-        {
-            if (r != null)
-            {
-                MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-                r.GetPropertyBlock(mpb);
-                mpb.SetColor("_BaseColor", c); // Certifique-se que seu shader usa _BaseColor
-                r.SetPropertyBlock(mpb);
-            }
-        }
 
-        [ContextMenu("4. Salvar Preset (JSON)")]
+        [ContextMenu("4. Save Preset (JSON)")]
         public void SavePreset()
         {
             BaluminariaPreset preset = new BaluminariaPreset();
-            preset.pilotName = pilotName;
+            preset.pilotName = CurrentPreset;
 
             for (int i = 0; i < 112; i++)
             {
@@ -130,44 +188,42 @@ namespace BaluminariaBuilder
             // Define um caminho dentro da pasta Assets para facilitar no Editor
             string dir = Path.Combine(Application.dataPath, "BaluminariaPresets");
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-
-            string filePath = Path.Combine(dir, $"{pilotName.Replace(" ", "_")}.json");
+            string safePresetName = CurrentPreset.Replace(" ", "_");
+            string filePath = Path.Combine(dir, $"{safePresetName}.json");
             string json = JsonUtility.ToJson(preset, true);
 
             File.WriteAllText(filePath, json);
-            Debug.Log($"Mockup salvo para o piloto: {filePath}");
+            Debug.Log($"<color=green>Preset saved: {filePath}</color>");
         }
 
-        [ContextMenu("5. Carregar Preset (JSON)")]
+        [ContextMenu("5. Load Preset (JSON)")]
         public void LoadPreset()
         {
             GenerateEnvelope(); // Garante que os segmentos existam antes de carregar as cores
-            ApplyPattern(); // Garante que os materiais estejam aplicados antes de carregar as cores
-            string filePath = Path.Combine(Application.dataPath, "BaluminariaPresets", $"{pilotName.Replace(" ", "_")}.json");
+            //ApplyPattern(); // Garante que os materiais estejam aplicados antes de carregar as cores
+            string safePresetName = CurrentPreset.Replace(" ", "");
+            string filePath = Path.Combine(Application.dataPath, "BaluminariaPresets", $"{safePresetName}.json");
 
             if (!File.Exists(filePath))
             {
-                Debug.LogError("Arquivo não encontrado: " + filePath);
+                Debug.LogError($"Preset file not found: {filePath}");
                 return;
             }
 
             string json = File.ReadAllText(filePath);
             BaluminariaPreset preset = JsonUtility.FromJson<BaluminariaPreset>(json);
 
-            // Aplica as cores nos segmentos
             for (int i = 0; i < _segments.Length; i++)
             {
                 if (_segments[i] != null && i < preset.segmentColors.Length)
                 {
-                    Color corCarregada = preset.segmentColors[i].ToColor();
-                    // Segurança: Se o alpha for 0, força 1 (evita objeto invisível)
-                    if (corCarregada.a <= 0) corCarregada.a = 1f;
-
-                    _segments[i].SetColor(corCarregada);
+                    Color c = preset.segmentColors[i].ToColor();
+                    c.a = AlphaOverride;
+                    _segments[i].SetColor(c);
                 }
             }
 
-            Debug.Log("Preset carregado com sucesso!");
+            Debug.Log($"<color=magenta>Preset '{CurrentPreset}' Loaded! Path:{filePath}</color>");
         }
     }
 }

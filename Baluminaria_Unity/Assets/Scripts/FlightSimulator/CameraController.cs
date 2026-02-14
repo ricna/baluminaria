@@ -52,6 +52,20 @@ public class CameraController : MonoBehaviour
         UpdateCursorState();
     }
 
+    private bool _isPicking => Keyboard.current.leftShiftKey.isPressed;
+    [SerializeField]
+    private Texture2D _pickerCursor; // Você pode configurar isso no Inspector ou carregar dinamicamente
+    private void Update()
+    {
+        if (_isPicking)
+        {
+            Cursor.SetCursor(_pickerCursor, Vector2.zero, CursorMode.Auto);
+        }
+        else
+        {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        }
+    }
     private void OnDestroy()
     {
         inputReader.OnLookEvent -= HandleLookInput;
@@ -80,19 +94,21 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    // --- LÓGICA DE INTERAÇÃO (BUILDER) ---
     private void HandleBuilderAction(bool isM1)
     {
+
         if (!_locked) return; // Só interage se a câmera estiver travada
 
         Ray ray = _cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             // 1. Cubo de Paleta (Material)
             if (hit.collider.TryGetComponent(out PaletteCube palette))
             {
-                if (isM1) _manager.primaryMaterial = palette.GetMaterial();
-                else _manager.secondaryMaterial = palette.GetMaterial();
+                Color newColor = palette.GetColor();
+                newColor.a = _manager.AlphaOverride;
+                _manager.CurrentColors[isM1 ? 0 : 1] = newColor;
             }
             // 2. Seletor de Padrão
             else if (hit.collider.TryGetComponent(out PatternSelector pattern))
@@ -103,19 +119,22 @@ public class CameraController : MonoBehaviour
             // 3. Segmento do Balão
             else if (hit.collider.TryGetComponent(out BuilderSegment segment))
             {
-                bool isPicking = Keyboard.current.leftShiftKey.isPressed;
-                if (isPicking)
+                if (_isPicking)
                 {
-                    if (isM1) _manager.primaryMaterial = segment.GetMaterial();
-                    else _manager.secondaryMaterial = segment.GetMaterial();
+                    Color newColor = segment.GetColor();
+                    newColor.a = _manager.AlphaOverride;
+                    if (isM1) _manager.CurrentColors[isM1 ? 0 : 1] = newColor;
                 }
                 else
                 {
-                    Material targetMat = isM1 ? _manager.primaryMaterial : _manager.secondaryMaterial;
-                    if (targetMat != null) segment.SetMaterial(targetMat);
+                    Color color = isM1 ? _manager.CurrentColors[0] : _manager.CurrentColors[1];
+                    segment.SetColor(color);
                 }
             }
         }
+
+
+
     }
 
     // --- LÓGICA ORIGINAL DE MOVIMENTAÇÃO ---

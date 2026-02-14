@@ -10,5 +10,14 @@ namespace BaluminariaBuilder
             // Retorna o material compartilhado (ou o instanciado se preferir)
             return GetComponent<Renderer>().sharedMaterial;
         }
+        public Color GetColor()
+        {
+            // Tenta URP (_BaseColor) ou Standard (_Color)
+            Renderer rend = GetComponent<Renderer>();
+            if (rend.sharedMaterial.HasProperty("_BaseColor"))
+                return rend.sharedMaterial.GetColor("_BaseColor");
+            else
+                return rend.sharedMaterial.color;
+        }
     }
 }

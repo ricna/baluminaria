@@ -5,6 +5,12 @@ namespace BaluminariaBuilder
         Solid,
         VerticalStripes,
         HorizontalStripes,
-        DiagonalStripes
+        DiagonalStripes,
+        DoubleDiagonalStripes,
+        DoubleDiagonalStripesInverted,
+        Checkerboard,
+        PingPong,   
+        Mandala,
+        Circles,
     }
 }
